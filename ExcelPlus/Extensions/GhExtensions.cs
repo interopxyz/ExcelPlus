@@ -183,44 +183,51 @@ namespace ExcelPlus
             ExWorksheet sheet = new ExWorksheet();
             ExRange range = new ExRange();
 
+                workbook = book;
+            if (inputs == null)  return true;
+            if (inputs.Count<1) return true;
+            
+            bool hasWb = false;
             foreach (IGH_Goo input in inputs)
             {
-                if (input == null)
+                if (input.CastTo<ExWorkbook>(out ExWorkbook outWb))
                 {
-                    workbook = new ExWorkbook();
-                    return true;
-                }
-                else if (input.CastTo<ExWorkbook>(out ExWorkbook book))
-                {
-                    workbook = new ExWorkbook(book);
-                    return true;
-                }
-                else if (input.CastTo<ExWorksheet>(out ExWorksheet sheet))
-                {
-                    workbook = new ExWorkbook(sheet);
-                    return true;
-                }
-                else if (input.CastTo<ExRange>(out ExRange range))
-                {
-                    workbook = new ExWorkbook(new ExWorksheet(range));
-                    return true;
-                }
-                else if (input.CastTo<ExCell>(out ExCell cell))
-                {
-                    workbook = new ExWorkbook(new ExWorksheet(new ExRange(cell)));
-                    return true;
-                }
-                else if (input.CastTo<string>(out string name))
-                {
-                    workbook = new ExWorkbook(name);
-                    return true;
-                }
-                else
-                {
-                    workbook = new ExWorkbook();
-                    return true;
+                    if (hasWb)
+                    {
+                        book.Sheets.AddRange(outWb.Sheets);
+                    }
+                    else
+                    {
+                        book = new ExWorkbook(outWb);
+                        hasWb = true;
+                    }
                 }
             }
+            bool hasRange = false;
+            bool hasCell = false;
+            foreach (IGH_Goo input in inputs)
+            {
+                if (input.CastTo<ExWorksheet>(out ExWorksheet outSh))
+                {
+                    book.Sheets.Add(outSh);
+                }
+                else if (input.CastTo<ExRange>(out ExRange outRn))
+                {
+                    sheet.Ranges.Add(outRn);
+                    hasRange = true;
+                }
+                else if (input.CastTo<ExCell>(out ExCell outCl))
+                {
+                    range.SetCells(outCl);
+                    hasCell = true;
+                    hasRange = true;
+                }
+            }
+
+            if (hasCell) sheet.Ranges.Add(range);
+            if (hasRange) book.Sheets.Add(sheet);
+            workbook = book;
+            return true;
         }
 
     }

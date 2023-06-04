@@ -12,7 +12,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public GH_XL_Wbk_Construct()
           : base("Construct Workbook", "Construct Wbk",
-              "Save a Workbook to an Excel file",
+              "Construct a Workbook",
               Constants.ShortName, Constants.SubWorkBooks)
         {
         }

@@ -120,7 +120,7 @@
     <Compile Include="Classes\ExWorksheet.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk_Save.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk__Base.cs" />
-    <Compile Include="Components\Worksheet\GH_XL_Wbk_Construct.cs" />
+    <Compile Include="Components\Workbook\GH_XL_Wbk_Construct.cs" />
     <Compile Include="ExcelPlusInfo.cs" />
     <Compile Include="Extensions\GhExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -138,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\Cell\" />
+    <Folder Include="Components\Worksheet\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
