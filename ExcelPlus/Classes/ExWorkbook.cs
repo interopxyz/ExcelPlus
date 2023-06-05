@@ -131,7 +131,7 @@ namespace ExcelPlus
                 XL.IXLWorksheet xlSheet = this.ComObj.AddWorksheet();
                 if (sheet.Name != string.Empty) xlSheet.Name = sheet.Name;
                 List<ExCell> cells = sheet.ActiveCells;
-                foreach(ExCell cell in cells)xlSheet.SetValue()
+                foreach (ExCell cell in cells) xlSheet.Cell(cell.Row, cell.Column).Value = cell.Value;
             }
 
             this.ComObj.SaveAs(filepath);
