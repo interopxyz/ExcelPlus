@@ -26,7 +26,6 @@ namespace ExcelPlus
 
         public ExWorkbook()
         {
-            this.ComObj = new XL.XLWorkbook();
         }
 
         public ExWorkbook(string name)
@@ -34,15 +33,8 @@ namespace ExcelPlus
             this.name = name;
         }
 
-        public ExWorkbook(XL.IXLWorkbook comObj)
-        {
-            this.ComObj = comObj;
-            this.name = comObj.Properties.Title;
-        }
-
         public ExWorkbook(ExWorkbook workbook)
         {
-            this.ComObj = workbook.ComObj;
             this.name = workbook.Name;
             foreach (ExWorksheet sheet in workbook.Sheets)
             {
@@ -83,7 +75,6 @@ namespace ExcelPlus
             get { return this.name; }
             set 
             { 
-                ComObj.Properties.Title = value;
                 this.name = value;
             }
         }
@@ -91,6 +82,14 @@ namespace ExcelPlus
         #endregion
 
         #region methods
+
+        public List<ExWorksheet> GetWorksheets()
+        {
+            List<ExWorksheet> sheets = new List<ExWorksheet>();
+            foreach (ExWorksheet sheet in this.Sheets) sheets.Add(new ExWorksheet(sheet));
+
+            return sheets;
+        }
 
         public bool TryGetSheet(int index, out ExWorksheet result)
         {
@@ -125,18 +124,85 @@ namespace ExcelPlus
             string filepath = folder + "/" + name + "."+extension.ToString();
 
             this.name = name;
-
-            foreach(ExWorksheet sheet in Sheets)
-            {
-                XL.IXLWorksheet xlSheet = this.ComObj.AddWorksheet();
-                if (sheet.Name != string.Empty) xlSheet.Name = sheet.Name;
-                List<ExCell> cells = sheet.ActiveCells;
-                foreach (ExCell cell in cells) xlSheet.Cell(cell.Row, cell.Column).Value = cell.Value;
-            }
+            this.CompileWorkbook();
 
             this.ComObj.SaveAs(filepath);
 
             return filepath;
+        }
+
+        public void Open(string directory, string filename, Extensions extension)
+        {
+            string folder = Path.GetDirectoryName(directory);
+            string name = Path.GetFileNameWithoutExtension(filename);
+            string filepath = folder + "/" + name + "." + extension.ToString();
+
+            this.ComObj = new XL.XLWorkbook(filepath);
+            this.ParseWorkbook();
+        }
+
+        public void Open(string filepath)
+        {
+            this.ComObj = new XL.XLWorkbook(filepath);
+            this.ParseWorkbook();
+        }
+
+        public string Write()
+        {
+            this.CompileWorkbook();
+            Stream stream = new MemoryStream();
+            this.ComObj.SaveAs(stream,true);
+            stream.Position = 0;
+            var buffer = new byte[stream.Length];
+            stream.Read(buffer, 0, (int)stream.Length);
+
+            return System.Text.Encoding.Default.GetString(buffer);
+        }
+
+        public void Read(string byteArrayString)
+        {
+            byte[] buffer = Encoding.Default.GetBytes(byteArrayString);
+            Stream stream = new MemoryStream(buffer);
+            stream.Position = 0;
+            this.ComObj = new XL.XLWorkbook(stream, new XL.LoadOptions());
+            this.ParseWorkbook();
+        }
+
+        private void CompileWorkbook()
+        {
+            this.ComObj = new XL.XLWorkbook();
+            foreach (ExWorksheet sheet in Sheets)
+            {
+                XL.IXLWorksheet xlSheet = this.ComObj.AddWorksheet();
+                if (sheet.Name != string.Empty) xlSheet.Name = sheet.Name;
+                List<ExCell> cells = sheet.ActiveCells;
+                foreach (ExCell cell in cells)
+                {
+                    XL.IXLCell xlCell = xlSheet.Cell(cell.Row, cell.Column);
+                    if (double.TryParse(cell.Value, out double num)) xlCell.Value = num; else xlCell.Value = cell.Value;
+                }
+            }
+        }
+
+        private void ParseWorkbook()
+        {
+            List<ExWorksheet> sheets = new List<ExWorksheet>();
+
+            foreach(XL.IXLWorksheet sheet in this.ComObj.Worksheets.ToList())
+            {
+                sheets.Add(new ExWorksheet(sheet));
+            }
+            this.name = this.ComObj.Properties.Title;
+            this.Sheets = sheets;
+        }
+
+        #endregion
+
+        #region overrides
+
+        public override string ToString()
+        {
+            return "Workbook | " + this.Name;
         }
 
         #endregion

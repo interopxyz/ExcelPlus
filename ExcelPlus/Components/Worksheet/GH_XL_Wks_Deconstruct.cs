@@ -1,21 +1,20 @@
 ﻿using Grasshopper.Kernel;
-using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelPlus.Components
+namespace ExcelPlus.Components.Worksheet
 {
-    public class GH_XL_Rng_Populate : GH_Component
+    public class GH_XL_Wks_Deconstruct : GH_XL_Wks__Base
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Rng_Populate class.
+        /// Initializes a new instance of the GH_XL_Wks_GetCells class.
         /// </summary>
-        public GH_XL_Rng_Populate()
-          : base("Populate Range", "Pop Rng",
-              "Creates a Range from a starting Cell and DataTree of Values",
-              Constants.ShortName, Constants.SubRange)
+        public GH_XL_Wks_Deconstruct()
+          : base("Deconstruct WorkSheet", "De Sheet",
+              "Get all the ranges and active cells from a worksheet",
+              Constants.ShortName, Constants.SubWorkSheets)
         {
         }
 
@@ -24,7 +23,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.primary; }
+            get { return GH_Exposure.quarternary; }
         }
 
         /// <summary>
@@ -32,10 +31,7 @@ namespace ExcelPlus.Components
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Starting Cell", "C", Constants.Cell.Input, GH_ParamAccess.item);
-            pManager[0].Optional = true;
-            pManager.AddTextParameter("Values", "V", "A datatree of values", GH_ParamAccess.tree);
-
+            base.RegisterInputParams(pManager);
         }
 
         /// <summary>
@@ -43,7 +39,9 @@ namespace ExcelPlus.Components
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Range.Name, Constants.Range.NickName, Constants.Range.Output, GH_ParamAccess.item);
+            base.RegisterOutputParams(pManager);
+            pManager.AddGenericParameter(Constants.Range.Name, Constants.Range.NickName, Constants.Range.Outputs, GH_ParamAccess.list);
+            pManager.AddGenericParameter(Constants.Cell.Name, Constants.Cell.NickName, Constants.Cell.Outputs, GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -52,23 +50,13 @@ namespace ExcelPlus.Components
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            IGH_Goo goo = null;
-            DA.GetData(0, ref goo);
-            if (!goo.TryGetCell(out ExCell cell)) return;
+            IGH_Goo gooS = null;
+            DA.GetData(0, ref gooS);
+            if (!gooS.TryGetWorksheet(out ExWorksheet worksheet)) return;
 
-            GH_Structure<GH_String> ghData = new GH_Structure<GH_String>();
-
-            List<List<GH_String>> dataSet = new List<List<GH_String>>();
-            if (!DA.GetDataTree(1, out ghData)) return;
-
-            foreach (List<GH_String> data in ghData.Branches)
-            {
-                dataSet.Add(data);
-            }
-
-            ExRange range = new ExRange(cell, dataSet);
-
-            DA.SetData(0, range);
+            DA.SetData(0, worksheet);
+            DA.SetDataList(1, worksheet.GetRanges());
+            DA.SetDataList(2, worksheet.ActiveCells);
         }
 
         /// <summary>
@@ -89,7 +77,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("88560184-26a6-472c-884b-9d2b767f94e2"); }
+            get { return new Guid("1dec7015-73fc-4501-9454-10f03c08e70c"); }
         }
     }
 }

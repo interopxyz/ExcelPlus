@@ -27,6 +27,12 @@ namespace ExcelPlus
         {
         }
 
+        public ExWorksheet(XL.IXLWorksheet sheet)
+        {
+            this.name = sheet.Name;
+            this.Ranges.Add(new ExRange(sheet.CellsUsed().ToList()));
+        }
+
         public ExWorksheet(string name)
         {
             this.name = name;
@@ -87,6 +93,21 @@ namespace ExcelPlus
 
         #region methods
 
+        public List<ExRange> GetRanges(bool collapse = false)
+        {
+            List<ExRange> ranges = new List<ExRange>();
+            if (collapse)
+            {
+                ranges.Add(new ExRange(this.ActiveCells));
+            }
+            else
+            {
+                foreach (ExRange range in this.Ranges) ranges.Add(new ExRange(range));
+            }
+
+            return ranges;
+        }
+
         public bool TryGetRange(int index, out ExRange result)
         {
             if (index>this.Ranges.Count)
@@ -107,7 +128,7 @@ namespace ExcelPlus
 
         public override string ToString()
         {
-            return "Worksheet | " + Name;
+            return "Worksheet | " + this.Name;
         }
 
         #endregion

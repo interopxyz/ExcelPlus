@@ -87,9 +87,9 @@ namespace ExcelPlus
         public static Descriptor Location
         {
             get { return new Descriptor("Cell Location", "L", "Location of the cell as:" 
-                + Environment.NewLine +"A string address ex. 'A1'"
-                + Environment.NewLine+ "A Domain interval ex. 1 to 1"
-                + Environment.NewLine + "A Point3d ex. {1,1,0}",
+                + Environment.NewLine +"String address ex. 'A1'"
+                + Environment.NewLine+ "Domain interval ex. 1 to 1"
+                + Environment.NewLine + "Point3d ex. {1,1,0}",
                  "Cell location string", "Cell location string"); }
         }
 

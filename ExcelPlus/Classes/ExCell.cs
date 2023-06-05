@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using XL = ClosedXML.Excel;
+
 namespace ExcelPlus
 {
     public class ExCell
@@ -25,6 +27,27 @@ namespace ExcelPlus
         public ExCell()
         {
 
+        }
+
+        public ExCell(XL.IXLCell cell)
+        {
+            this.column = cell.Address.ColumnNumber;
+            this.row = cell.Address.RowNumber;
+            switch (cell.Value.Type)
+            {
+                case XL.XLDataType.Text:
+                    this.value = cell.Value.GetText();
+                    break;
+                case XL.XLDataType.Number:
+                    this.value = Convert.ToString(cell.Value.GetNumber());
+                    break;
+                case XL.XLDataType.Boolean:
+                    this.value = Convert.ToString(cell.Value.GetBoolean());
+                    break;
+                case XL.XLDataType.DateTime:
+                    this.value = Convert.ToString(cell.Value.GetDateTime());
+                    break;
+            }
         }
 
         public ExCell(ExCell cell)

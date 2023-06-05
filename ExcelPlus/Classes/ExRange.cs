@@ -25,11 +25,25 @@ namespace ExcelPlus
 
         public ExRange()
         {
+
+        }
+
+        public ExRange(List<XL.IXLCell> cells)
+        {
+            List<ExCell> newCells = new List<ExCell>();
+            foreach(XL.IXLCell cell in cells)
+            {
+                newCells.Add(new ExCell(cell));
+            }
+            this.SetCells(newCells);
         }
 
         public ExRange(ExRange range)
         {
             this.ComObj = range.ComObj;
+            this.cells = range.cells;
+            this.min = range.min;
+            this.max = range.max;
         }
 
         public ExRange(ExCell cell)
@@ -62,6 +76,7 @@ namespace ExcelPlus
                     cells.Add(cell);
                 }
             }
+            this.SetCells(cells);
         }
 
         #endregion

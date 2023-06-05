@@ -59,5 +59,25 @@ namespace ExcelPlus.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ExcelPlus_24 {
+            get {
+                object obj = ResourceManager.GetObject("ExcelPlus_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ExcelPlus_Tab_16 {
+            get {
+                object obj = ResourceManager.GetObject("ExcelPlus_Tab_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

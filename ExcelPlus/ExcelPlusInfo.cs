@@ -1,4 +1,5 @@
-﻿using Grasshopper.Kernel;
+﻿using Grasshopper;
+using Grasshopper.Kernel;
 using System;
 using System.Drawing;
 
@@ -18,7 +19,7 @@ namespace ExcelPlus
             get
             {
                 //Return a 24x24 pixel bitmap to represent this GHA library.
-                return null;
+                return Properties.Resources.ExcelPlus_24;
             }
         }
         public override string Description
@@ -58,8 +59,21 @@ namespace ExcelPlus
         {
             get
             {
-                return "1.0.0.0";
+                return "1.0.0.1";
             }
         }
     }
+
+    public class ExcelPlusCategoryIcon : GH_AssemblyPriority
+    {
+        public object Properties { get; private set; }
+
+        public override GH_LoadingInstruction PriorityLoad()
+        {
+            Instances.ComponentServer.AddCategoryIcon(Constants.ShortName, ExcelPlus.Properties.Resources.ExcelPlus_Tab_16);
+            Instances.ComponentServer.AddCategorySymbolName(Constants.ShortName, 'E');
+            return GH_LoadingInstruction.Proceed;
+        }
+    }
+
 }

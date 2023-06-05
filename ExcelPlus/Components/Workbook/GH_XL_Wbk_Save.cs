@@ -25,7 +25,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.quarternary; }
+            get { return GH_Exposure.septenary; }
         }
 
         /// <summary>
@@ -34,7 +34,6 @@ namespace ExcelPlus.Components
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager[0].Optional = true;
             pManager.AddTextParameter("Folder Path", "F", "The path to the workbook", GH_ParamAccess.item);
             pManager[1].Optional = true;
             pManager.AddTextParameter("File Name", "N", "The Workbook name", GH_ParamAccess.item);
@@ -42,7 +41,6 @@ namespace ExcelPlus.Components
             pManager.AddIntegerParameter("Extensions", "E", "The file type extension", GH_ParamAccess.item, 0);
             pManager[3].Optional = true;
             pManager.AddBooleanParameter(Constants.Activate.Name, Constants.Activate.NickName, Constants.Activate.Input, GH_ParamAccess.item);
-            pManager[4].Optional = true;
 
             Param_Integer paramA = (Param_Integer)pManager[3];
             foreach (Extensions value in Enum.GetValues(typeof(Extensions)))
@@ -67,9 +65,9 @@ namespace ExcelPlus.Components
         protected override void SolveInstance(IGH_DataAccess DA)
         {
 
-            bool save = false;
-            DA.GetData(4, ref save);
-            if (save)
+            bool activate = false;
+            DA.GetData(4, ref activate);
+            if (activate)
             {
                 IGH_Goo gooB = null;
                 DA.GetData(0, ref gooB);
@@ -99,9 +97,9 @@ namespace ExcelPlus.Components
                 DA.GetData(3, ref ext);
 
                 string filepath = workbook.Save(path,name, (Extensions)ext);
-                DA.SetData(1, filepath);
 
                 DA.SetData(0, workbook);
+                DA.SetData(1, filepath);
             }
 
 

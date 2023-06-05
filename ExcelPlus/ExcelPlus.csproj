@@ -122,9 +122,15 @@
     <Compile Include="Components\Cell\GH_XL_Cel__Base.cs" />
     <Compile Include="Components\Range\GH_XL_Rng_Populate.cs" />
     <Compile Include="Components\Range\GH_XL_Rng__Base.cs" />
+    <Compile Include="Components\Workbook\GH_XL_Wbk_Deconstruct.cs" />
+    <Compile Include="Components\Workbook\GH_XL_Wbk_Open.cs" />
+    <Compile Include="Components\Workbook\GH_XL_Wbk_Read.cs.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk_Save.cs" />
+    <Compile Include="Components\Workbook\GH_XL_Wbk_Write.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk__Base.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk_Construct.cs" />
+    <Compile Include="Components\Worksheet\GH_XL_Wks_Deconstruct.cs" />
+    <Compile Include="Components\Worksheet\GH_XL_Wks__Base.cs" />
     <Compile Include="ExcelPlusInfo.cs" />
     <Compile Include="Extensions\GhExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -140,14 +146,18 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\Worksheet\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ExcelPlus-Tab-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ExcelPlus-24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
