@@ -84,6 +84,24 @@ namespace ExcelPlus
         {
             get { return "WorkSheets"; }
         }
+        public static Descriptor Location
+        {
+            get { return new Descriptor("Cell Location", "L", "Location of the cell as:" 
+                + Environment.NewLine +"A string address ex. 'A1'"
+                + Environment.NewLine+ "A Domain interval ex. 1 to 1"
+                + Environment.NewLine + "A Point3d ex. {1,1,0}",
+                 "Cell location string", "Cell location string"); }
+        }
+
+        public static Descriptor Format
+        {
+            get {
+                return new Descriptor("Format", "F", "A MS Office Number Format"
+              + Environment.NewLine + "Examples (\"General\", \"hh: mm:ss\", \"$#,##0.0\" )"
+              + Environment.NewLine + "https://support.microsoft.com/en-us/office/number-format-codes-5026bbd6-04bc-48cd-bf33-80f18b4eae68?ui=en-us&rs=en-us&ad=us"
+                 ,"Cell format string", "Cell format string");
+            }
+        }
 
         public static Descriptor App
         {

@@ -73,6 +73,16 @@ namespace ExcelPlus
             }
         }
 
+        public virtual List<ExCell> ActiveCells
+        {
+            get
+            {
+                List<ExCell> cells = new List<ExCell>();
+                foreach (ExRange range in this.Ranges) cells.AddRange(range.Cells);
+                return cells;
+            }
+        }
+
         #endregion
 
         #region methods

@@ -126,6 +126,14 @@ namespace ExcelPlus
 
             this.name = name;
 
+            foreach(ExWorksheet sheet in Sheets)
+            {
+                XL.IXLWorksheet xlSheet = this.ComObj.AddWorksheet();
+                if (sheet.Name != string.Empty) xlSheet.Name = sheet.Name;
+                List<ExCell> cells = sheet.ActiveCells;
+                foreach(ExCell cell in cells)xlSheet.SetValue()
+            }
+
             this.ComObj.SaveAs(filepath);
 
             return filepath;

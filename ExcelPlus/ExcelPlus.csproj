@@ -118,6 +118,10 @@
     <Compile Include="Classes\ExRange.cs" />
     <Compile Include="Classes\ExWorkbook.cs" />
     <Compile Include="Classes\ExWorksheet.cs" />
+    <Compile Include="Components\Cell\GH_XL_Cel_Set.cs" />
+    <Compile Include="Components\Cell\GH_XL_Cel__Base.cs" />
+    <Compile Include="Components\Range\GH_XL_Rng_Populate.cs" />
+    <Compile Include="Components\Range\GH_XL_Rng__Base.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk_Save.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk__Base.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk_Construct.cs" />
@@ -137,7 +141,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\Cell\" />
     <Folder Include="Components\Worksheet\" />
   </ItemGroup>
   <ItemGroup>

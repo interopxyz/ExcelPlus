@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Grasshopper.Kernel.Types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,9 +47,31 @@ namespace ExcelPlus
             this.SetCells(new ExCell[] { min, max });
         }
 
+        public ExRange(ExCell source, List<List<GH_String>> data)
+        {
+            int x = data.Count;
+            List<ExCell> cells = new List<ExCell>();
+
+            for (int i = 0; i < x; i++)
+            {
+                int y = data[i].Count;
+                for (int j = 0; j < y; j++)
+                {
+                    ExCell cell = new ExCell(source.Column + i, source.Row + j);
+                    cell.Value = data[i][j].Value;
+                    cells.Add(cell);
+                }
+            }
+        }
+
         #endregion
 
         #region properties
+
+        public virtual List<ExCell> Cells
+        {
+            get { return cells.Values.ToList(); }
+        }
 
         public virtual ExCell Min
         {
@@ -192,6 +215,7 @@ namespace ExcelPlus
         }
 
         #endregion
+
         #region overrides
 
         public override string ToString()

@@ -16,7 +16,7 @@ namespace ExcelPlus
         protected bool isColumnAbsolute = false;
         protected bool isRowAbsolute = false;
         protected string value = string.Empty;
-        protected DataType type = DataType.String;
+        protected string format = "General";
 
         #endregion
 
@@ -36,7 +36,7 @@ namespace ExcelPlus
             this.isRowAbsolute = cell.isRowAbsolute;
 
             this.value = cell.value;
-            this.type = cell.type;
+            this.format = cell.format;
         }
 
         public ExCell(string address)
@@ -65,13 +65,14 @@ namespace ExcelPlus
         public virtual string Value
         {
             get { return this.value; }
-            set
-            {
-                this.value = value;
-                this.type = DataType.String;
-            }
+            set { this.value = value; }
         }
-            
+
+        public virtual string Format
+        {
+            get { return this.format; }
+            set { this.format = value; }
+        }
 
         public virtual int Column
         {
