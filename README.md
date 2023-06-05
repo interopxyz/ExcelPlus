@@ -1,2 +1,6 @@
-# Bumblebee.Jr
-A Grasshopper 3d plugin for Excel File Read &amp; Write
+# Excel +
+Excel file/stream read/write plugin for Grasshopper 3d
+
+_Like Excel+ [Buy me a coffee :D](http://www.buymeacoffee.com/davidmans)_
+
+---
