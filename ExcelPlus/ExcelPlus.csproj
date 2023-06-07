@@ -115,11 +115,23 @@
   <ItemGroup>
     <Compile Include="Classes\ExCell.cs" />
     <Compile Include="Classes\ExEnums.cs" />
+    <Compile Include="Classes\ExFont.cs" />
+    <Compile Include="Classes\ExGraphic.cs" />
     <Compile Include="Classes\ExRange.cs" />
     <Compile Include="Classes\ExWorkbook.cs" />
     <Compile Include="Classes\ExWorksheet.cs" />
+    <Compile Include="Components\Cell\GH_XL_Cel_Address.cs" />
+    <Compile Include="Components\Cell\GH_XL_Cel_Cells.cs" />
+    <Compile Include="Components\Cell\GH_XL_Cel_Location.cs" />
     <Compile Include="Components\Cell\GH_XL_Cel_Set.cs" />
     <Compile Include="Components\Cell\GH_XL_Cel__Base.cs" />
+    <Compile Include="Components\Graphics\GH_XL_Gph_BorderHorizontal.cs" />
+    <Compile Include="Components\Graphics\GH_XL_Gph_BorderVertical.cs" />
+    <Compile Include="Components\Graphics\GH_XL_Gph_Fill.cs" />
+    <Compile Include="Components\Graphics\GH_XL_Gph_Font.cs" />
+    <Compile Include="Components\Graphics\GH_XL_Gph__Base.cs" />
+    <Compile Include="Components\Range\GH_XL_Rng_Cells.cs" />
+    <Compile Include="Components\Range\GH_XL_Rng_Compile.cs" />
     <Compile Include="Components\Range\GH_XL_Rng_Populate.cs" />
     <Compile Include="Components\Range\GH_XL_Rng__Base.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk_Deconstruct.cs" />
@@ -133,6 +145,7 @@
     <Compile Include="Components\Worksheet\GH_XL_Wks__Base.cs" />
     <Compile Include="ExcelPlusInfo.cs" />
     <Compile Include="Extensions\GhExtensions.cs" />
+    <Compile Include="Extensions\XlExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -146,7 +159,9 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\XL-Cel-Location.png" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -158,6 +173,42 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ExcelPlus-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wbk-Open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wbk-Read.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wbk-Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wbk-Wrt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Cel-Address.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Cel-Value2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Cel-GetCells2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-GetCells.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Grp-BorderVertial.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Grp-BorderHorizontal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Grp-Font.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Grp-Fill.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

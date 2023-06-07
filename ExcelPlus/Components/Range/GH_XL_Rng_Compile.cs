@@ -1,19 +1,20 @@
 ﻿using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelPlus.Components.Workbook
+namespace ExcelPlus.Components.Range
 {
-    public class GH_XL_Wbk_Read : GH_Component
+    public class GH_XL_Rng_Compile : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Wbk_Read class.
+        /// Initializes a new instance of the GH_XL_Rng_Compile class.
         /// </summary>
-        public GH_XL_Wbk_Read()
-          : base("Read Workbook", "Read Wbk",
-              "Read a Workbook from a Memory Stream string",
-              Constants.ShortName, Constants.SubWorkBooks)
+        public GH_XL_Rng_Compile()
+          : base("Compile Range", "Compile Rng",
+              "Creates a Range from a series of cells",
+              Constants.ShortName, Constants.SubRange)
         {
         }
 
@@ -22,7 +23,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.septenary; }
+            get { return GH_Exposure.primary; }
         }
 
         /// <summary>
@@ -30,8 +31,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("Stream", "S", "A string version of an excel file memory stream", GH_ParamAccess.item);
-            pManager.AddBooleanParameter(Constants.Activate.Name, Constants.Activate.NickName, Constants.Activate.Input, GH_ParamAccess.item);
+            pManager.AddGenericParameter("Cells", "C", Constants.Cell.Input, GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Workbook.Name, Constants.Workbook.NickName, Constants.Workbook.Output, GH_ParamAccess.item);
+            pManager.AddGenericParameter(Constants.Range.Name, Constants.Range.NickName, Constants.Range.Output, GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -48,20 +48,11 @@ namespace ExcelPlus.Components.Workbook
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            List<IGH_Goo> goos = new List<IGH_Goo>();
+            DA.GetDataList(0, goos);
+            if (!goos.TryCompileRange(out ExRange range)) return;
 
-            bool activate = false;
-            DA.GetData(1, ref activate);
-            if (activate)
-            {
-                string stream = string.Empty;
-                if (DA.GetData(0, ref stream))
-                {
-                    ExWorkbook workbook = new ExWorkbook();
-                    workbook.Read(stream);
-                    DA.SetData(0, workbook);
-                }
-            }
-
+            DA.SetData(0, range);
         }
 
         /// <summary>
@@ -73,7 +64,7 @@ namespace ExcelPlus.Components.Workbook
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Wbk_Read;
+                return null;
             }
         }
 
@@ -82,7 +73,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("d7c666ef-d0a3-4921-af48-33eec41d2a9f"); }
+            get { return new Guid("8719fc09-3dca-4b8c-a3cd-34f6970f93c8"); }
         }
     }
 }

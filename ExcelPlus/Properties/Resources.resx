@@ -124,4 +124,43 @@
   <data name="ExcelPlus_Tab_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ExcelPlus-Tab-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="XL_Cel_Address" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Cel-Address.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Cel_GetCells2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Cel-GetCells2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Cel_Location" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Cel-Location.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Cel_Value2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Cel-Value2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Grp_BorderHorizontal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Grp-BorderHorizontal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Grp_BorderVertial" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Grp-BorderVertial.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Grp_Fill" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Grp-Fill.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Grp_Font" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Grp-Font.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Rng_GetCells" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Rng-GetCells.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Wbk_Open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Wbk-Open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Wbk_Read" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Wbk-Read.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Wbk_Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Wbk-Save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Wbk_Wrt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Wbk-Wrt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

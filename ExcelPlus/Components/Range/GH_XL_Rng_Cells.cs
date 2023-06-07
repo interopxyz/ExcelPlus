@@ -1,19 +1,20 @@
 ﻿using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelPlus.Components.Workbook
+namespace ExcelPlus.Components.Range
 {
-    public class GH_XL_Wbk_Read : GH_Component
+    public class GH_XL_Rng_Cells : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Wbk_Read class.
+        /// Initializes a new instance of the GH_XL_Rng_Cells class.
         /// </summary>
-        public GH_XL_Wbk_Read()
-          : base("Read Workbook", "Read Wbk",
-              "Read a Workbook from a Memory Stream string",
-              Constants.ShortName, Constants.SubWorkBooks)
+        public GH_XL_Rng_Cells()
+          : base("Range Cells", "Rng Cell",
+              "Returns all the cells in a range",
+              Constants.ShortName, Constants.SubCell)
         {
         }
 
@@ -22,7 +23,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.septenary; }
+            get { return GH_Exposure.secondary; }
         }
 
         /// <summary>
@@ -30,8 +31,10 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("Stream", "S", "A string version of an excel file memory stream", GH_ParamAccess.item);
-            pManager.AddBooleanParameter(Constants.Activate.Name, Constants.Activate.NickName, Constants.Activate.Input, GH_ParamAccess.item);
+            pManager.AddGenericParameter(Constants.Range.Name, Constants.Range.NickName, Constants.Range.Input, GH_ParamAccess.item);
+            pManager[0].Optional = true;
+            pManager.AddBooleanParameter("Flip", "F", "If true, cells are listed by column. If false, by row", GH_ParamAccess.item, true);
+            pManager[1].Optional = true;
         }
 
         /// <summary>
@@ -39,7 +42,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Workbook.Name, Constants.Workbook.NickName, Constants.Workbook.Output, GH_ParamAccess.item);
+            pManager.AddGenericParameter(Constants.Cell.Name, "C", Constants.Cell.Outputs, GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -48,20 +51,14 @@ namespace ExcelPlus.Components.Workbook
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            IGH_Goo gooR = null;
+            DA.GetData(0, ref gooR);
+            gooR.TryGetRange(out ExRange range);
 
-            bool activate = false;
-            DA.GetData(1, ref activate);
-            if (activate)
-            {
-                string stream = string.Empty;
-                if (DA.GetData(0, ref stream))
-                {
-                    ExWorkbook workbook = new ExWorkbook();
-                    workbook.Read(stream);
-                    DA.SetData(0, workbook);
-                }
-            }
+            bool flip = false;
+            DA.GetData(1, ref flip);
 
+            DA.SetDataList(0, range.Cells(flip));
         }
 
         /// <summary>
@@ -73,7 +70,7 @@ namespace ExcelPlus.Components.Workbook
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Wbk_Read;
+                return Properties.Resources.XL_Rng_GetCells;
             }
         }
 
@@ -82,7 +79,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("d7c666ef-d0a3-4921-af48-33eec41d2a9f"); }
+            get { return new Guid("1e8b3c0e-dc75-4743-a50c-8fa0d6a6c8c0"); }
         }
     }
 }

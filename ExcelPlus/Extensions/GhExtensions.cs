@@ -229,6 +229,42 @@ namespace ExcelPlus
             workbook = book;
             return true;
         }
+        public static bool TryCompileRange(this List<IGH_Goo> inputs, out ExRange range)
+        {
+            ExRange rng = new ExRange();
+            List<ExCell> cells = new List<ExCell>();
+
+            range = rng;
+            if (inputs == null) return true;
+            if (inputs.Count < 1) return true;
+
+            foreach (IGH_Goo input in inputs)
+            {
+                if (input.CastTo<ExCell>(out ExCell cell))
+                {
+                    cells.Add(cell);
+                }
+                else if(input.CastTo<ExRange>(out ExRange rnge))
+                {
+                    cells.AddRange(rnge.ActiveCells);
+                }
+                else if (input.CastTo<ExWorksheet>(out ExWorksheet sheet))
+                {
+                    cells.AddRange(sheet.ActiveCells);
+                }
+                else if (input.CastTo<ExWorkbook>(out ExWorkbook book))
+                {
+                    foreach(ExWorksheet workSheet in book.Sheets)
+                    {
+                    cells.AddRange(workSheet.ActiveCells);
+                    }
+                }
+            }
+
+            rng.SetCells(cells);
+            range = rng;
+            return true;
+        }
 
     }
 }

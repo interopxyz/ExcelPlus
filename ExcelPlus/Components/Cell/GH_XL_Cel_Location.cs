@@ -1,19 +1,18 @@
 ﻿using Grasshopper.Kernel;
-using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelPlus.Components
+namespace ExcelPlus.Components.Cell
 {
-    public class GH_XL_Cel_Set : GH_XL_Cel__Base
+    public class GH_XL_Cel_Location : GH_XL_Cel__Base
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Cel_Set class.
+        /// Initializes a new instance of the GH_XL_Cel_Location class.
         /// </summary>
-        public GH_XL_Cel_Set()
-          : base("Set Cell", "Set Cell",
-              "Sets or creates a Cell",
+        public GH_XL_Cel_Location()
+          : base("Cell Location", "Cell Location",
+              "Set and get a Cell Location",
               Constants.ShortName, Constants.SubCell)
         {
         }
@@ -33,12 +32,14 @@ namespace ExcelPlus.Components
         {
             base.RegisterInputParams(pManager);
             pManager[0].Optional = true;
-            pManager.AddGenericParameter(Constants.Location.Name, Constants.Location.NickName, Constants.Location.Input, GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Column", "C", "The Cell Column index", GH_ParamAccess.item);
             pManager[1].Optional = true;
-            pManager.AddTextParameter("Value", "V", "Optional Cell Value", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Row", "R", "The Cell Row index", GH_ParamAccess.item);
             pManager[2].Optional = true;
-            pManager.AddTextParameter(Constants.Format.Name, Constants.Format.NickName, Constants.Format.Input, GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Absolute Column", "AC", "Is the Cell Column absolute", GH_ParamAccess.item);
             pManager[3].Optional = true;
+            pManager.AddBooleanParameter("Absolute Row", "AR", "Is the Cell Row absolute", GH_ParamAccess.item);
+            pManager[4].Optional = true;
         }
 
         /// <summary>
@@ -48,9 +49,6 @@ namespace ExcelPlus.Components
         {
             base.RegisterOutputParams(pManager);
             pManager.AddPointParameter("Location", "L", "Cell Location", GH_ParamAccess.item);
-            ((IGH_PreviewObject)pManager[1]).Hidden = true;
-            pManager.AddTextParameter("Value", "V", "Cell Value", GH_ParamAccess.item);
-            pManager.AddTextParameter("Format", "F", "Cell Format", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -62,19 +60,23 @@ namespace ExcelPlus.Components
             ExCell cell = new ExCell();
             DA.GetData<ExCell>(0, ref cell);
 
-            IGH_Goo gooL = null;
-            if (DA.GetData(1, ref gooL)) if (gooL.TryGetCell(out ExCell location)) cell.Address = location.Address;
+            int column = 1;
+            if (DA.GetData(1, ref column)) cell.Column = column;
 
-            string value = string.Empty;
-            if (DA.GetData(2, ref value)) cell.Value = value;
+            int row = 1;
+            if (DA.GetData(2, ref row)) cell.Row = row;
 
-            string format = string.Empty;
-            if (DA.GetData(3, ref format)) cell.Format = format;
+            bool isColumn = false;
+            if (DA.GetData(3, ref isColumn)) cell.IsColumnAbsolute = isColumn;
 
-            DA.SetData(0, new ExCell(cell));
-            DA.SetData(1, new Point3d(cell.Column,cell.Row,0));
-            DA.SetData(2, cell.Value);
-            DA.SetData(3, cell.Format);
+            bool isRow = false;
+            if (DA.GetData(4, ref isRow)) cell.IsRowAbsolute = isRow;
+
+            DA.SetData(0, cell);
+            DA.SetData(1, cell.Column);
+            DA.SetData(2, cell.Row);
+            DA.SetData(3, cell.IsColumnAbsolute);
+            DA.SetData(4, cell.IsRowAbsolute);
         }
 
         /// <summary>
@@ -86,7 +88,7 @@ namespace ExcelPlus.Components
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Cel_Value2;
+                return Properties.Resources.XL_Cel_Location;
             }
         }
 
@@ -95,7 +97,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("2f33480d-1374-4bb5-a8fb-5959b369204b"); }
+            get { return new Guid("5b4657ff-78fb-4222-9535-8db699c5a20c"); }
         }
     }
 }

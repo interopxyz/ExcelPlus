@@ -180,6 +180,9 @@ namespace ExcelPlus
                 {
                     XL.IXLCell xlCell = xlSheet.Cell(cell.Row, cell.Column);
                     if (double.TryParse(cell.Value, out double num)) xlCell.Value = num; else xlCell.Value = cell.Value;
+                    XL.IXLFill fill = xlCell.Style.Fill;
+                    fill.SetBackgroundColor(cell.Graphic.FillColor.ToExcel());
+                    xlCell.Style.Fill = fill;
                 }
             }
         }

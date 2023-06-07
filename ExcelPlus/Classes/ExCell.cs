@@ -20,6 +20,9 @@ namespace ExcelPlus
         protected string value = string.Empty;
         protected string format = "General";
 
+        public ExGraphic Graphic = new ExGraphic();
+        public ExFont Font = new ExFont();
+
         #endregion
 
         #region constructors
@@ -60,6 +63,9 @@ namespace ExcelPlus
 
             this.value = cell.value;
             this.format = cell.format;
+
+            this.Graphic = cell.Graphic;
+            this.Font = cell.Font;
         }
 
         public ExCell(string address)
@@ -134,11 +140,13 @@ namespace ExcelPlus
         public virtual bool IsColumnAbsolute
         {
             get { return isColumnAbsolute; }
+            set { isColumnAbsolute = value; }
         }
 
         public virtual bool IsRowAbsolute
         {
             get { return isRowAbsolute; }
+            set { isRowAbsolute = value; }
         }
 
 

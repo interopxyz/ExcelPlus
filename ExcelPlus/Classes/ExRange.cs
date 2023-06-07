@@ -19,6 +19,9 @@ namespace ExcelPlus
         protected ExCell min = new ExCell();
         protected ExCell max = new ExCell();
 
+        public ExGraphic Graphic = new ExGraphic();
+        public ExFont Font = new ExFont();
+
         #endregion
 
         #region constructors
@@ -44,6 +47,8 @@ namespace ExcelPlus
             this.cells = range.cells;
             this.min = range.min;
             this.max = range.max;
+            this.Graphic = range.Graphic;
+            this.Font = range.Font;
         }
 
         public ExRange(ExCell cell)
@@ -83,9 +88,40 @@ namespace ExcelPlus
 
         #region properties
 
-        public virtual List<ExCell> Cells
+        public virtual List<ExCell> ActiveCells
         {
             get { return cells.Values.ToList(); }
+        }
+
+        public virtual List<ExCell> Cells(bool flip = false)
+        {
+                List<ExCell> output = new List<ExCell>();
+            if(flip)
+            {
+                for (int i = this.min.Column; i < this.max.Column+1; i++)
+                {
+                    for (int j = this.min.Row; j < this.max.Row+1; j++)
+                    {
+                        ExCell cell = new ExCell(i, j);
+                        if (cells.ContainsKey(cell.Address)) cell = new ExCell(cells[cell.Address]);
+                        output.Add(cell);
+                    }
+                }
+            }
+            else
+            {
+                for (int j = this.min.Row; j < this.max.Row+1; j++)
+                {
+                    for (int i = this.min.Column; i < this.max.Column+1; i++)
+                    {
+                        ExCell cell = new ExCell(i, j);
+                        if (cells.ContainsKey(cell.Address)) cell = new ExCell(cells[cell.Address]);
+                        output.Add(cell);
+                    }
+                }
+            }
+
+                return output; 
         }
 
         public virtual ExCell Min

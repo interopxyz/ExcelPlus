@@ -3,17 +3,17 @@ using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelPlus.Components.Workbook
+namespace ExcelPlus.Components.Cell
 {
-    public class GH_XL_Wbk_Read : GH_Component
+    public class GH_XL_Cel_Address : GH_XL_Cel__Base
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Wbk_Read class.
+        /// Initializes a new instance of the GH_XL_Cel_Address class.
         /// </summary>
-        public GH_XL_Wbk_Read()
-          : base("Read Workbook", "Read Wbk",
-              "Read a Workbook from a Memory Stream string",
-              Constants.ShortName, Constants.SubWorkBooks)
+        public GH_XL_Cel_Address()
+          : base("Cell Address", "Cell Address",
+              "Set and get a Cell Address",
+              Constants.ShortName, Constants.SubCell)
         {
         }
 
@@ -22,7 +22,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.septenary; }
+            get { return GH_Exposure.primary; }
         }
 
         /// <summary>
@@ -30,8 +30,11 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("Stream", "S", "A string version of an excel file memory stream", GH_ParamAccess.item);
-            pManager.AddBooleanParameter(Constants.Activate.Name, Constants.Activate.NickName, Constants.Activate.Input, GH_ParamAccess.item);
+            base.RegisterInputParams(pManager);
+            pManager[0].Optional = true;
+            pManager.AddTextParameter("Address", "A", "The Cell Address", GH_ParamAccess.item);
+            pManager[1].Optional = true;
+
         }
 
         /// <summary>
@@ -39,7 +42,8 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Workbook.Name, Constants.Workbook.NickName, Constants.Workbook.Output, GH_ParamAccess.item);
+            base.RegisterOutputParams(pManager);
+            pManager.AddTextParameter("Address", "A", "The Cell Address", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -48,20 +52,14 @@ namespace ExcelPlus.Components.Workbook
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            ExCell cell = new ExCell();
+            DA.GetData<ExCell>(0, ref cell);
 
-            bool activate = false;
-            DA.GetData(1, ref activate);
-            if (activate)
-            {
-                string stream = string.Empty;
-                if (DA.GetData(0, ref stream))
-                {
-                    ExWorkbook workbook = new ExWorkbook();
-                    workbook.Read(stream);
-                    DA.SetData(0, workbook);
-                }
-            }
+            string address = string.Empty;
+            if (DA.GetData(1, ref address)) cell.Address = address;
 
+            DA.SetData(0, cell);
+            DA.SetData(1, cell.Address);
         }
 
         /// <summary>
@@ -73,7 +71,7 @@ namespace ExcelPlus.Components.Workbook
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Wbk_Read;
+                return Properties.Resources.XL_Cel_Address;
             }
         }
 
@@ -82,7 +80,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("d7c666ef-d0a3-4921-af48-33eec41d2a9f"); }
+            get { return new Guid("7462ed50-1b73-48a8-8fa9-41ad4b829e13"); }
         }
     }
 }

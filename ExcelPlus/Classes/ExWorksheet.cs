@@ -84,7 +84,7 @@ namespace ExcelPlus
             get
             {
                 List<ExCell> cells = new List<ExCell>();
-                foreach (ExRange range in this.Ranges) cells.AddRange(range.Cells);
+                foreach (ExRange range in this.Ranges) cells.AddRange(range.ActiveCells);
                 return cells;
             }
         }
