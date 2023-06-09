@@ -48,7 +48,10 @@ namespace ExcelPlus.Components.Cell
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             base.RegisterOutputParams(pManager);
-            pManager.AddPointParameter("Location", "L", "Cell Location", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Column", "C", "The Cell Column index", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Row", "R", "The Cell Row index", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Absolute Column", "AC", "Is the Cell Column absolute", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Absolute Row", "AR", "Is the Cell Row absolute", GH_ParamAccess.item);
         }
 
         /// <summary>

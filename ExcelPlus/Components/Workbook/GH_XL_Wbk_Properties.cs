@@ -3,19 +3,18 @@ using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 
-namespace ExcelPlus.Components.Graphics
+namespace ExcelPlus.Components
 {
-    public class GH_XL_Gph_Fill : GH_XL_Gph__Base
+    public class GH_XL_Wbk_Properties : GH_XL_Wbk__Base
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Gph_Fill class.
+        /// Initializes a new instance of the GH_XL_Wbk_Properties class.
         /// </summary>
-        public GH_XL_Gph_Fill()
-          : base("Fill", "Fill",
-              "Set the Fill formatting for a cell or range",
-              Constants.ShortName, Constants.SubGraphics)
+        public GH_XL_Wbk_Properties()
+          : base("Workbook Properties", "Wbk Prop",
+              "Get or Set Workbook Properties",
+              Constants.ShortName, Constants.SubWorkBooks)
         {
         }
 
@@ -24,7 +23,7 @@ namespace ExcelPlus.Components.Graphics
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.primary; }
+            get { return GH_Exposure.quinary; }
         }
 
         /// <summary>
@@ -33,8 +32,8 @@ namespace ExcelPlus.Components.Graphics
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager.AddColourParameter("Object Color", "C", "Object color", GH_ParamAccess.item);
-            pManager[0].Optional = true;
+            pManager.AddTextParameter("Name", "N", "The Workbook Name", GH_ParamAccess.item);
+            pManager[1].Optional = true;
         }
 
         /// <summary>
@@ -42,8 +41,8 @@ namespace ExcelPlus.Components.Graphics
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            base.RegisterOutputParams(pManager);
-            pManager.AddColourParameter("Object Color", "C", "Object color", GH_ParamAccess.item);
+            base.RegisterOutputParams(pManager); 
+            pManager.AddTextParameter("Name", "N", "The Workbook Name", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -52,32 +51,15 @@ namespace ExcelPlus.Components.Graphics
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            IGH_Goo goo = null;
-            if (!DA.GetData(0, ref goo)) return;
+            IGH_Goo gooB = null;
+            DA.GetData(0, ref gooB);
+            if (!gooB.TryGetWorkbook(out ExWorkbook workbook)) return;
 
-            Color color = Color.Transparent;
+            string name = string.Empty;
+            if (DA.GetData(1, ref name)) workbook.Name = name;
 
-            if(goo.CastTo<ExCell>(out ExCell cell))
-            {
-                cell = new ExCell(cell);
-                if(DA.GetData(1,ref color)) cell.Graphic.FillColor = color;
-                
-                DA.SetData(0, cell);
-                DA.SetData(1, cell.Graphic.FillColor);
-            }
-            else if(goo.CastTo<ExRange>(out ExRange range))
-            {
-                range = new ExRange(range);
-                if (DA.GetData(1, ref color)) range.Graphic.FillColor = color;
-
-                DA.SetData(0, range);
-                DA.SetData(1, range.Graphic.FillColor);
-            }
-            else
-            {
-                return;
-            }
-
+            DA.SetData(0, workbook);
+            DA.SetData(1, workbook.Name);
         }
 
         /// <summary>
@@ -89,7 +71,7 @@ namespace ExcelPlus.Components.Graphics
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Grp_Fill;
+                return null;
             }
         }
 
@@ -98,7 +80,7 @@ namespace ExcelPlus.Components.Graphics
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("ff8be311-c3c2-46d3-bb99-bd5d7cd5410f"); }
+            get { return new Guid("30b99ea0-9fa7-49bc-8594-1f85d6d58051"); }
         }
     }
 }

@@ -1,19 +1,20 @@
 ﻿using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelPlus.Components.Workbook
+namespace ExcelPlus.Components.Range
 {
-    public class GH_XL_Wbk_Open : GH_Component
+    public class GH_XL_Rng_Deconstruct : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Wbk_Open class.
+        /// Initializes a new instance of the GH_XL_Rng_Cells class.
         /// </summary>
-        public GH_XL_Wbk_Open()
-          : base("Open Workbook", "Open Wbk",
-              "Open a Workbook from an Excel file",
-              Constants.ShortName, Constants.SubWorkBooks)
+        public GH_XL_Rng_Deconstruct()
+          : base("Deconstruct Range", "De Rng",
+              "Returns all the cells in a range",
+              Constants.ShortName, Constants.SubRange)
         {
         }
 
@@ -22,7 +23,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.senary; }
+            get { return GH_Exposure.quinary; }
         }
 
         /// <summary>
@@ -30,8 +31,12 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("Filepath", "P", "The full filepath to an excel file", GH_ParamAccess.item);
-            pManager.AddBooleanParameter(Constants.Activate.Name, Constants.Activate.NickName, Constants.Activate.Input, GH_ParamAccess.item);
+            pManager.AddGenericParameter(Constants.Range.Name, Constants.Range.NickName, Constants.Range.Input, GH_ParamAccess.item);
+            pManager[0].Optional = true;
+            pManager.AddBooleanParameter("Active", "A", "Return only active cells. If true Flip (F) input will be ignored", GH_ParamAccess.item, false);
+            pManager[1].Optional = true;
+            pManager.AddBooleanParameter("Flip", "F", "If true, cells are listed by column. If false, by row", GH_ParamAccess.item, true);
+            pManager[2].Optional = true;
         }
 
         /// <summary>
@@ -39,7 +44,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Workbook.Name, Constants.Workbook.NickName, Constants.Workbook.Output, GH_ParamAccess.item);
+            pManager.AddGenericParameter(Constants.Cell.Name, "C", Constants.Cell.Outputs, GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -48,20 +53,24 @@ namespace ExcelPlus.Components.Workbook
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            IGH_Goo gooR = null;
+            DA.GetData(0, ref gooR);
+            gooR.TryGetRange(out ExRange range);
 
-            bool activate = false;
-            DA.GetData(1, ref activate);
-            if (activate)
+            bool active = false;
+            DA.GetData(1, ref active);
+
+            bool flip = false;
+            DA.GetData(2, ref flip);
+
+            if (active)
             {
-                string filepath = string.Empty;
-                if (DA.GetData(0, ref filepath))
-                {
-                    ExWorkbook workbook = new ExWorkbook();
-                    workbook.Open(filepath);
-                    DA.SetData(0, workbook);
-                }
+                DA.SetDataList(0, range.ActiveCells);
             }
-
+            else
+            {
+                DA.SetDataList(0, range.Cells(flip));
+            }
         }
 
         /// <summary>
@@ -73,7 +82,7 @@ namespace ExcelPlus.Components.Workbook
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Wbk_Open;
+                return Properties.Resources.XL_Rng_GetCells;
             }
         }
 
@@ -82,7 +91,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("0f4a8727-5d30-4a07-a4cc-279197f1a7b7"); }
+            get { return new Guid("1e8b3c0e-dc75-4743-a50c-8fa0d6a6c8c0"); }
         }
     }
 }

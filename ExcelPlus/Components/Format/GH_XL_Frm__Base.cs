@@ -3,26 +3,22 @@ using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelPlus.Components.Workbook
+namespace ExcelPlus.Components
 {
-    public class GH_XL_Wbk_Open : GH_Component
+    public class GH_XL_Frm__Base : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Wbk_Open class.
+        /// Initializes a new instance of the GH_XL_Frm__Base class.
         /// </summary>
-        public GH_XL_Wbk_Open()
-          : base("Open Workbook", "Open Wbk",
-              "Open a Workbook from an Excel file",
-              Constants.ShortName, Constants.SubWorkBooks)
+        public GH_XL_Frm__Base()
+          : base("GH_XL_Frm__Base", "Nickname",
+              "Description",
+              "Category", "Subcategory")
         {
         }
 
-        /// <summary>
-        /// Set Exposure level for the component.
-        /// </summary>
-        public override GH_Exposure Exposure
+        public GH_XL_Frm__Base(string Name, string NickName, string Description, string Category, string Subcategory) : base(Name, NickName, Description, Category, Subcategory)
         {
-            get { return GH_Exposure.senary; }
         }
 
         /// <summary>
@@ -30,8 +26,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("Filepath", "P", "The full filepath to an excel file", GH_ParamAccess.item);
-            pManager.AddBooleanParameter(Constants.Activate.Name, Constants.Activate.NickName, Constants.Activate.Input, GH_ParamAccess.item);
+            pManager.AddGenericParameter("Object", "O", "A Cell, Range, Worksheet, or Workbook Object", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -39,7 +34,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Workbook.Name, Constants.Workbook.NickName, Constants.Workbook.Output, GH_ParamAccess.item);
+            pManager.AddGenericParameter("Object", "O", "A Cell, Range, Worksheet, or Workbook Object", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -48,20 +43,6 @@ namespace ExcelPlus.Components.Workbook
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-
-            bool activate = false;
-            DA.GetData(1, ref activate);
-            if (activate)
-            {
-                string filepath = string.Empty;
-                if (DA.GetData(0, ref filepath))
-                {
-                    ExWorkbook workbook = new ExWorkbook();
-                    workbook.Open(filepath);
-                    DA.SetData(0, workbook);
-                }
-            }
-
         }
 
         /// <summary>
@@ -73,7 +54,7 @@ namespace ExcelPlus.Components.Workbook
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Wbk_Open;
+                return null;
             }
         }
 
@@ -82,7 +63,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("0f4a8727-5d30-4a07-a4cc-279197f1a7b7"); }
+            get { return new Guid("63b9b529-604f-4ca1-8568-30d15cdd7387"); }
         }
     }
 }

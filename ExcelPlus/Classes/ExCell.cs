@@ -18,7 +18,10 @@ namespace ExcelPlus
         protected bool isColumnAbsolute = false;
         protected bool isRowAbsolute = false;
         protected string value = string.Empty;
-        protected string format = "General";
+        protected string format = "None";
+
+        protected double width = -1;
+        protected double height = -1;
 
         public ExGraphic Graphic = new ExGraphic();
         public ExFont Font = new ExFont();
@@ -51,6 +54,8 @@ namespace ExcelPlus
                     this.value = Convert.ToString(cell.Value.GetDateTime());
                     break;
             }
+            this.height = cell.WorksheetRow().Height;
+            this.width = cell.WorksheetColumn().Width;
         }
 
         public ExCell(ExCell cell)
@@ -66,6 +71,9 @@ namespace ExcelPlus
 
             this.Graphic = cell.Graphic;
             this.Font = cell.Font;
+
+            this.width = cell.width;
+            this.height = cell.height;
         }
 
         public ExCell(string address)
@@ -103,22 +111,28 @@ namespace ExcelPlus
             set { this.format = value; }
         }
 
+        public virtual double Width
+        {
+            get { return width; }
+            set { this.width = value; }
+        }
+
+        public virtual double Height
+        {
+            get { return height; }
+            set { this.height = value; }
+        }
+
         public virtual int Column
         {
             get { return column; }
-            set
-            {
-                this.column = value;
-            }
+            set { this.column = value; }
         }
 
         public virtual int Row
         {
             get { return row; }
-            set
-            {
-                this.row = value;
-            }
+            set { this.row = value; }
         }
 
         public virtual string Address
@@ -154,7 +168,16 @@ namespace ExcelPlus
 
         #region methods
 
+        public void ClearValue()
+        {
+            this.value = string.Empty;
+            this.format = "General";
+        }
 
+        public void ClearFormatting()
+        {
+            this.Graphic = new ExGraphic();
+        }
 
         #endregion
 

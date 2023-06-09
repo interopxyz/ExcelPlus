@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace ExcelPlus.Components.Graphics
+namespace ExcelPlus.Components
 {
     public class GH_XL_Gph_Font : GH_XL_Gph__Base
     {
@@ -16,7 +16,7 @@ namespace ExcelPlus.Components.Graphics
         public GH_XL_Gph_Font()
           : base("Font", "Font",
               "Set the Font formatting for a cell or range",
-              Constants.ShortName, Constants.SubGraphics)
+              Constants.ShortName, Constants.SubFormat)
         {
         }
 

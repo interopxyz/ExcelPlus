@@ -60,9 +60,9 @@ namespace ExcelPlus
             get { return "Data"; }
         }
 
-        public static string SubGraphics
+        public static string SubFormat
         {
-            get { return "Graphics"; }
+            get { return "Format"; }
         }
 
         public static string SubChart

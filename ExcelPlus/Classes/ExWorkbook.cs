@@ -79,9 +79,30 @@ namespace ExcelPlus
             }
         }
 
+        public virtual double ColumnWidth
+        {
+            set { foreach (ExWorksheet sheet in this.Sheets) sheet.ColumnWidth = value; }
+        }
+
+        public virtual double RowHeight
+        {
+            set { foreach (ExWorksheet sheet in this.Sheets) sheet.RowHeight = value; }
+        }
+
         #endregion
 
         #region methods
+
+        public void ClearValues()
+        {
+            foreach (ExWorksheet sheet in this.Sheets) sheet.ClearValues();
+        }
+
+        public void ClearFormatting()
+        {
+            foreach (ExWorksheet sheet in this.Sheets) sheet.ClearFormatting();
+        }
+
 
         public List<ExWorksheet> GetWorksheets()
         {
@@ -176,6 +197,7 @@ namespace ExcelPlus
                 XL.IXLWorksheet xlSheet = this.ComObj.AddWorksheet();
                 if (sheet.Name != string.Empty) xlSheet.Name = sheet.Name;
                 List<ExCell> cells = sheet.ActiveCells;
+                
                 foreach (ExCell cell in cells)
                 {
                     XL.IXLCell xlCell = xlSheet.Cell(cell.Row, cell.Column);

@@ -1,19 +1,21 @@
 ﻿using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
-namespace ExcelPlus.Components.Workbook
+namespace ExcelPlus.Components
 {
-    public class GH_XL_Wbk_Open : GH_Component
+    public class GH_XL_Gph_Fill : GH_XL_Gph__Base
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Wbk_Open class.
+        /// Initializes a new instance of the GH_XL_Gph_Fill class.
         /// </summary>
-        public GH_XL_Wbk_Open()
-          : base("Open Workbook", "Open Wbk",
-              "Open a Workbook from an Excel file",
-              Constants.ShortName, Constants.SubWorkBooks)
+        public GH_XL_Gph_Fill()
+          : base("Fill", "Fill",
+              "Set the Fill formatting for a cell or range",
+              Constants.ShortName, Constants.SubFormat)
         {
         }
 
@@ -22,7 +24,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.senary; }
+            get { return GH_Exposure.primary; }
         }
 
         /// <summary>
@@ -30,8 +32,9 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("Filepath", "P", "The full filepath to an excel file", GH_ParamAccess.item);
-            pManager.AddBooleanParameter(Constants.Activate.Name, Constants.Activate.NickName, Constants.Activate.Input, GH_ParamAccess.item);
+            base.RegisterInputParams(pManager);
+            pManager.AddColourParameter("Object Color", "C", "Object color", GH_ParamAccess.item);
+            pManager[0].Optional = true;
         }
 
         /// <summary>
@@ -39,7 +42,8 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Workbook.Name, Constants.Workbook.NickName, Constants.Workbook.Output, GH_ParamAccess.item);
+            base.RegisterOutputParams(pManager);
+            pManager.AddColourParameter("Object Color", "C", "Object color", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -48,18 +52,30 @@ namespace ExcelPlus.Components.Workbook
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            IGH_Goo goo = null;
+            if (!DA.GetData(0, ref goo)) return;
 
-            bool activate = false;
-            DA.GetData(1, ref activate);
-            if (activate)
+            Color color = Color.Transparent;
+
+            if(goo.CastTo<ExCell>(out ExCell cell))
             {
-                string filepath = string.Empty;
-                if (DA.GetData(0, ref filepath))
-                {
-                    ExWorkbook workbook = new ExWorkbook();
-                    workbook.Open(filepath);
-                    DA.SetData(0, workbook);
-                }
+                cell = new ExCell(cell);
+                if(DA.GetData(1,ref color)) cell.Graphic.FillColor = color;
+                
+                DA.SetData(0, cell);
+                DA.SetData(1, cell.Graphic.FillColor);
+            }
+            else if(goo.CastTo<ExRange>(out ExRange range))
+            {
+                range = new ExRange(range);
+                if (DA.GetData(1, ref color)) range.Graphic.FillColor = color;
+
+                DA.SetData(0, range);
+                DA.SetData(1, range.Graphic.FillColor);
+            }
+            else
+            {
+                return;
             }
 
         }
@@ -73,7 +89,7 @@ namespace ExcelPlus.Components.Workbook
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Wbk_Open;
+                return Properties.Resources.XL_Grp_Fill;
             }
         }
 
@@ -82,7 +98,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("0f4a8727-5d30-4a07-a4cc-279197f1a7b7"); }
+            get { return new Guid("ff8be311-c3c2-46d3-bb99-bd5d7cd5410f"); }
         }
     }
 }

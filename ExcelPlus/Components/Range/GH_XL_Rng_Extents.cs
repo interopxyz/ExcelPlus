@@ -1,24 +1,29 @@
 ﻿using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelPlus.Components.Graphics
+namespace ExcelPlus.Components.Range
 {
-    public abstract class GH_XL_Gph__Base : GH_Component
+    public class GH_XL_Rng_Extents : GH_XL_Rng__Base
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Gph__Base class.
+        /// Initializes a new instance of the GH_XL_Rng_Extents class.
         /// </summary>
-        public GH_XL_Gph__Base()
-          : base("GH_XL_Gph__Base", "Nickname",
-              "Description",
-              "Category", "Subcategory")
+        public GH_XL_Rng_Extents()
+          : base("Sub Range", "Sub Rng",
+              "Converts all Cells in a Range into a Range with a single Cell",
+              Constants.ShortName, Constants.SubRange)
         {
         }
 
-        public GH_XL_Gph__Base(string Name, string NickName, string Description, string Category, string Subcategory) : base(Name, NickName, Description, Category, Subcategory)
+        /// <summary>
+        /// Set Exposure level for the component.
+        /// </summary>
+        public override GH_Exposure Exposure
         {
+            get { return GH_Exposure.secondary; }
         }
 
         /// <summary>
@@ -26,7 +31,7 @@ namespace ExcelPlus.Components.Graphics
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Object", "O", "A Cell or Range Object", GH_ParamAccess.item);
+            pManager.AddGenericParameter(Constants.Range.Name, Constants.Range.NickName, Constants.Range.Input, GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -34,7 +39,8 @@ namespace ExcelPlus.Components.Graphics
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Object", "O", "A Cell or Range Object", GH_ParamAccess.item);
+            pManager.AddGenericParameter("<", "Minimum Cell", Constants.Cell.Output, GH_ParamAccess.item);
+            pManager.AddGenericParameter(">", "Maximum Cell", Constants.Cell.Output, GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -43,6 +49,12 @@ namespace ExcelPlus.Components.Graphics
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            IGH_Goo gooR = null;
+            DA.GetData(0, ref gooR);
+            gooR.TryGetRange(out ExRange range);
+
+            DA.SetData(0, range.Min);
+            DA.SetData(1, range.Max);
         }
 
         /// <summary>
@@ -63,7 +75,7 @@ namespace ExcelPlus.Components.Graphics
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("73640250-a053-4a4d-9cce-5ee0d950eec4"); }
+            get { return new Guid("3e1fb13c-d6b4-401d-9232-4618849a6db1"); }
         }
     }
 }

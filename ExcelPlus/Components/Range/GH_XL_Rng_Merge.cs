@@ -6,15 +6,15 @@ using System.Collections.Generic;
 
 namespace ExcelPlus.Components.Range
 {
-    public class GH_XL_Rng_Cells : GH_Component
+    public class GH_XL_Rng_Merge : GH_XL_Rng__Base
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Rng_Cells class.
+        /// Initializes a new instance of the GH_XL_Rng_Merge class.
         /// </summary>
-        public GH_XL_Rng_Cells()
-          : base("Range Cells", "Rng Cell",
-              "Returns all the cells in a range",
-              Constants.ShortName, Constants.SubCell)
+        public GH_XL_Rng_Merge()
+          : base("Merge Range", "Merge Rng",
+              "Merge or Unmerge a Range"+Environment.NewLine+"(note: Ranges will be merged sequentially. If multiple ranges overlap, the latter range merge will be ignored.)",
+              Constants.ShortName, Constants.SubRange)
         {
         }
 
@@ -23,7 +23,7 @@ namespace ExcelPlus.Components.Range
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.secondary; }
+            get { return GH_Exposure.tertiary; }
         }
 
         /// <summary>
@@ -31,9 +31,8 @@ namespace ExcelPlus.Components.Range
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Range.Name, Constants.Range.NickName, Constants.Range.Input, GH_ParamAccess.item);
-            pManager[0].Optional = true;
-            pManager.AddBooleanParameter("Flip", "F", "If true, cells are listed by column. If false, by row", GH_ParamAccess.item, true);
+            base.RegisterInputParams(pManager);
+            pManager.AddBooleanParameter("Merge", "M", "If true, the cells in the range will be merged and only the first cells value and formatting will be applied.", GH_ParamAccess.item);
             pManager[1].Optional = true;
         }
 
@@ -42,7 +41,8 @@ namespace ExcelPlus.Components.Range
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Cell.Name, "C", Constants.Cell.Outputs, GH_ParamAccess.list);
+            base.RegisterOutputParams(pManager);
+            pManager.AddBooleanParameter("Merged", "M", "The merge status of the Range", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -55,10 +55,11 @@ namespace ExcelPlus.Components.Range
             DA.GetData(0, ref gooR);
             gooR.TryGetRange(out ExRange range);
 
-            bool flip = false;
-            DA.GetData(1, ref flip);
+            bool merged = false;
+            if(DA.GetData(1, ref merged))range.IsMerged = merged;
 
-            DA.SetDataList(0, range.Cells(flip));
+            DA.SetData(0, range);
+            DA.SetData(1, range.IsMerged);
         }
 
         /// <summary>
@@ -70,7 +71,7 @@ namespace ExcelPlus.Components.Range
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Rng_GetCells;
+                return null;
             }
         }
 
@@ -79,7 +80,7 @@ namespace ExcelPlus.Components.Range
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("1e8b3c0e-dc75-4743-a50c-8fa0d6a6c8c0"); }
+            get { return new Guid("a8cfda30-23bd-479c-84e4-7e9dbeff2de9"); }
         }
     }
 }

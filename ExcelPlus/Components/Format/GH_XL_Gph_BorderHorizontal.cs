@@ -6,17 +6,17 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace ExcelPlus.Components.Graphics
+namespace ExcelPlus.Components
 {
-    public class GH_XL_Gph_BorderVertical : GH_XL_Gph__Base
+    public class GH_XL_Gph_BorderHorizontal : GH_XL_Gph__Base
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Gph_Border class.
+        /// Initializes a new instance of the GH_XL_Gph_BorderHorizontal class.
         /// </summary>
-        public GH_XL_Gph_BorderVertical()
-          : base("Vertical Border", "V Border",
-              "Set the Vertical Border formatting for a cell or range",
-              Constants.ShortName, Constants.SubGraphics)
+        public GH_XL_Gph_BorderHorizontal()
+          : base("Horizontal Border", "H Border",
+              "Set the Horizontal Border formatting for a cell or range",
+              Constants.ShortName, Constants.SubFormat)
         {
         }
 
@@ -44,7 +44,7 @@ namespace ExcelPlus.Components.Graphics
             pManager[4].Optional = true;
 
             Param_Integer paramA = (Param_Integer)pManager[1];
-            foreach (VerticalBorder value in Enum.GetValues(typeof(VerticalBorder)))
+            foreach (HorizontalBorder value in Enum.GetValues(typeof(HorizontalBorder)))
             {
                 paramA.AddNamedValue(value.ToString(), (int)value);
             }
@@ -60,7 +60,6 @@ namespace ExcelPlus.Components.Graphics
             {
                 paramC.AddNamedValue(value.ToString(), (int)value);
             }
-
         }
 
         /// <summary>
@@ -92,30 +91,30 @@ namespace ExcelPlus.Components.Graphics
             if (goo.CastTo<ExCell>(out ExCell cell))
             {
                 cell = new ExCell(cell);
-                if (DA.GetData(1, ref border)) cell.Graphic.VerticalBorder = (VerticalBorder)border;
-                if (DA.GetData(2, ref color)) cell.Graphic.VerticalStrokeColor = color;
-                if (DA.GetData(3, ref weight)) cell.Graphic.VerticalWeight = (BorderWeight)weight;
-                if (DA.GetData(4, ref linetype)) cell.Graphic.VerticalType = (LineType)linetype;
+                if (DA.GetData(1, ref border)) cell.Graphic.HorizontalBorder = (HorizontalBorder)border;
+                if (DA.GetData(2, ref color)) cell.Graphic.HorizontalStrokeColor = color;
+                if (DA.GetData(3, ref weight)) cell.Graphic.HorizontalWeight = (BorderWeight)weight;
+                if (DA.GetData(4, ref linetype)) cell.Graphic.HorizontalType = (LineType)linetype;
 
                 DA.SetData(0, cell);
-                DA.SetData(1, (int)cell.Graphic.VerticalBorder);
-                DA.SetData(2, cell.Graphic.VerticalStrokeColor);
-                DA.SetData(3, (int)cell.Graphic.VerticalWeight);
-                DA.SetData(4, (int)cell.Graphic.VerticalType);
+                DA.SetData(1, (int)cell.Graphic.HorizontalBorder);
+                DA.SetData(2, cell.Graphic.HorizontalStrokeColor);
+                DA.SetData(3, (int)cell.Graphic.HorizontalWeight);
+                DA.SetData(4, (int)cell.Graphic.HorizontalType);
             }
             else if (goo.CastTo<ExRange>(out ExRange range))
             {
                 range = new ExRange(range);
-                if (DA.GetData(1, ref border)) range.Graphic.VerticalBorder = (VerticalBorder)border;
-                if (DA.GetData(2, ref color)) range.Graphic.VerticalStrokeColor = color;
-                if (DA.GetData(3, ref weight)) range.Graphic.VerticalWeight = (BorderWeight)weight;
-                if (DA.GetData(4, ref linetype)) range.Graphic.VerticalType = (LineType)linetype;
+                if (DA.GetData(1, ref border)) range.Graphic.HorizontalBorder = (HorizontalBorder)border;
+                if (DA.GetData(2, ref color)) range.Graphic.HorizontalStrokeColor = color;
+                if (DA.GetData(3, ref weight)) range.Graphic.HorizontalWeight = (BorderWeight)weight;
+                if (DA.GetData(4, ref linetype)) range.Graphic.HorizontalType = (LineType)linetype;
 
                 DA.SetData(0, cell);
-                DA.SetData(1, (int)range.Graphic.VerticalBorder);
-                DA.SetData(2, range.Graphic.VerticalStrokeColor);
-                DA.SetData(3, (int)range.Graphic.VerticalWeight);
-                DA.SetData(4, (int)range.Graphic.VerticalType);
+                DA.SetData(1, (int)range.Graphic.HorizontalBorder);
+                DA.SetData(2, range.Graphic.HorizontalStrokeColor);
+                DA.SetData(3, (int)range.Graphic.HorizontalWeight);
+                DA.SetData(4, (int)range.Graphic.HorizontalType);
             }
             else
             {
@@ -132,7 +131,7 @@ namespace ExcelPlus.Components.Graphics
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Grp_BorderVertial;
+                return Properties.Resources.XL_Grp_BorderHorizontal;
             }
         }
 
@@ -141,7 +140,7 @@ namespace ExcelPlus.Components.Graphics
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("761efeeb-a64b-460e-b104-35d073c0998c"); }
+            get { return new Guid("e4d7dc49-9750-43f9-ac30-3525d909ab31"); }
         }
     }
 }

@@ -22,6 +22,11 @@ namespace ExcelPlus
         public ExGraphic Graphic = new ExGraphic();
         public ExFont Font = new ExFont();
 
+        protected double columnWidth = -1;
+        protected double rowHeight = -1;
+
+        protected bool merge = false;
+
         #endregion
 
         #region constructors
@@ -49,6 +54,7 @@ namespace ExcelPlus
             this.max = range.max;
             this.Graphic = range.Graphic;
             this.Font = range.Font;
+            this.merge = range.merge;
         }
 
         public ExRange(ExCell cell)
@@ -149,14 +155,54 @@ namespace ExcelPlus
             get { return (max.Row - min.Row); }
         }
 
+        public virtual double ColumnWidth
+        {
+            get { return columnWidth; }
+            set { columnWidth = value; }
+        }
+
+        public virtual double RowHeight
+        {
+            get { return rowHeight; }
+            set { rowHeight = value; }
+        }
+
         public virtual string Address
         {
             get { return min.Address + ":" + max.Address; }
-                }
+        }
+
+        public virtual bool IsMerged
+        {
+            get { return this.merge; }
+            set { this.merge = value; }
+        }
 
         #endregion
 
         #region methods
+
+        public void ClearValues()
+        {
+            foreach (string key in cells.Keys) cells[key].ClearValue();
+        }
+
+        public void ClearFormatting()
+        {
+            foreach (string key in cells.Keys) cells[key].ClearFormatting();
+        }
+
+        public List<ExRange> ToSubRange(bool active = false)
+        {
+            List<ExCell> tempCells = new List<ExCell>();
+
+            if (!active) tempCells = this.Cells();
+            if (active) tempCells = this.ActiveCells;
+
+            List<ExRange> ranges = new List<ExRange>();
+            foreach (ExCell cell in tempCells) ranges.Add(new ExRange(cell));
+            return ranges;
+        }
 
         protected void ReCalculateBounds()
         {

@@ -19,6 +19,10 @@ namespace ExcelPlus
 
         public List<ExRange> Ranges = new List<ExRange>();
 
+        protected ExRange baseRange = new ExRange();
+
+        protected bool active = false;
+
         #endregion
 
         #region constructors
@@ -31,6 +35,8 @@ namespace ExcelPlus
         {
             this.name = sheet.Name;
             this.Ranges.Add(new ExRange(sheet.CellsUsed().ToList()));
+            this.baseRange = new ExRange(sheet.Cells().ToList());
+            this.active = sheet.TabActive;
         }
 
         public ExWorksheet(string name)
@@ -59,10 +65,12 @@ namespace ExcelPlus
         public ExWorksheet(ExWorksheet worksheet)
         {
             this.name = worksheet.name;
+            this.active = worksheet.active;
             foreach(ExRange range in worksheet.Ranges)
             {
                 this.Ranges.Add(new ExRange(range));
             }
+            this.baseRange = worksheet.baseRange;
         }
 
         #endregion
@@ -79,6 +87,12 @@ namespace ExcelPlus
             }
         }
 
+        public virtual bool Active
+        {
+            get { return active; }
+            set { active = value; }
+        }
+
         public virtual List<ExCell> ActiveCells
         {
             get
@@ -89,9 +103,31 @@ namespace ExcelPlus
             }
         }
 
+        public virtual double ColumnWidth
+        {
+            get { return this.baseRange.ColumnWidth; }
+            set { this.baseRange.ColumnWidth = value; }
+        }
+
+        public virtual double RowHeight
+        {
+            get { return this.baseRange.RowHeight; }
+            set { this.baseRange.RowHeight = value; }
+        }
+
         #endregion
 
         #region methods
+
+        public void ClearValues()
+        {
+            foreach(ExRange range in Ranges) range.ClearValues();
+        }
+
+        public void ClearFormatting()
+        {
+            foreach (ExRange range in Ranges) range.ClearFormatting();
+        }
 
         public List<ExRange> GetRanges(bool collapse = false)
         {

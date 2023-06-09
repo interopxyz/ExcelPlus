@@ -1,19 +1,20 @@
 ﻿using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelPlus.Components.Workbook
+namespace ExcelPlus.Components.Range
 {
-    public class GH_XL_Wbk_Open : GH_Component
+    public class GH_XL_Rng_SubRange :GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Wbk_Open class.
+        /// Initializes a new instance of the GH_XL_Rng_SubRange class.
         /// </summary>
-        public GH_XL_Wbk_Open()
-          : base("Open Workbook", "Open Wbk",
-              "Open a Workbook from an Excel file",
-              Constants.ShortName, Constants.SubWorkBooks)
+        public GH_XL_Rng_SubRange()
+          : base("Sub Range", "Sub Rng",
+              "Converts all Cells in a Range into a Range with a single Cell",
+              Constants.ShortName, Constants.SubRange)
         {
         }
 
@@ -22,7 +23,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.senary; }
+            get { return GH_Exposure.secondary; }
         }
 
         /// <summary>
@@ -30,8 +31,9 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("Filepath", "P", "The full filepath to an excel file", GH_ParamAccess.item);
-            pManager.AddBooleanParameter(Constants.Activate.Name, Constants.Activate.NickName, Constants.Activate.Input, GH_ParamAccess.item);
+            pManager.AddGenericParameter(Constants.Range.Name, Constants.Range.NickName, Constants.Range.Input, GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Active", "A", "If true, only the active cells in the range will be returned", GH_ParamAccess.item, false);
+            pManager[1].Optional = true;
         }
 
         /// <summary>
@@ -39,7 +41,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Workbook.Name, Constants.Workbook.NickName, Constants.Workbook.Output, GH_ParamAccess.item);
+            pManager.AddGenericParameter(Constants.Range.Name, Constants.Range.NickName, Constants.Range.Outputs, GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -48,20 +50,14 @@ namespace ExcelPlus.Components.Workbook
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            IGH_Goo gooR = null;
+            DA.GetData(0, ref gooR);
+            gooR.TryGetRange(out ExRange range);
 
-            bool activate = false;
-            DA.GetData(1, ref activate);
-            if (activate)
-            {
-                string filepath = string.Empty;
-                if (DA.GetData(0, ref filepath))
-                {
-                    ExWorkbook workbook = new ExWorkbook();
-                    workbook.Open(filepath);
-                    DA.SetData(0, workbook);
-                }
-            }
+            bool active = false;
+            DA.GetData(1, ref active);
 
+            DA.SetData(0, range);
         }
 
         /// <summary>
@@ -73,7 +69,7 @@ namespace ExcelPlus.Components.Workbook
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Wbk_Open;
+                return null;
             }
         }
 
@@ -82,7 +78,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("0f4a8727-5d30-4a07-a4cc-279197f1a7b7"); }
+            get { return new Guid("e9699125-bccf-4450-a604-ebf85f2d6b31"); }
         }
     }
 }
