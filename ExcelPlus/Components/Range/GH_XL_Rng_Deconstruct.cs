@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ExcelPlus.Components.Range
 {
-    public class GH_XL_Rng_Deconstruct : GH_Component
+    public class GH_XL_Rng_Deconstruct : GH_XL_Rng__Base
     {
         /// <summary>
         /// Initializes a new instance of the GH_XL_Rng_Cells class.
@@ -23,7 +23,7 @@ namespace ExcelPlus.Components.Range
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.quinary; }
+            get { return GH_Exposure.secondary; }
         }
 
         /// <summary>
@@ -31,8 +31,7 @@ namespace ExcelPlus.Components.Range
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Range.Name, Constants.Range.NickName, Constants.Range.Input, GH_ParamAccess.item);
-            pManager[0].Optional = true;
+            base.RegisterInputParams(pManager);
             pManager.AddBooleanParameter("Active", "A", "Return only active cells. If true Flip (F) input will be ignored", GH_ParamAccess.item, false);
             pManager[1].Optional = true;
             pManager.AddBooleanParameter("Flip", "F", "If true, cells are listed by column. If false, by row", GH_ParamAccess.item, true);
@@ -44,7 +43,8 @@ namespace ExcelPlus.Components.Range
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Cell.Name, "C", Constants.Cell.Outputs, GH_ParamAccess.list);
+            base.RegisterOutputParams(pManager);
+            pManager.AddGenericParameter(Constants.Cell.Name, Constants.Cell.NickName, Constants.Cell.Outputs, GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -63,13 +63,15 @@ namespace ExcelPlus.Components.Range
             bool flip = false;
             DA.GetData(2, ref flip);
 
+            DA.SetData(0, range);
+
             if (active)
             {
-                DA.SetDataList(0, range.ActiveCells);
+                DA.SetDataList(1, range.ActiveCells);
             }
             else
             {
-                DA.SetDataList(0, range.Cells(flip));
+                DA.SetDataList(1, range.Cells(flip));
             }
         }
 
@@ -82,7 +84,7 @@ namespace ExcelPlus.Components.Range
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Rng_GetCells;
+                return Properties.Resources.XL_Rng_Deconstruct;
             }
         }
 

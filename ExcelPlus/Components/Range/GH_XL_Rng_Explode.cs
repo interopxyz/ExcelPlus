@@ -6,12 +6,12 @@ using System.Collections.Generic;
 
 namespace ExcelPlus.Components.Range
 {
-    public class GH_XL_Rng_SubRange :GH_Component
+    public class GH_XL_Rng_Explode :GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the GH_XL_Rng_SubRange class.
         /// </summary>
-        public GH_XL_Rng_SubRange()
+        public GH_XL_Rng_Explode()
           : base("Explode Range", "Explode Rng",
               "Explode all Cells in a Range into individual Ranges",
               Constants.ShortName, Constants.SubRange)
@@ -23,7 +23,7 @@ namespace ExcelPlus.Components.Range
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.secondary; }
+            get { return GH_Exposure.tertiary; }
         }
 
         /// <summary>

@@ -213,6 +213,16 @@ namespace ExcelPlus.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap XL_Rng_Deconstruct {
+            get {
+                object obj = ResourceManager.GetObject("XL_Rng_Deconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap XL_Rng_Explode {
             get {
                 object obj = ResourceManager.GetObject("XL_Rng_Explode", resourceCulture);
