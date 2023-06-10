@@ -14,8 +14,8 @@ namespace ExcelPlus.Components
         /// Initializes a new instance of the GH_XL_Gph_BorderHorizontal class.
         /// </summary>
         public GH_XL_Gph_BorderHorizontal()
-          : base("Horizontal Border", "H Border",
-              "Set the Horizontal Border formatting for a cell or range",
+          : base("Border", "Border",
+              "Set the Border formatting for a cell or range",
               Constants.ShortName, Constants.SubFormat)
         {
         }
@@ -34,32 +34,33 @@ namespace ExcelPlus.Components
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager.AddIntegerParameter("Border", "B", "Border type", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Border", "B", "Border type", GH_ParamAccess.item,0);
             pManager[1].Optional = true;
             pManager.AddColourParameter("Color", "C", "Border color", GH_ParamAccess.item);
             pManager[2].Optional = true;
-            pManager.AddIntegerParameter("Weight", "W", "Border weight", GH_ParamAccess.item);
-            pManager[3].Optional = true;
             pManager.AddIntegerParameter("Linetype", "L", "Border linetype", GH_ParamAccess.item);
-            pManager[4].Optional = true;
+            pManager[3].Optional = true;
+            //pManager.AddIntegerParameter("Weight", "W", "Border weight", GH_ParamAccess.item);
+            //pManager[4].Optional = true;
 
             Param_Integer paramA = (Param_Integer)pManager[1];
-            foreach (HorizontalBorder value in Enum.GetValues(typeof(HorizontalBorder)))
+            foreach (Borders value in Enum.GetValues(typeof(Borders)))
             {
                 paramA.AddNamedValue(value.ToString(), (int)value);
             }
 
             Param_Integer paramB = (Param_Integer)pManager[3];
-            foreach (BorderWeight value in Enum.GetValues(typeof(BorderWeight)))
+            foreach (LineTypes value in Enum.GetValues(typeof(LineTypes)))
             {
                 paramB.AddNamedValue(value.ToString(), (int)value);
             }
 
-            Param_Integer paramC = (Param_Integer)pManager[4];
-            foreach (LineType value in Enum.GetValues(typeof(LineType)))
-            {
-                paramC.AddNamedValue(value.ToString(), (int)value);
-            }
+            //Param_Integer paramC = (Param_Integer)pManager[3];
+            //foreach (BorderWeights value in Enum.GetValues(typeof(BorderWeights)))
+            //{
+            //    paramC.AddNamedValue(value.ToString(), (int)value);
+            //}
+
         }
 
         /// <summary>
@@ -70,8 +71,8 @@ namespace ExcelPlus.Components
             base.RegisterOutputParams(pManager);
             pManager.AddIntegerParameter("Border", "B", "Border type", GH_ParamAccess.item);
             pManager.AddColourParameter("Color", "C", "Border color", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Weight", "W", "Border weight", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Linetype", "L", "Border linetype", GH_ParamAccess.item);
+            //pManager.AddIntegerParameter("Weight", "W", "Border weight", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -83,43 +84,116 @@ namespace ExcelPlus.Components
             IGH_Goo goo = null;
             if (!DA.GetData(0, ref goo)) return;
 
-            int border = 0;
+            int borderType = 0;
+            if (DA.GetData(1, ref borderType));
+            Borders type = (Borders)borderType;
+
             Color color = Color.Black;
             int weight = 0;
             int linetype = 0;
 
+            ExBorder border = new ExBorder();
+
             if (goo.CastTo<ExCell>(out ExCell cell))
             {
                 cell = new ExCell(cell);
-                if (DA.GetData(1, ref border)) cell.Graphic.HorizontalBorder = (HorizontalBorder)border;
-                if (DA.GetData(2, ref color)) cell.Graphic.HorizontalStrokeColor = color;
-                if (DA.GetData(3, ref weight)) cell.Graphic.HorizontalWeight = (BorderWeight)weight;
-                if (DA.GetData(4, ref linetype)) cell.Graphic.HorizontalType = (LineType)linetype;
+
+                switch(type)
+                {
+                    case Borders.Bottom:
+                        border = cell.Graphic.BorderBottom;
+                        break;
+                    case Borders.Top:
+                        border = cell.Graphic.BorderTop;
+                        break;
+                    case Borders.Left:
+                        border = cell.Graphic.BorderLeft;
+                        break;
+                    case Borders.Right:
+                        border = cell.Graphic.BorderRight;
+                        break;
+                    case Borders.Inside:
+                        border = cell.Graphic.BorderInside;
+                        break;
+                    case Borders.Outside:
+                        border = cell.Graphic.BorderOutside;
+                        break;
+                }
+
+                if (DA.GetData(2, ref color)) border.Color = color;
+                if (DA.GetData(3, ref linetype)) border.LineType = (LineTypes)linetype;
 
                 DA.SetData(0, cell);
-                DA.SetData(1, (int)cell.Graphic.HorizontalBorder);
-                DA.SetData(2, cell.Graphic.HorizontalStrokeColor);
-                DA.SetData(3, (int)cell.Graphic.HorizontalWeight);
-                DA.SetData(4, (int)cell.Graphic.HorizontalType);
             }
             else if (goo.CastTo<ExRange>(out ExRange range))
             {
                 range = new ExRange(range);
-                if (DA.GetData(1, ref border)) range.Graphic.HorizontalBorder = (HorizontalBorder)border;
-                if (DA.GetData(2, ref color)) range.Graphic.HorizontalStrokeColor = color;
-                if (DA.GetData(3, ref weight)) range.Graphic.HorizontalWeight = (BorderWeight)weight;
-                if (DA.GetData(4, ref linetype)) range.Graphic.HorizontalType = (LineType)linetype;
 
-                DA.SetData(0, cell);
-                DA.SetData(1, (int)range.Graphic.HorizontalBorder);
-                DA.SetData(2, range.Graphic.HorizontalStrokeColor);
-                DA.SetData(3, (int)range.Graphic.HorizontalWeight);
-                DA.SetData(4, (int)range.Graphic.HorizontalType);
+                switch (type)
+                {
+                    case Borders.Bottom:
+                        border = range.Graphic.BorderBottom;
+                        break;
+                    case Borders.Top:
+                        border = range.Graphic.BorderTop;
+                        break;
+                    case Borders.Left:
+                        border = range.Graphic.BorderLeft;
+                        break;
+                    case Borders.Right:
+                        border = range.Graphic.BorderRight;
+                        break;
+                    case Borders.Inside:
+                        border = range.Graphic.BorderInside;
+                        break;
+                    case Borders.Outside:
+                        border = range.Graphic.BorderOutside;
+                        break;
+                }
+
+                if (DA.GetData(2, ref color)) border.Color = color;
+                if (DA.GetData(3, ref linetype)) border.LineType = (LineTypes)linetype;
+
+                DA.SetData(0, range);
+            }
+            else if (goo.CastTo<ExWorksheet>(out ExWorksheet sheet))
+            {
+                sheet = new ExWorksheet(sheet);
+
+                switch (type)
+                {
+                    case Borders.Bottom:
+                        border = sheet.Graphic.BorderBottom;
+                        break;
+                    case Borders.Top:
+                        border = sheet.Graphic.BorderTop;
+                        break;
+                    case Borders.Left:
+                        border = sheet.Graphic.BorderLeft;
+                        break;
+                    case Borders.Right:
+                        border = sheet.Graphic.BorderRight;
+                        break;
+                    case Borders.Inside:
+                        border = sheet.Graphic.BorderInside;
+                        break;
+                    case Borders.Outside:
+                        border = sheet.Graphic.BorderOutside;
+                        break;
+                }
+
+                if (DA.GetData(2, ref color)) border.Color = color;
+                if (DA.GetData(3, ref linetype)) border.LineType = (LineTypes)linetype;
+
+                DA.SetData(0, sheet);
             }
             else
             {
                 return;
             }
+                DA.SetData(1, type);
+                DA.SetData(2, border.Color);
+                DA.SetData(3, (int)border.LineType);
         }
 
         /// <summary>

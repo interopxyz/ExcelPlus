@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 namespace ExcelPlus
 {
 
-    public enum HorizontalBorder { None, Bottom, Top, Both, Between, All };
-    public enum VerticalBorder { None, Left, Right, Both, Between, All };
-    public enum LineType { None, Continuous, Dash, DashDot, DashDotDot, Dot, Double, SlantDashDot };
-    public enum BorderWeight { Hairline, Thin, Medium, Thick, None };
-    public enum Justification { BottomLeft, BottomMiddle, BottomRight, CenterLeft, CenterMiddle, CenterRight, TopLeft, TopMiddle, TopRight };
+    public enum Borders { Bottom, Top, Left, Right, Inside, Outside };
+    public enum HorizontalBorders { None, Bottom, Top, Both, Between, All };
+    public enum VerticalBorders { None, Left, Right, Both, Between, All };
+    public enum LineTypes { None, Hair, Thin, Medium, Thick, Double, SlantDashDot, DashDot, DashDotDot, Dashed, Dotted, MediumDashDot, MediumDashDotDot, MediumDashed};
+    public enum BorderWeights { Hairline, Thin, Medium, Thick, None };
+    public enum Justifications { None, BottomLeft, BottomMiddle, BottomRight, CenterLeft, CenterMiddle, CenterRight, TopLeft, TopMiddle, TopRight };
     public enum ValueCondition { Greater, GreaterEqual, Less, LessEqual, Equal, NotEqual };
     public enum AverageCondition { AboveAverage, AboveEqualAverage, AboveDeviation, BelowAverage, BelowEqualAverage, BelowDeviation };
     public enum VbModuleType { ClassModule, Document, MSForm, StdModule, ActiveX };

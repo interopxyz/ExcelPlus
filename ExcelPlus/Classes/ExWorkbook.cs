@@ -93,6 +93,13 @@ namespace ExcelPlus
 
         #region methods
 
+        public virtual List<ExWorksheet> GetSheets()
+        {
+            List<ExWorksheet> output = new List<ExWorksheet>();
+            foreach (ExWorksheet sheet in this.Sheets) output.Add(new ExWorksheet(sheet));
+            return output;
+        }
+
         public void ClearValues()
         {
             foreach (ExWorksheet sheet in this.Sheets) sheet.ClearValues();
@@ -103,7 +110,6 @@ namespace ExcelPlus
             foreach (ExWorksheet sheet in this.Sheets) sheet.ClearFormatting();
         }
 
-
         public List<ExWorksheet> GetWorksheets()
         {
             List<ExWorksheet> sheets = new List<ExWorksheet>();
@@ -112,18 +118,34 @@ namespace ExcelPlus
             return sheets;
         }
 
-        public bool TryGetSheet(int index, out ExWorksheet result)
+        public bool TryGetSheet(int index, out ExWorksheet worksheet)
         {
             if (index > this.Sheets.Count)
             {
-                result = new ExWorksheet();
+                worksheet = new ExWorksheet();
                 return true;
             }
             else
             {
-                result = new ExWorksheet(this.Sheets[index]);
+                worksheet = new ExWorksheet(this.Sheets[index]);
                 return true;
             }
+        }
+
+        public bool TryGetSheet(string name, out ExWorksheet worksheet)
+        {
+
+            foreach (ExWorksheet sheet in this.Sheets)
+            {
+                if (sheet.Name == name)
+                {
+                    worksheet = new ExWorksheet(sheet);
+                    return true;
+                }
+            }
+
+            worksheet = null;
+            return false;
         }
 
         public string Save(string directory, Extensions extension)
@@ -165,6 +187,7 @@ namespace ExcelPlus
         public void Open(string filepath)
         {
             this.ComObj = new XL.XLWorkbook(filepath);
+            
             this.ParseWorkbook();
         }
 
@@ -194,17 +217,32 @@ namespace ExcelPlus
             this.ComObj = new XL.XLWorkbook();
             foreach (ExWorksheet sheet in Sheets)
             {
+
                 XL.IXLWorksheet xlSheet = this.ComObj.AddWorksheet();
                 if (sheet.Name != string.Empty) xlSheet.Name = sheet.Name;
+
+                sheet.ApplyGraphics(xlSheet);
+                sheet.ApplyFont(xlSheet);
+
+                foreach (ExRange range in sheet.Ranges)
+                {
+                    XL.IXLRange xlRange = xlSheet.Range(range.Min.Row, range.Min.Column, range.Max.Row, range.Max.Column);
+                    range.ApplyGraphics(xlRange);
+                    range.ApplyFont(xlRange);
+                }
+
                 List<ExCell> cells = sheet.ActiveCells;
-                
+
                 foreach (ExCell cell in cells)
                 {
                     XL.IXLCell xlCell = xlSheet.Cell(cell.Row, cell.Column);
                     if (double.TryParse(cell.Value, out double num)) xlCell.Value = num; else xlCell.Value = cell.Value;
-                    XL.IXLFill fill = xlCell.Style.Fill;
-                    fill.SetBackgroundColor(cell.Graphic.FillColor.ToExcel());
-                    xlCell.Style.Fill = fill;
+
+                    cell.ApplyGraphics(xlCell);
+                    cell.ApplyFont(xlCell);
+
+                    if (cell.Width > 0) xlCell.WorksheetColumn().Width = cell.Width;
+                    if (cell.Height > 0) xlCell.WorksheetRow().Height = cell.Height;
                 }
             }
         }

@@ -14,7 +14,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         public GH_XL_Wbk_Write()
           : base("Write Workbook", "Write Workbook",
-              "Write a Workbook to an Memory Stream",
+              "Write a Workbook to a Memory Stream string",
               Constants.ShortName, Constants.SubWorkBooks)
         {
         }

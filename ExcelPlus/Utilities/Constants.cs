@@ -82,7 +82,7 @@ namespace ExcelPlus
 
         public static string SubWorkSheets
         {
-            get { return "WorkSheets"; }
+            get { return "Sheets"; }
         }
         public static Descriptor Location
         {
@@ -110,27 +110,27 @@ namespace ExcelPlus
 
         public static Descriptor Workbook
         {
-            get { return new Descriptor("Workbook", "Wbk", "A Worksheet, Workbook, Range Object, Excel Application, or Text Workbook Name", "An Excel Workbook Object", "Excel Workbook Objects"); }
+            get { return new Descriptor("Workbook", "Wbk", "A Worksheet, Workbook, Range, or Workbook Name", "An Excel Workbook Object", "Excel Workbook Objects"); }
         }
 
         public static Descriptor Worksheet
         {
-            get { return new Descriptor("Worksheet", "Wks", "A Worksheet, Workbook, Range Object, Excel Application, or Text Worksheet Name", "An Excel Worksheet Object", "Excel Worksheet Objects"); }
+            get { return new Descriptor("Worksheet", "Wks", "A Worksheet, Workbook, Range, or Worksheet Name", "An Excel Worksheet Object", "Excel Worksheet Objects"); }
         }
 
         public static Descriptor Range
         {
-            get { return new Descriptor("Range", "Rng", "A Range Object or Text Address (ex. A1:B1)", "An Excel Range Object", "Excel Range Objects"); }
+            get { return new Descriptor("Range", "Rng", "A Range or Address (ex. A1:B1)", "An Excel Range Object", "Excel Range Objects"); }
         }
 
         public static Descriptor Cell
         {
-            get { return new Descriptor("Cell", "Cel", "A Cell Object or Text Address (ex. A1)", "An Excel Cell Object", "Excel Cell Objects"); }
+            get { return new Descriptor("Cell", "Cel", "A Cell or Address (ex. A1)", "An Excel Cell Object", "Excel Cell Objects"); }
         }
 
         public static Descriptor Shape
         {
-            get { return new Descriptor("Shape", "Shp", "A Smart Art, Control, or Graphical Shape object", "An Excel Shape Object", "Excel Shape Objects"); }
+            get { return new Descriptor("Shape", "Shp", "A Smart Art, Control, or Graphical Shape", "An Excel Shape Object", "Excel Shape Objects"); }
         }
 
         public static Descriptor Chart

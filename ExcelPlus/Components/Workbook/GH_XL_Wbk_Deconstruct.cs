@@ -12,8 +12,8 @@ namespace ExcelPlus.Components.Workbook
         /// Initializes a new instance of the GH_XL_Wbk_Deconstruct class.
         /// </summary>
         public GH_XL_Wbk_Deconstruct()
-          : base("Deconstruct Workbook", "De Workbook",
-              "Deconstruct a Workbook into its sheets",
+          : base("Deconstruct Workbook", "De Wbk",
+              "Deconstruct a Workbook into its Worksheets",
               Constants.ShortName, Constants.SubWorkBooks)
         {
         }
@@ -23,7 +23,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.quinary; }
+            get { return GH_Exposure.secondary; }
         }
 
         /// <summary>
@@ -32,6 +32,8 @@ namespace ExcelPlus.Components.Workbook
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
+            pManager.AddTextParameter("Names", "N", "Optional list of Worksheet names", GH_ParamAccess.list);
+            pManager[1].Optional = true;
         }
 
         /// <summary>
@@ -52,9 +54,21 @@ namespace ExcelPlus.Components.Workbook
             IGH_Goo gooB = null;
             DA.GetData(0, ref gooB);
             if (!gooB.TryGetWorkbook(out ExWorkbook workbook)) return;
+            
+            List<string> names = new List<string>();
+            if(DA.GetDataList(1,names))
+            {
+                List<ExWorksheet> sheets = new List<ExWorksheet>();
+                foreach (string name in names) if (workbook.TryGetSheet(name, out ExWorksheet sheet)) sheets.Add(sheet);
+                DA.SetDataList(1, sheets);
+            }
+            else
+            {
+            DA.SetDataList(1, workbook.GetWorksheets());
+            }
+            
 
             DA.SetData(0, workbook);
-            DA.SetDataList(1, workbook.GetWorksheets());
 
         }
 
@@ -67,7 +81,7 @@ namespace ExcelPlus.Components.Workbook
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.XL_Wbk_Deconstruct;
             }
         }
 

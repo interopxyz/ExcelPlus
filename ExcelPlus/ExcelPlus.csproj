@@ -113,6 +113,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\ExBorder.cs" />
     <Compile Include="Classes\ExCell.cs" />
     <Compile Include="Classes\ExEnums.cs" />
     <Compile Include="Classes\ExFont.cs" />
@@ -123,18 +124,17 @@
     <Compile Include="Components\Cell\GH_XL_Cel_Address.cs" />
     <Compile Include="Components\Cell\GH_XL_Cel_Cells.cs" />
     <Compile Include="Components\Cell\GH_XL_Cel_Location.cs" />
-    <Compile Include="Components\Cell\GH_XL_Cel_Set.cs" />
+    <Compile Include="Components\Cell\GH_XL_Cel_Construct.cs" />
     <Compile Include="Components\Cell\GH_XL_Cel__Base.cs" />
     <Compile Include="Components\Format\GH_XL_Frm_Clear.cs" />
     <Compile Include="Components\Format\GH_XL_Frm_Size.cs" />
     <Compile Include="Components\Format\GH_XL_Frm__Base.cs" />
     <Compile Include="Components\Format\GH_XL_Gph_BorderHorizontal.cs" />
-    <Compile Include="Components\Format\GH_XL_Gph_BorderVertical.cs" />
     <Compile Include="Components\Format\GH_XL_Gph_Fill.cs" />
     <Compile Include="Components\Format\GH_XL_Gph_Font.cs" />
     <Compile Include="Components\Format\GH_XL_Gph__Base.cs" />
     <Compile Include="Components\Range\GH_XL_Rng_Deconstruct.cs" />
-    <Compile Include="Components\Range\GH_XL_Rng_Compile.cs" />
+    <Compile Include="Components\Range\GH_XL_Rng_Construct.cs" />
     <Compile Include="Components\Range\GH_XL_Rng_Extents.cs" />
     <Compile Include="Components\Range\GH_XL_Rng_Merge.cs" />
     <Compile Include="Components\Range\GH_XL_Rng_Populate.cs" />
@@ -148,6 +148,7 @@
     <Compile Include="Components\Workbook\GH_XL_Wbk_Write.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk__Base.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk_Construct.cs" />
+    <Compile Include="Components\Worksheet\GH_XL_Wks_Construct.cs" />
     <Compile Include="Components\Worksheet\GH_XL_Wks_Deconstruct.cs" />
     <Compile Include="Components\Worksheet\GH_XL_Wks_Properties.cs" />
     <Compile Include="Components\Worksheet\GH_XL_Wks__Base.cs" />
@@ -207,16 +208,61 @@
     <None Include="Resources\XL-Rng-GetCells.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\XL-Grp-Font.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Grp-Fill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-Compile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-Populate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-Merge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Grp-Size.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Cel-Clear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-Extents.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-Explode.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\XL-Grp-BorderVertial.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\XL-Grp-BorderHorizontal.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\XL-Grp-Font.png" />
+    <None Include="Resources\XL-Wks-Add.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\XL-Grp-Fill.png" />
+    <None Include="Resources\XL-Wbk-Edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wbk-Deconstruct.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wbk-Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wks-Edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wks-Deconstruct.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Cel-Add.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

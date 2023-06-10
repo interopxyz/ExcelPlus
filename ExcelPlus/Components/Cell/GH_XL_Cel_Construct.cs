@@ -1,22 +1,20 @@
 ﻿using Grasshopper.Kernel;
-using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 
 namespace ExcelPlus.Components
 {
-    public class GH_XL_Frm_Size : GH_XL_Frm__Base
+    public class GH_XL_Cel_Set : GH_XL_Cel__Base
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Frm_Size class.
+        /// Initializes a new instance of the GH_XL_Cel_Set class.
         /// </summary>
-        public GH_XL_Frm_Size()
-          : base("Size", "Size",
-              "Set the size for a cell or all cells in a range or sheet",
-              Constants.ShortName, Constants.SubFormat)
+        public GH_XL_Cel_Set()
+          : base("Construct Cell", "Cell",
+              "Creates or update the contents of a Cell",
+              Constants.ShortName, Constants.SubCell)
         {
         }
 
@@ -34,10 +32,13 @@ namespace ExcelPlus.Components
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager.AddNumberParameter("Width", "W", "The Cell's Column width", GH_ParamAccess.item);
+            pManager[0].Optional = true;
+            pManager.AddGenericParameter(Constants.Location.Name, Constants.Location.NickName, Constants.Location.Input, GH_ParamAccess.item);
             pManager[1].Optional = true;
-            pManager.AddNumberParameter("Height", "H", "The Cell's Row height", GH_ParamAccess.item);
+            pManager.AddTextParameter("Value", "V", "Optional Cell Value", GH_ParamAccess.item);
             pManager[2].Optional = true;
+            pManager.AddTextParameter(Constants.Format.Name, Constants.Format.NickName, Constants.Format.Input, GH_ParamAccess.item);
+            pManager[3].Optional = true;
         }
 
         /// <summary>
@@ -46,8 +47,10 @@ namespace ExcelPlus.Components
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             base.RegisterOutputParams(pManager);
-            pManager.AddNumberParameter("Width", "W", "The Cell's Column width", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Height", "H", "The Cell's Row height", GH_ParamAccess.item);
+            pManager.AddPointParameter("Location", "L", "Cell Location", GH_ParamAccess.item);
+            ((IGH_PreviewObject)pManager[1]).Hidden = true;
+            pManager.AddTextParameter("Value", "V", "Cell Value", GH_ParamAccess.item);
+            pManager.AddTextParameter("Format", "F", "Cell Format", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -56,33 +59,22 @@ namespace ExcelPlus.Components
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            IGH_Goo goo = null;
-            if (!DA.GetData(0, ref goo)) return;
+            ExCell cell = new ExCell();
+            DA.GetData<ExCell>(0, ref cell);
 
-            double width = -1;
-            bool hasWidth = DA.GetData(1, ref width);
+            IGH_Goo gooL = null;
+            if (DA.GetData(1, ref gooL)) if (gooL.TryGetCell(out ExCell location)) cell.Address = location.Address;
 
-            double height = -1;
-            bool hasHeight = DA.GetData(2, ref height);
+            string value = string.Empty;
+            if (DA.GetData(2, ref value)) cell.Value = value;
 
-            if (goo.CastTo<ExCell>(out ExCell cell))
-            {
-                if (hasWidth) cell.Width = width;
-                if (hasWidth) cell.Height = height;
-                DA.SetData(0, cell);
-            }
-            else if (goo.CastTo<ExRange>(out ExRange range))
-            {
-                if (hasWidth) range.ColumnWidth = width;
-                if (hasWidth) range.RowHeight= height;
-                DA.SetData(0, range);
-            }
-            else if (goo.CastTo<ExWorksheet>(out ExWorksheet sheet))
-            {
-                if (hasWidth) sheet.ColumnWidth = width;
-                if (hasWidth) sheet.RowHeight = height;
-                DA.SetData(0, sheet);
-            }
+            string format = string.Empty;
+            if (DA.GetData(3, ref format)) cell.Format = format;
+
+            DA.SetData(0, new ExCell(cell));
+            DA.SetData(1, new Point3d(cell.Column,cell.Row,0));
+            DA.SetData(2, cell.Value);
+            DA.SetData(3, cell.Format);
         }
 
         /// <summary>
@@ -94,7 +86,7 @@ namespace ExcelPlus.Components
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Grp_Size;
+                return Properties.Resources.XL_Cel_Add;
             }
         }
 
@@ -103,7 +95,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("34337940-6d34-49ff-9382-137d20900b1f"); }
+            get { return new Guid("2f33480d-1374-4bb5-a8fb-5959b369204b"); }
         }
     }
 }

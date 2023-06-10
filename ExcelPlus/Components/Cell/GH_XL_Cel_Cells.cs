@@ -23,7 +23,7 @@ namespace ExcelPlus.Components.Cell
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.secondary; }
+            get { return GH_Exposure.tertiary; }
         }
 
         /// <summary>
@@ -31,9 +31,9 @@ namespace ExcelPlus.Components.Cell
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Cell.Name, "A", Constants.Cell.Input, GH_ParamAccess.item);
+            pManager.AddGenericParameter(Constants.Cell.Name, "<", Constants.Cell.Input, GH_ParamAccess.item);
             pManager[0].Optional = true;
-            pManager.AddGenericParameter(Constants.Cell.Name, "B", Constants.Cell.Input, GH_ParamAccess.item);
+            pManager.AddGenericParameter(Constants.Cell.Name, ">", Constants.Cell.Input, GH_ParamAccess.item);
             pManager[1].Optional = true;
             pManager.AddBooleanParameter("Flip", "F", "If true, cells are listed by column. If false, by row", GH_ParamAccess.item, true);
             pManager[2].Optional = true;

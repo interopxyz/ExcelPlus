@@ -32,7 +32,7 @@ namespace ExcelPlus.Components
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Starting Cell", "C", Constants.Cell.Input, GH_ParamAccess.item);
+            pManager.AddGenericParameter("Origin Cell", Constants.Cell.NickName, Constants.Cell.Input, GH_ParamAccess.item);
             pManager[0].Optional = true;
             pManager.AddTextParameter("Values", "V", "A datatree of values", GH_ParamAccess.tree);
 
@@ -80,7 +80,7 @@ namespace ExcelPlus.Components
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.XL_Rng_Populate;
             }
         }
 

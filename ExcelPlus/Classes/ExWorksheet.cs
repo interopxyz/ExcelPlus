@@ -17,11 +17,14 @@ namespace ExcelPlus
 
         protected string name = string.Empty;
 
-        public List<ExRange> Ranges = new List<ExRange>();
-
         protected ExRange baseRange = new ExRange();
 
+        public List<ExRange> Ranges = new List<ExRange>();
+
         protected bool active = false;
+
+        public ExGraphic Graphic = new ExGraphic();
+        public ExFont Font = new ExFont();
 
         #endregion
 
@@ -71,6 +74,9 @@ namespace ExcelPlus
                 this.Ranges.Add(new ExRange(range));
             }
             this.baseRange = worksheet.baseRange;
+
+            this.Graphic = new ExGraphic(worksheet.Graphic);
+            this.Font = new ExFont(worksheet.Font);
         }
 
         #endregion
@@ -126,6 +132,8 @@ namespace ExcelPlus
 
         public void ClearFormatting()
         {
+            this.Graphic = new ExGraphic();
+            this.Font = new ExFont();
             foreach (ExRange range in Ranges) range.ClearFormatting();
         }
 
@@ -155,6 +163,79 @@ namespace ExcelPlus
             {
                 result = new ExRange(this.Ranges[index]);
                 return true;
+            }
+        }
+
+        #endregion
+
+        #region application
+
+        public void ApplyGraphics(XL.IXLWorksheet input)
+        {
+            if (this.Graphic.Active)
+            {
+                if (this.Graphic.HasFillColor) input.Style.Fill.SetBackgroundColor(this.Graphic.FillColor.ToExcel());
+
+                if (this.Graphic.BorderBottom.Active)
+                {
+                    input.Style.Border.SetBottomBorder(this.Graphic.BorderBottom.LineType.ToExcel());
+                    input.Style.Border.SetBottomBorderColor(this.Graphic.BorderBottom.Color.ToExcel());
+                }
+
+                if (this.Graphic.BorderTop.Active)
+                {
+                    input.Style.Border.SetTopBorder(this.Graphic.BorderTop.LineType.ToExcel());
+                    input.Style.Border.SetTopBorderColor(this.Graphic.BorderTop.Color.ToExcel());
+                }
+
+                if (this.Graphic.BorderLeft.Active)
+                {
+                    input.Style.Border.SetLeftBorder(this.Graphic.BorderLeft.LineType.ToExcel());
+                    input.Style.Border.SetLeftBorderColor(this.Graphic.BorderLeft.Color.ToExcel());
+                }
+
+                if (this.Graphic.BorderRight.Active)
+                {
+                    input.Style.Border.SetRightBorder(this.Graphic.BorderRight.LineType.ToExcel());
+                    input.Style.Border.SetRightBorderColor(this.Graphic.BorderRight.Color.ToExcel());
+                }
+
+                if (this.Graphic.BorderInside.Active)
+                {
+                    input.Style.Border.SetInsideBorder(this.Graphic.BorderInside.LineType.ToExcel());
+                    input.Style.Border.SetInsideBorderColor(this.Graphic.BorderInside.Color.ToExcel());
+                }
+
+                if (this.Graphic.BorderOutside.Active)
+                {
+                    input.Style.Border.SetOutsideBorder(this.Graphic.BorderOutside.LineType.ToExcel());
+                    input.Style.Border.SetOutsideBorderColor(this.Graphic.BorderOutside.Color.ToExcel());
+                }
+            }
+        }
+
+        public void ApplyFont(XL.IXLWorksheet input)
+        {
+            if (this.Font.Active)
+            {
+                if (this.Font.HasColor) input.Style.Font.SetFontColor(this.Font.Color.ToExcel());
+                if (this.Font.HasFamily) input.Style.Font.SetFontName(this.Font.Family);
+                if (this.Font.HasSize) input.Style.Font.SetFontSize(this.Font.Size);
+                if (this.Font.HasJustification)
+                {
+                    input.Style.Alignment.Horizontal = this.Font.Justification.ToExcelHAlign();
+                    input.Style.Alignment.Vertical = this.Font.Justification.ToExcelVAlign();
+                }
+                input.Style.Font.SetBold(this.Font.IsBold);
+                input.Style.Font.SetItalic(this.Font.IsItalic);
+                if (this.Font.IsUnderlined)
+                {
+                    input.Style.Font.SetUnderline(XL.XLFontUnderlineValues.Single);
+                }
+                else
+                {
+                    input.Style.Font.SetUnderline(XL.XLFontUnderlineValues.None);
+                }
             }
         }
 

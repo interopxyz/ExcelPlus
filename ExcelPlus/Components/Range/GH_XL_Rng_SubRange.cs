@@ -12,8 +12,8 @@ namespace ExcelPlus.Components.Range
         /// Initializes a new instance of the GH_XL_Rng_SubRange class.
         /// </summary>
         public GH_XL_Rng_SubRange()
-          : base("Sub Range", "Sub Rng",
-              "Converts all Cells in a Range into a Range with a single Cell",
+          : base("Explode Range", "Explode Rng",
+              "Explode all Cells in a Range into individual Ranges",
               Constants.ShortName, Constants.SubRange)
         {
         }
@@ -57,7 +57,7 @@ namespace ExcelPlus.Components.Range
             bool active = false;
             DA.GetData(1, ref active);
 
-            DA.SetData(0, range);
+            DA.SetDataList(0, range.ToSubRange(active));
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace ExcelPlus.Components.Range
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.XL_Rng_Explode;
             }
         }
 

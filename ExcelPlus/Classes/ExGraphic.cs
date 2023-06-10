@@ -13,17 +13,16 @@ namespace ExcelPlus
 
         #region members
 
-        protected  HorizontalBorder hBorder = HorizontalBorder.None;
-        protected  LineType hType = LineType.Continuous;
-        protected  BorderWeight hWeight = BorderWeight.Medium;
-        protected  Sd.Color hStrokeColor = Sd.Color.Black;
+        protected ExBorder borderTop = new ExBorder();
+        protected ExBorder borderBottom = new ExBorder();
+        protected ExBorder borderRight = new ExBorder();
+        protected ExBorder borderLeft = new ExBorder();
+        protected ExBorder borderInside = new ExBorder();
+        protected ExBorder borderOutside = new ExBorder();
 
-        protected  VerticalBorder vBorder = VerticalBorder.None;
-        protected  LineType vType = LineType.Continuous;
-        protected  BorderWeight vWeight = BorderWeight.Medium;
-        protected  Sd.Color vStrokeColor = Sd.Color.Black;
+        protected Sd.Color fillColor = Sd.Color.Transparent;
 
-        protected  Sd.Color fillColor = Sd.Color.Transparent;
+        protected bool active = false;
 
         #endregion
 
@@ -36,17 +35,16 @@ namespace ExcelPlus
 
         public ExGraphic(ExGraphic graphic)
         {
-            this.hBorder = graphic.hBorder;
-            this.hType = graphic.hType;
-            this.hWeight = graphic.hWeight;
-            this.hStrokeColor = graphic.hStrokeColor;
-
-            this.vBorder = graphic.vBorder;
-            this.vType = graphic.vType;
-            this.vWeight = graphic.vWeight;
-            this.vStrokeColor = graphic.vStrokeColor;
+            this.borderTop = graphic.borderTop;
+            this.borderBottom = graphic.borderBottom;
+            this.borderRight = graphic.borderRight;
+            this.borderLeft = graphic.borderLeft;
+            this.borderInside = graphic.borderInside;
+            this.borderOutside = graphic.borderOutside;
 
             this.fillColor = graphic.fillColor;
+
+            this.active = graphic.active;
         }
 
 
@@ -54,52 +52,66 @@ namespace ExcelPlus
 
         #region properties
 
-        public virtual HorizontalBorder HorizontalBorder
+        public virtual bool Active
         {
-            get { return hBorder; }
-            set { hBorder = value; }
-        }
-        public virtual LineType HorizontalType
-        {
-            get { return hType; }
-            set { hType = value; }
-        }
-        public virtual BorderWeight HorizontalWeight
-        {
-            get { return hWeight; }
-            set { hWeight = value; }
-        }
-        public virtual Sd.Color HorizontalStrokeColor
-        {
-            get { return hStrokeColor; }
-            set { hStrokeColor = value; }
+            get 
+            { 
+                if(active)return true;
+                if (borderTop.Active) return true;
+                if (borderBottom.Active) return true;
+                if (borderRight.Active) return true;
+                if (borderLeft.Active) return true;
+                if (borderInside.Active) return true;
+                if (borderOutside.Active) return true;
+                return false;
+            }
         }
 
-        public virtual VerticalBorder VerticalBorder
+        public virtual ExBorder BorderTop
         {
-            get { return vBorder; }
-            set { vBorder = value; }
+            get { return this.borderTop; }
+            set { this.borderTop = value;}
         }
-        public virtual LineType VerticalType
+
+        public virtual ExBorder BorderBottom
         {
-            get { return vType; }
-            set { vType = value; }
+            get { return this.borderBottom; }
+            set { this.borderBottom = value; }
         }
-        public virtual BorderWeight VerticalWeight
+
+        public virtual ExBorder BorderLeft
         {
-            get { return vWeight; }
-            set { vWeight = value; }
+            get { return this.borderLeft; }
+            set { this.borderLeft = value; }
         }
-        public virtual Sd.Color VerticalStrokeColor
+
+        public virtual ExBorder BorderRight
         {
-            get { return vStrokeColor; }
-            set { vStrokeColor = value; }
+            get { return this.borderRight; }
+            set { this.borderRight = value; }
+        }
+
+        public virtual ExBorder BorderOutside
+        {
+            get { return this.borderOutside; }
+            set { this.borderOutside = value; }
+        }
+
+        public virtual ExBorder BorderInside
+        {
+            get { return this.borderInside; }
+            set { this.borderInside = value; }
         }
 
         public virtual Sd.Color FillColor
         {
-            get { return fillColor; }
-            set { fillColor = value; }
+            get { return this.fillColor; }
+            set { this.fillColor = value; this.active = true; }
+        }
+
+        public virtual bool HasFillColor
+        {
+            get { return this.fillColor != Sd.Color.Transparent; }
         }
 
         #endregion

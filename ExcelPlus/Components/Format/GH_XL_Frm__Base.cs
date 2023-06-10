@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ExcelPlus.Components
 {
-    public class GH_XL_Frm__Base : GH_Component
+    public abstract class GH_XL_Frm__Base : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the GH_XL_Frm__Base class.
@@ -26,7 +26,7 @@ namespace ExcelPlus.Components
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Object", "O", "A Cell, Range, Worksheet, or Workbook Object", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Object", "Obj", "A Cell, Range, Worksheet, or Workbook Object", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace ExcelPlus.Components
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Object", "O", "A Cell, Range, Worksheet, or Workbook Object", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Object", "Obj", "A Cell, Range, Worksheet, or Workbook Object", GH_ParamAccess.item);
         }
 
         /// <summary>

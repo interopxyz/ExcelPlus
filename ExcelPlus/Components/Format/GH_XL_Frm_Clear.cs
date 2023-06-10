@@ -8,14 +8,14 @@ using System.Drawing;
 
 namespace ExcelPlus.Components
 {
-    public abstract class GH_XL_Frm_Clear : GH_XL_Frm__Base
+    public class GH_XL_Frm_Clear : GH_XL_Frm__Base
     {
         /// <summary>
         /// Initializes a new instance of the GH_XL_Frm_Clear class.
         /// </summary>
         public GH_XL_Frm_Clear()
-          : base("Size", "Size",
-              "Set the size for a cell or all cells in a range or sheet",
+          : base("Clear", "Clear",
+              "Clear the content or formatting for a Cell or all Cells in a Range or Worksheet",
               Constants.ShortName, Constants.SubFormat)
         {
         }
@@ -98,7 +98,7 @@ namespace ExcelPlus.Components
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.XL_Cel_Clear;
             }
         }
 

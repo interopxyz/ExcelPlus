@@ -12,7 +12,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         public GH_XL_Wbk_Open()
           : base("Open Workbook", "Open Wbk",
-              "Open a Workbook from an Excel file",
+              "Open a Workbook from an Excel file"+Environment.NewLine+ "Supported extensions are '.xlsx', '.xlsm', '.xltx' and '.xltm'.'",
               Constants.ShortName, Constants.SubWorkBooks)
         {
         }
@@ -30,7 +30,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("Filepath", "P", "The full filepath to an excel file", GH_ParamAccess.item);
+            pManager.AddTextParameter("Filepath", "P", "The full Filepath to an Excel file" + Environment.NewLine + "Supported extensions are '.xlsx', '.xlsm', '.xltx' and '.xltm'.'", GH_ParamAccess.item);
             pManager.AddBooleanParameter(Constants.Activate.Name, Constants.Activate.NickName, Constants.Activate.Input, GH_ParamAccess.item);
         }
 

@@ -48,7 +48,7 @@ namespace ExcelPlus.Components
             pManager[6].Optional = true;
 
             Param_Integer paramA = (Param_Integer)pManager[4];
-            foreach (Justification value in Enum.GetValues(typeof(Justification)))
+            foreach (Justifications value in Enum.GetValues(typeof(Justifications)))
             {
                 paramA.AddNamedValue(value.ToString(), (int)value);
             }
@@ -90,7 +90,7 @@ namespace ExcelPlus.Components
                 if (DA.GetData(1, ref family)) cell.Font.Family = family;
                 if (DA.GetData(2, ref color)) cell.Font.Color = color;
                 if (DA.GetData(3, ref size)) cell.Font.Size = size;
-                if (DA.GetData(4, ref justifications)) cell.Font.Justification = (Justification)justifications;
+                if (DA.GetData(4, ref justifications)) cell.Font.Justification = (Justifications)justifications;
                 if (DA.GetData(5, ref isBold)) cell.Font.IsBold = isBold;
                 if (DA.GetData(6, ref isItalic)) cell.Font.IsItalic = isItalic;
 
@@ -108,7 +108,7 @@ namespace ExcelPlus.Components
                 if (DA.GetData(1, ref family)) range.Font.Family = family;
                 if (DA.GetData(2, ref color)) range.Font.Color = color;
                 if (DA.GetData(3, ref size)) range.Font.Size = size;
-                if (DA.GetData(4, ref justifications)) range.Font.Justification = (Justification)justifications;
+                if (DA.GetData(4, ref justifications)) range.Font.Justification = (Justifications)justifications;
                 if (DA.GetData(5, ref isBold)) range.Font.IsBold = isBold;
                 if (DA.GetData(6, ref isItalic)) range.Font.IsItalic = isItalic;
 
@@ -119,6 +119,24 @@ namespace ExcelPlus.Components
                 DA.SetData(4, (int)range.Font.Justification);
                 DA.SetData(5, range.Font.IsBold);
                 DA.SetData(6, range.Font.IsItalic);
+            }
+            else if (goo.CastTo<ExWorksheet>(out ExWorksheet sheet))
+            {
+                sheet = new ExWorksheet(sheet);
+                if (DA.GetData(1, ref family)) sheet.Font.Family = family;
+                if (DA.GetData(2, ref color)) sheet.Font.Color = color;
+                if (DA.GetData(3, ref size)) sheet.Font.Size = size;
+                if (DA.GetData(4, ref justifications)) sheet.Font.Justification = (Justifications)justifications;
+                if (DA.GetData(5, ref isBold)) sheet.Font.IsBold = isBold;
+                if (DA.GetData(6, ref isItalic)) sheet.Font.IsItalic = isItalic;
+
+                DA.SetData(0, sheet);
+                DA.SetData(1, sheet.Font.Family);
+                DA.SetData(2, sheet.Font.Color);
+                DA.SetData(3, sheet.Font.Size);
+                DA.SetData(4, (int)sheet.Font.Justification);
+                DA.SetData(5, sheet.Font.IsBold);
+                DA.SetData(6, sheet.Font.IsItalic);
             }
             else
             {

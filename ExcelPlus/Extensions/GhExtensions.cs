@@ -41,6 +41,21 @@ namespace ExcelPlus
                 cell = new ExCell((int)p2d.X, (int)p2d.Y);
                 return true;
             }
+            else if (input.CastTo<GH_Vector>(out GH_Vector vpt))
+            {
+                cell = new ExCell((int)vpt.Value.X, (int)vpt.Value.Y);
+                return true;
+            }
+            else if (input.CastTo<Rg.Vector3d>(out Rg.Vector3d v3d))
+            {
+                cell = new ExCell((int)v3d.X, (int)v3d.Y);
+                return true;
+            }
+            else if (input.CastTo<Rg.Vector2d>(out Rg.Vector2d v2d))
+            {
+                cell = new ExCell((int)v2d.X, (int)v2d.Y);
+                return true;
+            }
             else if (input.CastTo<Rg.Interval>(out Rg.Interval domain))
             {
                 cell = new ExCell((int)domain.T0, (int)domain.T1);
@@ -70,13 +85,13 @@ namespace ExcelPlus
             {
                 book.TryGetSheet(0, out ExWorksheet sheetOut);
                 sheetOut.TryGetRange(0, out ExRange rangeOut);
-                range = rangeOut;
+                range = new ExRange(rangeOut);
                 return true;
             }
             else if (input.CastTo<ExWorksheet>(out ExWorksheet sheet))
             {
                 sheet.TryGetRange(0, out ExRange rangeOut);
-                range = rangeOut;
+                range = new ExRange(rangeOut);
                 return true;
             }
             else if (input.CastTo<ExRange>(out ExRange rng))
@@ -107,7 +122,7 @@ namespace ExcelPlus
             else if (input.CastTo<ExWorkbook>(out ExWorkbook book))
             {
                 book.TryGetSheet(0, out ExWorksheet result);
-                worksheet = result;
+                worksheet = new ExWorksheet(result);
                 return true;
             }
             else if (input.CastTo<ExWorksheet>(out ExWorksheet sheet))
@@ -194,7 +209,7 @@ namespace ExcelPlus
                 {
                     if (hasWb)
                     {
-                        book.Sheets.AddRange(outWb.Sheets);
+                        book.Sheets.AddRange(outWb.GetSheets());
                     }
                     else
                     {
@@ -209,16 +224,16 @@ namespace ExcelPlus
             {
                 if (input.CastTo<ExWorksheet>(out ExWorksheet outSh))
                 {
-                    book.Sheets.Add(outSh);
+                    book.Sheets.Add(new ExWorksheet( outSh));
                 }
                 else if (input.CastTo<ExRange>(out ExRange outRn))
                 {
-                    sheet.Ranges.Add(outRn);
+                    sheet.Ranges.Add(new ExRange(outRn));
                     hasRange = true;
                 }
                 else if (input.CastTo<ExCell>(out ExCell outCl))
                 {
-                    range.SetCells(outCl);
+                    range.SetCells(new ExCell(outCl));
                     hasCell = true;
                     hasRange = true;
                 }
@@ -229,6 +244,43 @@ namespace ExcelPlus
             workbook = book;
             return true;
         }
+
+        public static bool TryCompileWorksheet(this List<IGH_Goo> inputs, out ExWorksheet worksheet)
+        {
+            ExWorksheet sheet = new ExWorksheet();
+            ExRange range = new ExRange();
+
+            worksheet = sheet;
+            if (inputs == null) return true;
+            if (inputs.Count < 1) return true;
+
+            bool hasCell = false;
+            foreach (IGH_Goo input in inputs)
+            {
+                if (input.CastTo<ExWorkbook>(out ExWorkbook outWb))
+                {
+                    foreach(ExWorksheet sht in outWb.Sheets) sheet.Ranges.AddRange(sht.GetRanges());
+                }
+                if (input.CastTo<ExWorksheet>(out ExWorksheet outSh))
+                {
+                    sheet.Ranges.AddRange(outSh.GetRanges());
+                }
+                else if (input.CastTo<ExRange>(out ExRange outRn))
+                {
+                    sheet.Ranges.Add(new ExRange(outRn));
+                }
+                else if (input.CastTo<ExCell>(out ExCell outCl))
+                {
+                    range.SetCells(new ExCell(outCl));
+                    hasCell = true;
+                }
+            }
+
+            if (hasCell) sheet.Ranges.Add(range);
+            worksheet = sheet;
+            return true;
+        }
+
         public static bool TryCompileRange(this List<IGH_Goo> inputs, out ExRange range)
         {
             ExRange rng = new ExRange();
@@ -242,7 +294,7 @@ namespace ExcelPlus
             {
                 if (input.CastTo<ExCell>(out ExCell cell))
                 {
-                    cells.Add(cell);
+                    cells.Add(new ExCell(cell));
                 }
                 else if(input.CastTo<ExRange>(out ExRange rnge))
                 {

@@ -13,7 +13,7 @@ namespace ExcelPlus.Components.Range
         /// </summary>
         public GH_XL_Rng_Deconstruct()
           : base("Deconstruct Range", "De Rng",
-              "Returns all the cells in a range",
+              "Deconstuct a Range into it's Cells",
               Constants.ShortName, Constants.SubRange)
         {
         }

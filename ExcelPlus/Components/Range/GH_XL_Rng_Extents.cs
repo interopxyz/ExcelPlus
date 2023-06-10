@@ -12,8 +12,8 @@ namespace ExcelPlus.Components.Range
         /// Initializes a new instance of the GH_XL_Rng_Extents class.
         /// </summary>
         public GH_XL_Rng_Extents()
-          : base("Sub Range", "Sub Rng",
-              "Converts all Cells in a Range into a Range with a single Cell",
+          : base("Range Extents", "Extents",
+              "Returns the minimum and maximum cells of a range",
               Constants.ShortName, Constants.SubRange)
         {
         }
@@ -39,8 +39,8 @@ namespace ExcelPlus.Components.Range
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("<", "Minimum Cell", Constants.Cell.Output, GH_ParamAccess.item);
-            pManager.AddGenericParameter(">", "Maximum Cell", Constants.Cell.Output, GH_ParamAccess.item);
+            pManager.AddGenericParameter("Minimum Cell", "<", Constants.Cell.Output, GH_ParamAccess.item);
+            pManager.AddGenericParameter("Maximum Cell", ">", Constants.Cell.Output, GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace ExcelPlus.Components.Range
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.XL_Rng_Extents;
             }
         }
 

@@ -34,7 +34,7 @@ namespace ExcelPlus.Components
         {
             base.RegisterInputParams(pManager);
             pManager.AddColourParameter("Object Color", "C", "Object color", GH_ParamAccess.item);
-            pManager[0].Optional = true;
+            pManager[1].Optional = true;
         }
 
         /// <summary>
@@ -72,6 +72,14 @@ namespace ExcelPlus.Components
 
                 DA.SetData(0, range);
                 DA.SetData(1, range.Graphic.FillColor);
+            }
+            else if (goo.CastTo<ExWorksheet>(out ExWorksheet sheet))
+            {
+                sheet = new ExWorksheet(sheet);
+                if (DA.GetData(1, ref color)) sheet.Graphic.FillColor = color;
+
+                DA.SetData(0, sheet);
+                DA.SetData(1, sheet.Graphic.FillColor);
             }
             else
             {

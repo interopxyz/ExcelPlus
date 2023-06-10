@@ -1,4 +1,5 @@
 ﻿using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace ExcelPlus.Components
         /// Initializes a new instance of the GH_XL_Wbk_Construct class.
         /// </summary>
         public GH_XL_Wbk_Construct()
-          : base("Construct Workbook", "Construct Wbk",
+          : base("Construct Workbook", "Workbook",
               "Construct a Workbook",
               Constants.ShortName, Constants.SubWorkBooks)
         {
@@ -22,7 +23,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.quarternary; }
+            get { return GH_Exposure.primary; }
         }
 
         /// <summary>
@@ -33,7 +34,7 @@ namespace ExcelPlus.Components
             base.RegisterInputParams(pManager);
             pManager[0].Optional = true;
             pManager.AddGenericParameter(Constants.Worksheet.Name, Constants.Worksheet.NickName, Constants.Worksheet.Input, GH_ParamAccess.list);
-
+            pManager[1].Optional = true;
         }
 
         /// <summary>
@@ -50,7 +51,15 @@ namespace ExcelPlus.Components
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            IGH_Goo gooB = null;
+            DA.GetData(0, ref gooB);
+            if (!gooB.TryGetWorkbook(out ExWorkbook workbook)) return;
 
+            List<IGH_Goo> goos = new List<IGH_Goo>();
+            DA.GetDataList(1, goos);
+            if (goos.TryCompileWorkbook(out ExWorkbook book)) workbook.Sheets.AddRange(book.GetSheets()); ;
+
+            DA.SetData(0, workbook);
         }
 
         /// <summary>
@@ -62,7 +71,7 @@ namespace ExcelPlus.Components
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.XL_Wbk_Add;
             }
         }
 

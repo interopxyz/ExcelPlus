@@ -13,13 +13,14 @@ namespace ExcelPlus
 
         #region members
 
-        protected string family = "Arial";
-        protected double size = 12;
-        protected Sd.Color color = Sd.Color.Black;
-        protected Justification justification = Justification.BottomLeft;
+        protected string family = "None";
+        protected double size = -1;
+        protected Sd.Color color = Sd.Color.Transparent;
+        protected Justifications justification = Justifications.BottomLeft;
         protected bool isBold = false;
         protected bool isItalic = false;
         protected bool isUnderlined = false;
+        protected bool active = false;
 
         #endregion
 
@@ -39,6 +40,7 @@ namespace ExcelPlus
             this.isBold = font.isBold;
             this.isItalic = font.isItalic;
             this.isUnderlined = font.isUnderlined;
+            this.active = font.active;
         }
 
 
@@ -46,46 +48,71 @@ namespace ExcelPlus
 
         #region properties
 
+        public virtual bool Active
+        {
+            get { return active; }
+        }
+
         public virtual string Family
         {
-            get { return family; }
-            set { family = value; }
+            get { return this.family; }
+            set { this.family = value; this.active = true; }
+        }
+
+        public virtual bool HasFamily
+        {
+            get { return this.family != "None"; }
         }
 
         public virtual double Size
         {
-            get { return size; }
-            set { size = value; }
+            get { return this.size; }
+            set { this.size = value; active = true; }
+        }
+
+        public virtual bool HasSize
+        {
+            get { return this.size > 0; }
         }
 
         public virtual Sd.Color Color
         {
-            get { return color; }
-            set { color = value; }
+            get { return this.color; }
+            set { this.color = value; }
         }
 
-        public virtual Justification Justification
+        public virtual bool HasColor
         {
-            get { return justification; }
-            set { justification = value; }
+            get { return this.color != Sd.Color.Transparent; }
+        }
+
+        public virtual Justifications Justification
+        {
+            get { return this.justification; }
+            set { this.justification = value; }
+        }
+
+        public virtual bool HasJustification
+        {
+            get { return this.justification != Justifications.None; }
         }
 
         public virtual bool IsBold
         {
-            get { return isBold; }
-            set { isBold = value; }
+            get { return this.isBold; }
+            set { this.isBold = value; }
         }
 
         public virtual bool IsItalic
         {
-            get { return isItalic; }
-            set { isItalic = value; }
+            get { return this.isItalic; }
+            set { this.isItalic = value; }
         }
 
         public virtual bool IsUnderlined
         {
-            get { return isUnderlined; }
-            set { isUnderlined = value; }
+            get { return this.isUnderlined; }
+            set { this.isUnderlined = value; }
         }
 
         #endregion

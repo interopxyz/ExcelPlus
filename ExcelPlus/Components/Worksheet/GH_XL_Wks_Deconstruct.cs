@@ -12,8 +12,8 @@ namespace ExcelPlus.Components.Worksheet
         /// Initializes a new instance of the GH_XL_Wks_GetCells class.
         /// </summary>
         public GH_XL_Wks_Deconstruct()
-          : base("Deconstruct WorkSheet", "De Sheet",
-              "Get all the ranges and active cells from a worksheet",
+          : base("Deconstruct Worksheet", "De Wks",
+              "Deconstruct a Worksheet into it's Ranges and Active Cells",
               Constants.ShortName, Constants.SubWorkSheets)
         {
         }
@@ -23,7 +23,7 @@ namespace ExcelPlus.Components.Worksheet
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.quarternary; }
+            get { return GH_Exposure.secondary; }
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace ExcelPlus.Components.Worksheet
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.XL_Wks_Deconstruct;
             }
         }
 

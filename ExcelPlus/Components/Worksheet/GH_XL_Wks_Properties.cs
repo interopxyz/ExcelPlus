@@ -13,7 +13,7 @@ namespace ExcelPlus.Components.Worksheet
         /// </summary>
         public GH_XL_Wks_Properties()
           : base("Worksheet Properties", "Wks Prop",
-              "Get or Set Worksheet Properties",
+              "Gets or Sets a Worksheet properties",
               Constants.ShortName, Constants.SubWorkSheets)
         {
         }
@@ -23,8 +23,9 @@ namespace ExcelPlus.Components.Worksheet
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.quinary; }
+            get { return GH_Exposure.secondary; }
         }
+
 
         /// <summary>
         /// Registers all the input parameters for this component.
@@ -78,7 +79,7 @@ namespace ExcelPlus.Components.Worksheet
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.XL_Wks_Edit;
             }
         }
 

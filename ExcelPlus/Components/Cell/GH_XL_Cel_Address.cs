@@ -12,7 +12,7 @@ namespace ExcelPlus.Components.Cell
         /// </summary>
         public GH_XL_Cel_Address()
           : base("Cell Address", "Cell Address",
-              "Set and get a Cell Address",
+              "Get and set a Cell's Address",
               Constants.ShortName, Constants.SubCell)
         {
         }
@@ -22,7 +22,7 @@ namespace ExcelPlus.Components.Cell
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.primary; }
+            get { return GH_Exposure.secondary; }
         }
 
         /// <summary>

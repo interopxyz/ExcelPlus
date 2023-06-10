@@ -83,9 +83,29 @@ namespace ExcelPlus.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap XL_Cel_Add {
+            get {
+                object obj = ResourceManager.GetObject("XL_Cel_Add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap XL_Cel_Address {
             get {
                 object obj = ResourceManager.GetObject("XL_Cel_Address", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XL_Cel_Clear {
+            get {
+                object obj = ResourceManager.GetObject("XL_Cel_Clear", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -163,9 +183,109 @@ namespace ExcelPlus.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap XL_Grp_Size {
+            get {
+                object obj = ResourceManager.GetObject("XL_Grp_Size", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XL_Rng_Add {
+            get {
+                object obj = ResourceManager.GetObject("XL_Rng_Add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XL_Rng_Compile {
+            get {
+                object obj = ResourceManager.GetObject("XL_Rng_Compile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XL_Rng_Explode {
+            get {
+                object obj = ResourceManager.GetObject("XL_Rng_Explode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XL_Rng_Extents {
+            get {
+                object obj = ResourceManager.GetObject("XL_Rng_Extents", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap XL_Rng_GetCells {
             get {
                 object obj = ResourceManager.GetObject("XL_Rng_GetCells", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XL_Rng_Merge {
+            get {
+                object obj = ResourceManager.GetObject("XL_Rng_Merge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XL_Rng_Populate {
+            get {
+                object obj = ResourceManager.GetObject("XL_Rng_Populate", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XL_Wbk_Add {
+            get {
+                object obj = ResourceManager.GetObject("XL_Wbk_Add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XL_Wbk_Deconstruct {
+            get {
+                object obj = ResourceManager.GetObject("XL_Wbk_Deconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XL_Wbk_Edit {
+            get {
+                object obj = ResourceManager.GetObject("XL_Wbk_Edit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -206,6 +326,36 @@ namespace ExcelPlus.Properties {
         internal static System.Drawing.Bitmap XL_Wbk_Wrt {
             get {
                 object obj = ResourceManager.GetObject("XL_Wbk_Wrt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XL_Wks_Add {
+            get {
+                object obj = ResourceManager.GetObject("XL_Wks_Add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XL_Wks_Deconstruct {
+            get {
+                object obj = ResourceManager.GetObject("XL_Wks_Deconstruct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XL_Wks_Edit {
+            get {
+                object obj = ResourceManager.GetObject("XL_Wks_Edit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

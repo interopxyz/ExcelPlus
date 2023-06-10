@@ -23,7 +23,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.quinary; }
+            get { return GH_Exposure.secondary; }
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace ExcelPlus.Components
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.XL_Wbk_Edit;
             }
         }
 
