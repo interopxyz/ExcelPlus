@@ -8,14 +8,14 @@ using System.Drawing;
 
 namespace ExcelPlus.Components
 {
-    public class GH_XL_Gph_BorderHorizontal : GH_XL_Gph__Base
+    public class GH_XL_Gph_Border : GH_XL_Gph__Base
     {
         /// <summary>
         /// Initializes a new instance of the GH_XL_Gph_BorderHorizontal class.
         /// </summary>
-        public GH_XL_Gph_BorderHorizontal()
+        public GH_XL_Gph_Border()
           : base("Border", "Border",
-              "Set the Border formatting for a cell or range",
+              "Get or Set the Border formatting for a Cell, Range, or Worksheet",
               Constants.ShortName, Constants.SubFormat)
         {
         }

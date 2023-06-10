@@ -129,7 +129,7 @@
     <Compile Include="Components\Format\GH_XL_Frm_Clear.cs" />
     <Compile Include="Components\Format\GH_XL_Frm_Size.cs" />
     <Compile Include="Components\Format\GH_XL_Frm__Base.cs" />
-    <Compile Include="Components\Format\GH_XL_Gph_BorderHorizontal.cs" />
+    <Compile Include="Components\Format\GH_XL_Gph_Border.cs" />
     <Compile Include="Components\Format\GH_XL_Gph_Fill.cs" />
     <Compile Include="Components\Format\GH_XL_Gph_Font.cs" />
     <Compile Include="Components\Format\GH_XL_Gph__Base.cs" />

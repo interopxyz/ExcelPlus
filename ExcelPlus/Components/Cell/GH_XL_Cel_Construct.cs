@@ -13,7 +13,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public GH_XL_Cel_Set()
           : base("Construct Cell", "Cell",
-              "Creates or update the contents of a Cell",
+              "Gets or Sets the contents of a Cell",
               Constants.ShortName, Constants.SubCell)
         {
         }

@@ -13,7 +13,7 @@ namespace ExcelPlus.Components.Workbook
         /// Initializes a new instance of the GH_XL_Wbk_Write class.
         /// </summary>
         public GH_XL_Wbk_Write()
-          : base("Write Workbook", "Write Workbook",
+          : base("Write Workbook", "Write Wbk",
               "Write a Workbook to a Memory Stream string",
               Constants.ShortName, Constants.SubWorkBooks)
         {

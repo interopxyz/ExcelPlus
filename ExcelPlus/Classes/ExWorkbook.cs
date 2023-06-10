@@ -223,6 +223,8 @@ namespace ExcelPlus
 
                 sheet.ApplyGraphics(xlSheet);
                 sheet.ApplyFont(xlSheet);
+                if (sheet.ColumnWidth > 0) xlSheet.ColumnWidth = sheet.ColumnWidth;
+                if (sheet.RowHeight > 0) xlSheet.RowHeight= sheet.RowHeight;
 
                 foreach (ExRange range in sheet.Ranges)
                 {

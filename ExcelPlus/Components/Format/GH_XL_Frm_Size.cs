@@ -15,7 +15,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public GH_XL_Frm_Size()
           : base("Size", "Size",
-              "Set the size for a cell or all cells in a range or sheet",
+              "Get or Set the Column and Row size for a Cell, Range, or Worksheet",
               Constants.ShortName, Constants.SubFormat)
         {
         }

@@ -13,7 +13,7 @@ namespace ExcelPlus.Components.Worksheet
         /// </summary>
         public GH_XL_Wks_Properties()
           : base("Worksheet Properties", "Wks Prop",
-              "Gets or Sets a Worksheet properties",
+              "Gets or Sets Worksheet properties",
               Constants.ShortName, Constants.SubWorkSheets)
         {
         }

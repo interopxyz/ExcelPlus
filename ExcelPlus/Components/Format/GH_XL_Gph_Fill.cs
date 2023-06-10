@@ -14,7 +14,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public GH_XL_Gph_Fill()
           : base("Fill", "Fill",
-              "Set the Fill formatting for a cell or range",
+              "Get or Set the Fill formatting for a Cell, Range, or Worksheet",
               Constants.ShortName, Constants.SubFormat)
         {
         }

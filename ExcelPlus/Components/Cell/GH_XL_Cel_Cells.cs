@@ -13,7 +13,7 @@ namespace ExcelPlus.Components.Cell
         /// </summary>
         public GH_XL_Cel_Cells()
           : base("Generate Cells", "Cells",
-              "Generates a list of cells from a start and end Cell",
+              "Generates a list of Cells from a minimum Cell and maximum Cell",
               Constants.ShortName, Constants.SubCell)
         {
         }

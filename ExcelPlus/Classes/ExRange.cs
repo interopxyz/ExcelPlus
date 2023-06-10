@@ -55,6 +55,9 @@ namespace ExcelPlus
             this.Graphic = new ExGraphic(range.Graphic);
             this.Font = new ExFont(range.Font);
             this.merge = range.merge;
+
+            this.columnWidth = range.columnWidth;
+            this.rowHeight = range.rowHeight;
         }
 
         public ExRange(ExCell cell)

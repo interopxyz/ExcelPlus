@@ -12,8 +12,8 @@ namespace ExcelPlus.Components.Range
         /// Initializes a new instance of the GH_XL_Rng_Extents class.
         /// </summary>
         public GH_XL_Rng_Extents()
-          : base("Range Extents", "Extents",
-              "Returns the minimum and maximum cells of a range",
+          : base("Range Extents", "Rng Extents",
+              "Returns the minimum Cell and maximum Cell of a Range",
               Constants.ShortName, Constants.SubRange)
         {
         }

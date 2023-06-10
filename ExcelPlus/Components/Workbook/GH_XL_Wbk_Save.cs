@@ -14,7 +14,7 @@ namespace ExcelPlus.Components
         /// Initializes a new instance of the GH_Ex_Wb_Save class.
         /// </summary>
         public GH_XL_Wbk_Save()
-          : base("Save Workbook", "Save Workbook",
+          : base("Save Workbook", "Save Wbk",
               "Save a Workbook to an Excel file",
               Constants.ShortName, Constants.SubWorkBooks)
         {

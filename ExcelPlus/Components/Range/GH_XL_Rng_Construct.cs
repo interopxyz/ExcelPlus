@@ -13,7 +13,7 @@ namespace ExcelPlus.Components.Range
         /// </summary>
         public GH_XL_Rng_Construct()
           : base("Construct Range", "Range",
-              "Creates a Range from a series of cells",
+              "Creates a Range from a series of Cells",
               Constants.ShortName, Constants.SubRange)
         {
         }
