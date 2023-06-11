@@ -139,7 +139,9 @@
     <Compile Include="Components\Range\GH_XL_Rng_Merge.cs" />
     <Compile Include="Components\Range\GH_XL_Rng_Populate.cs" />
     <Compile Include="Components\Range\GH_XL_Rng_Explode.cs" />
+    <Compile Include="Components\Range\GH_XL_Rng_SubRanges.cs" />
     <Compile Include="Components\Range\GH_XL_Rng__Base.cs" />
+    <Compile Include="Components\Range\RH_XL_Wbk_AddRange.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk_Deconstruct.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk_Open.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk_Properties.cs" />
@@ -266,6 +268,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\XL-Rng-Deconstruct.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-By.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

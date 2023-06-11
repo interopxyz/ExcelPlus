@@ -67,21 +67,30 @@ namespace ExcelPlus.Components
 
             if (goo.CastTo<ExCell>(out ExCell cell))
             {
+                cell = new ExCell(cell);
                 if (hasWidth) cell.Width = width;
-                if (hasWidth) cell.Height = height;
+                if (hasHeight) cell.Height = height;
                 DA.SetData(0, cell);
+                DA.SetData(1, cell.Width);
+                DA.SetData(2, cell.Height);
             }
             else if (goo.CastTo<ExRange>(out ExRange range))
             {
+                range = new ExRange(range);
                 if (hasWidth) range.ColumnWidth = width;
-                if (hasWidth) range.RowHeight= height;
+                if (hasHeight) range.RowHeight= height;
                 DA.SetData(0, range);
+                DA.SetData(1, range.ColumnWidth);
+                DA.SetData(2, range.RowHeight);
             }
             else if (goo.CastTo<ExWorksheet>(out ExWorksheet sheet))
             {
+                sheet = new ExWorksheet(sheet);
                 if (hasWidth) sheet.ColumnWidth = width;
-                if (hasWidth) sheet.RowHeight = height;
+                if (hasHeight) sheet.RowHeight = height;
                 DA.SetData(0, sheet);
+                DA.SetData(1, sheet.ColumnWidth);
+                DA.SetData(2, sheet.RowHeight);
             }
         }
 

@@ -31,11 +31,11 @@ namespace ExcelPlus.Components.Cell
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Cell.Name, "<", Constants.Cell.Input, GH_ParamAccess.item);
+            pManager.AddGenericParameter("Minimum Cell", "<", Constants.Cell.Input, GH_ParamAccess.item);
             pManager[0].Optional = true;
-            pManager.AddGenericParameter(Constants.Cell.Name, ">", Constants.Cell.Input, GH_ParamAccess.item);
+            pManager.AddGenericParameter("Maximum Cell", ">", Constants.Cell.Input, GH_ParamAccess.item);
             pManager[1].Optional = true;
-            pManager.AddBooleanParameter("Flip", "F", "If true, cells are listed by column. If false, by row", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("By Column", "C", "If true, Cells are listed by Column. If false, by Row", GH_ParamAccess.item, true);
             pManager[2].Optional = true;
         }
 

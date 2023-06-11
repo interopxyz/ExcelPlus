@@ -37,7 +37,7 @@ namespace ExcelPlus.Components
             pManager.AddBooleanParameter("Clear Values", "V", "Clear the values", GH_ParamAccess.item, false);
             pManager[1].Optional = true;
             pManager.AddBooleanParameter("Clear Formatting", "F", "Clear the formatting", GH_ParamAccess.item, false);
-            pManager[1].Optional = true;
+            pManager[2].Optional = true;
         }
 
         /// <summary>
@@ -65,26 +65,34 @@ namespace ExcelPlus.Components
 
             if (goo.CastTo<ExCell>(out ExCell cell))
             {
+                cell = new ExCell(cell);
                 if (clearValue) cell.ClearValue();
                 if (clearFormat) cell.ClearFormatting();
+
                 DA.SetData(0, cell);
             }
             else if (goo.CastTo<ExRange>(out ExRange range))
             {
+                range = new ExRange(range);
                 if (clearValue) range.ClearValues();
                 if (clearFormat) range.ClearFormatting();
+
                 DA.SetData(0, range);
             }
             else if (goo.CastTo<ExWorksheet>(out ExWorksheet sheet))
             {
+                sheet = new ExWorksheet(sheet);
                 if (clearValue) sheet.ClearValues();
                 if (clearFormat) sheet.ClearFormatting();
+
                 DA.SetData(0, sheet);
             }
             else if (goo.CastTo<ExWorkbook>(out ExWorkbook book))
             {
+                book = new ExWorkbook(book);
                 if (clearValue) book.ClearValues();
                 if (clearFormat) book.ClearFormatting();
+
                 DA.SetData(0, book);
             }
         }

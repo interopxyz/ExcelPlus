@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace ExcelPlus
 {
 
+    public enum ContentTypes { Value, Formula };
     public enum Borders { Bottom, Top, Left, Right, Inside, Outside };
     public enum HorizontalBorders { None, Bottom, Top, Both, Between, All };
     public enum VerticalBorders { None, Left, Right, Both, Between, All };

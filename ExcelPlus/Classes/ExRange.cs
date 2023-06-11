@@ -75,11 +75,13 @@ namespace ExcelPlus
             this.SetCells(new ExCell[] { min, max });
         }
 
-        public ExRange(ExCell source, List<List<GH_String>> data)
+        public ExRange(ExCell source, List<List<GH_String>> data, bool byColumn = true)
         {
             int x = data.Count;
             List<ExCell> cells = new List<ExCell>();
 
+            if (byColumn)
+            {
             for (int i = 0; i < x; i++)
             {
                 int y = data[i].Count;
@@ -88,6 +90,20 @@ namespace ExcelPlus
                     ExCell cell = new ExCell(source.Column + i, source.Row + j);
                     cell.Value = data[i][j].Value;
                     cells.Add(cell);
+                }
+            }
+            }
+            else
+            {
+                for (int i = 0; i < x; i++)
+                {
+                    int y = data[i].Count;
+                    for (int j = 0; j < y; j++)
+                    {
+                        ExCell cell = new ExCell(source.Column + j, source.Row + i);
+                        cell.Value = data[i][j].Value;
+                        cells.Add(cell);
+                    }
                 }
             }
             this.SetCells(cells);
@@ -194,10 +210,49 @@ namespace ExcelPlus
         {
             this.Graphic = new ExGraphic();
             this.Font = new ExFont();
+
+            this.columnWidth = -1;
+            this.rowHeight = -1;
+
             foreach (string key in cells.Keys) cells[key].ClearFormatting();
         }
 
-        public List<ExRange> ToSubRange(bool active = false)
+        public List<ExRange> SubRanges(bool byColumn)
+        {
+            List<ExRange> ranges = new List<ExRange>();
+
+            if(byColumn)
+            {
+                for (int j = this.min.Row; j < this.max.Row+1; j++)
+                {
+                    List<ExCell> tempCells = new List<ExCell>();
+                    for (int i = this.min.Column; i < this.max.Column+1; i++)
+                    {
+                        ExCell cell = new ExCell(i, j);
+                        if (this.cells.ContainsKey(cell.Address)) cell = new ExCell(this.cells[cell.Address]);
+                        tempCells.Add(cell);
+                    }
+                    ranges.Add(new ExRange(tempCells));
+                }
+            }
+            else
+            {
+                for(int i = this.min.Column; i < this.max.Column+1; i++)
+                {
+                    List<ExCell> tempCells = new List<ExCell>();
+                    for (int j = this.min.Row; j < this.max.Row+1; j++)
+                    {
+                        ExCell cell = new ExCell(i, j);
+                        if (this.cells.ContainsKey(cell.Address)) cell = new ExCell(this.cells[cell.Address]);
+                        tempCells.Add(cell);
+                    }
+                    ranges.Add(new ExRange(tempCells));
+                }
+            }
+            return ranges;
+        }
+
+        public List<ExRange> Explode(bool active = false)
         {
             List<ExCell> tempCells = new List<ExCell>();
 

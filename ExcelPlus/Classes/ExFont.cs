@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using Sd = System.Drawing;
 
+using XL = ClosedXML.Excel;
+
 namespace ExcelPlus
 {
     public class ExFont
@@ -41,6 +43,18 @@ namespace ExcelPlus
             this.isItalic = font.isItalic;
             this.isUnderlined = font.isUnderlined;
             this.active = font.active;
+        }
+
+        public ExFont(XL.IXLStyle style)
+        {
+            this.color = style.Font.FontColor.ToColor();
+            this.family = style.Font.FontName;
+            this.size = style.Font.FontSize;
+            this.isBold = style.Font.Bold;
+            this.isItalic= style.Font.Italic;
+            this.isUnderlined = !(style.Font.Underline == XL.XLFontUnderlineValues.None);
+            this.justification = style.Alignment.Horizontal.ToJustification(style.Alignment.Vertical);
+            this.active = true;
         }
 
 

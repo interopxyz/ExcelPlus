@@ -89,15 +89,21 @@ namespace ExcelPlus.Components
             Borders type = (Borders)borderType;
 
             Color color = Color.Black;
-            int weight = 0;
             int linetype = 0;
 
             ExBorder border = new ExBorder();
 
-            if (goo.CastTo<ExCell>(out ExCell cell))
-            {
-                cell = new ExCell(cell);
+            bool isCell = goo.CastTo<ExCell>(out ExCell cell);
+            if(isCell)cell = new ExCell(cell);
 
+            bool isRange = goo.CastTo<ExRange>(out ExRange range);
+            if(isRange)range = new ExRange(range);
+
+            bool isSheet = goo.CastTo<ExWorksheet>(out ExWorksheet sheet);
+            if(isSheet)sheet = new ExWorksheet(sheet);
+
+            if (isCell)
+            {
                 switch(type)
                 {
                     case Borders.Bottom:
@@ -119,16 +125,9 @@ namespace ExcelPlus.Components
                         border = cell.Graphic.BorderOutside;
                         break;
                 }
-
-                if (DA.GetData(2, ref color)) border.Color = color;
-                if (DA.GetData(3, ref linetype)) border.LineType = (LineTypes)linetype;
-
-                DA.SetData(0, cell);
             }
-            else if (goo.CastTo<ExRange>(out ExRange range))
+            else if (isRange)
             {
-                range = new ExRange(range);
-
                 switch (type)
                 {
                     case Borders.Bottom:
@@ -150,15 +149,9 @@ namespace ExcelPlus.Components
                         border = range.Graphic.BorderOutside;
                         break;
                 }
-
-                if (DA.GetData(2, ref color)) border.Color = color;
-                if (DA.GetData(3, ref linetype)) border.LineType = (LineTypes)linetype;
-
-                DA.SetData(0, range);
             }
-            else if (goo.CastTo<ExWorksheet>(out ExWorksheet sheet))
+            else if (isSheet)
             {
-                sheet = new ExWorksheet(sheet);
 
                 switch (type)
                 {
@@ -181,19 +174,96 @@ namespace ExcelPlus.Components
                         border = sheet.Graphic.BorderOutside;
                         break;
                 }
-
-                if (DA.GetData(2, ref color)) border.Color = color;
-                if (DA.GetData(3, ref linetype)) border.LineType = (LineTypes)linetype;
-
-                DA.SetData(0, sheet);
             }
             else
             {
                 return;
             }
+
+                if (DA.GetData(2, ref color)) border.Color = color;
+                if (DA.GetData(3, ref linetype)) border.LineType = (LineTypes)linetype;
+
                 DA.SetData(1, type);
                 DA.SetData(2, border.Color);
                 DA.SetData(3, (int)border.LineType);
+
+
+            if (isCell)
+            {
+                switch (type)
+                {
+                    case Borders.Bottom:
+                        cell.Graphic.BorderBottom = border;
+                        break;
+                    case Borders.Top:
+                        cell.Graphic.BorderTop = border;
+                        break;
+                    case Borders.Left:
+                        cell.Graphic.BorderLeft = border;
+                        break;
+                    case Borders.Right:
+                        cell.Graphic.BorderRight = border;
+                        break;
+                    case Borders.Inside:
+                        cell.Graphic.BorderInside = border;
+                        break;
+                    case Borders.Outside:
+                        cell.Graphic.BorderOutside = border;
+                        break;
+                }
+                DA.SetData(0, cell);
+            }
+            else if (isRange)
+            {
+                switch (type)
+                {
+                    case Borders.Bottom:
+                        range.Graphic.BorderBottom = border;
+                        break;
+                    case Borders.Top:
+                        range.Graphic.BorderTop = border;
+                        break;
+                    case Borders.Left:
+                        range.Graphic.BorderLeft = border;
+                        break;
+                    case Borders.Right:
+                        range.Graphic.BorderRight = border;
+                        break;
+                    case Borders.Inside:
+                        range.Graphic.BorderInside = border;
+                        break;
+                    case Borders.Outside:
+                        range.Graphic.BorderOutside = border;
+                        break;
+                }
+                DA.SetData(0, range);
+            }
+            else if (isSheet)
+            {
+                switch (type)
+                {
+                    case Borders.Bottom:
+                        sheet.Graphic.BorderBottom = border;
+                        break;
+                    case Borders.Top:
+                        sheet.Graphic.BorderTop = border;
+                        break;
+                    case Borders.Left:
+                        sheet.Graphic.BorderLeft = border;
+                        break;
+                    case Borders.Right:
+                        sheet.Graphic.BorderRight = border;
+                        break;
+                    case Borders.Inside:
+                        sheet.Graphic.BorderInside = border;
+                        break;
+                    case Borders.Outside:
+                        sheet.Graphic.BorderOutside = border;
+                        break;
+                }
+
+                DA.SetData(0, sheet);
+            }
         }
 
         /// <summary>

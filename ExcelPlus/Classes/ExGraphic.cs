@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using Sd = System.Drawing;
 
+using XL = ClosedXML.Excel;
+
 namespace ExcelPlus
 {
     public class ExGraphic
@@ -35,18 +37,28 @@ namespace ExcelPlus
 
         public ExGraphic(ExGraphic graphic)
         {
-            this.borderTop = graphic.borderTop;
-            this.borderBottom = graphic.borderBottom;
-            this.borderRight = graphic.borderRight;
-            this.borderLeft = graphic.borderLeft;
-            this.borderInside = graphic.borderInside;
-            this.borderOutside = graphic.borderOutside;
+            this.borderTop = new ExBorder(graphic.borderTop);
+            this.borderBottom = new ExBorder(graphic.borderBottom);
+            this.borderRight = new ExBorder(graphic.borderRight);
+            this.borderLeft = new ExBorder(graphic.borderLeft);
+            this.borderInside = new ExBorder(graphic.borderInside);
+            this.borderOutside = new ExBorder(graphic.borderOutside);
 
             this.fillColor = graphic.fillColor;
 
             this.active = graphic.active;
         }
 
+        public ExGraphic(XL.IXLStyle style)
+        {
+            this.borderTop = new ExBorder(style.Border.BottomBorder,style.Border.BottomBorderColor);
+            this.borderBottom = new ExBorder(style.Border.TopBorder, style.Border.BottomBorderColor);
+            this.borderRight = new ExBorder(style.Border.RightBorder, style.Border.BottomBorderColor);
+            this.borderLeft = new ExBorder(style.Border.LeftBorder, style.Border.BottomBorderColor);
+
+            this.fillColor = style.Fill.BackgroundColor.ToColor();
+            this.active = true;
+        }
 
         #endregion
 
@@ -69,37 +81,37 @@ namespace ExcelPlus
 
         public virtual ExBorder BorderTop
         {
-            get { return this.borderTop; }
+            get { return new ExBorder(this.borderTop); }
             set { this.borderTop = value;}
         }
 
         public virtual ExBorder BorderBottom
         {
-            get { return this.borderBottom; }
+            get { return new ExBorder(this.borderBottom); }
             set { this.borderBottom = value; }
         }
 
         public virtual ExBorder BorderLeft
         {
-            get { return this.borderLeft; }
+            get { return new ExBorder(this.borderLeft); }
             set { this.borderLeft = value; }
         }
 
         public virtual ExBorder BorderRight
         {
-            get { return this.borderRight; }
+            get { return new ExBorder(this.borderRight); }
             set { this.borderRight = value; }
         }
 
         public virtual ExBorder BorderOutside
         {
-            get { return this.borderOutside; }
+            get { return new ExBorder(this.borderOutside); }
             set { this.borderOutside = value; }
         }
 
         public virtual ExBorder BorderInside
         {
-            get { return this.borderInside; }
+            get { return new ExBorder(this.borderInside); }
             set { this.borderInside = value; }
         }
 

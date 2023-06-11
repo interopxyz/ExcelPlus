@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using Sd = System.Drawing;
 
+using XL = ClosedXML.Excel;
+
 namespace ExcelPlus
 {
     public class ExBorder
@@ -27,6 +29,14 @@ namespace ExcelPlus
         {
             this.lineType = border.lineType;
             this.color = border.color;
+            this.active = border.active;
+        }
+
+        public ExBorder(XL.XLBorderStyleValues lineType, XL.XLColor color)
+        {
+            this.lineType = lineType.ToPlus();
+            this.color = color.ToColor();
+            this.active = !(this.lineType == LineTypes.None);
         }
 
         #endregion
@@ -35,19 +45,19 @@ namespace ExcelPlus
 
         public virtual bool Active
         {
-            get { return active; }
+            get { return this.active; }
         }
 
         public LineTypes LineType
         {
-            get { return lineType; }
-            set { lineType = value; active = true; }
+            get { return this.lineType; }
+            set { this.lineType = value; this.active = true; }
         }
 
         public Sd.Color Color
         {
-            get { return color; }
-            set { color = value; active = true; }
+            get { return this.color; }
+            set { this.color = value; this.active = true; }
         }
 
         #endregion

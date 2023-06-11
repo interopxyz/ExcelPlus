@@ -1,20 +1,19 @@
 ﻿using Grasshopper.Kernel;
-using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelPlus.Components
+namespace ExcelPlus.Components.Range
 {
-    public class GH_XL_Rng_Populate : GH_Component
+    public class RH_XL_Wbk_AddRange : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Rng_Populate class.
+        /// Initializes a new instance of the RH_XL_Wbk_SetRange class.
         /// </summary>
-        public GH_XL_Rng_Populate()
-          : base("Populate Range", "Pop Rng",
-              "Creates a Range from a starting Cell and DataTree of Values",
+        public RH_XL_Wbk_AddRange()
+          : base("New Range", "New Range",
+              "Creates a new Range from a minimum and maximum Cell",
               Constants.ShortName, Constants.SubRange)
         {
         }
@@ -32,11 +31,10 @@ namespace ExcelPlus.Components
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Origin Cell", Constants.Cell.NickName, Constants.Cell.Input, GH_ParamAccess.item);
+            pManager.AddGenericParameter("Minimum Cell", "<", Constants.Cell.Input, GH_ParamAccess.item);
             pManager[0].Optional = true;
-            pManager.AddTextParameter("Values", "V", "A datatree of values", GH_ParamAccess.tree);
-            pManager.AddBooleanParameter("By Column", "C", "If true, branches will be written to Columns, if false to Rows", GH_ParamAccess.item, true);
-            pManager[2].Optional = true;
+            pManager.AddGenericParameter("Maximum Cell", ">", Constants.Cell.Input, GH_ParamAccess.item);
+            pManager[1].Optional = true;
         }
 
         /// <summary>
@@ -53,26 +51,15 @@ namespace ExcelPlus.Components
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            IGH_Goo goo = null;
-            DA.GetData(0, ref goo);
-            if (!goo.TryGetCell(out ExCell cell)) return;
+            IGH_Goo gooA = null;
+            DA.GetData(0, ref gooA);
+            gooA.TryGetCell(out ExCell min);
 
-            GH_Structure<GH_String> ghData = new GH_Structure<GH_String>();
+            IGH_Goo gooB = null;
+            DA.GetData(1, ref gooB);
+            gooB.TryGetCell(out ExCell max);
 
-            List<List<GH_String>> dataSet = new List<List<GH_String>>();
-            if (!DA.GetDataTree(1, out ghData)) return;
-
-            bool byColumn = true;
-            DA.GetData(2, ref byColumn);
-
-            foreach (List<GH_String> data in ghData.Branches)
-            {
-                dataSet.Add(data);
-            }
-
-            ExRange range = new ExRange(cell, dataSet, byColumn);
-
-            DA.SetData(0, range);
+            DA.SetData(0, new ExRange(min,max));
         }
 
         /// <summary>
@@ -84,7 +71,7 @@ namespace ExcelPlus.Components
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Rng_Populate;
+                return Properties.Resources.XL_Rng_GetCells;
             }
         }
 
@@ -93,7 +80,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("88560184-26a6-472c-884b-9d2b767f94e2"); }
+            get { return new Guid("debea2e6-7917-490c-ada8-dfe4d1843747"); }
         }
     }
 }

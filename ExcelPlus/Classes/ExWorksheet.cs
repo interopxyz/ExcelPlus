@@ -39,6 +39,13 @@ namespace ExcelPlus
             this.name = sheet.Name;
             this.Ranges.Add(new ExRange(sheet.CellsUsed().ToList()));
             this.baseRange = new ExRange(sheet.Cells().ToList());
+
+            this.baseRange.ColumnWidth = sheet.ColumnWidth;
+            this.baseRange.RowHeight = sheet.RowHeight;
+
+            this.Graphic = new ExGraphic(sheet.Style);
+            this.Font = new ExFont(sheet.Style);
+
             this.active = sheet.TabActive;
         }
 
@@ -134,6 +141,10 @@ namespace ExcelPlus
         {
             this.Graphic = new ExGraphic();
             this.Font = new ExFont();
+
+            this.ColumnWidth = -1;
+            this.RowHeight = -1;
+
             foreach (ExRange range in Ranges) range.ClearFormatting();
         }
 

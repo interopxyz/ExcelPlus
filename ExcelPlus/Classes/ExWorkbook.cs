@@ -182,6 +182,7 @@ namespace ExcelPlus
 
             this.ComObj = new XL.XLWorkbook(filepath);
             this.ParseWorkbook();
+            this.name = name;
         }
 
         public void Open(string filepath)
@@ -189,6 +190,7 @@ namespace ExcelPlus
             this.ComObj = new XL.XLWorkbook(filepath);
             
             this.ParseWorkbook();
+            this.name = Path.GetFileNameWithoutExtension(filepath);
         }
 
         public string Write()
@@ -220,6 +222,7 @@ namespace ExcelPlus
 
                 XL.IXLWorksheet xlSheet = this.ComObj.AddWorksheet();
                 if (sheet.Name != string.Empty) xlSheet.Name = sheet.Name;
+                if (sheet.Active) xlSheet.SetTabActive();
 
                 sheet.ApplyGraphics(xlSheet);
                 sheet.ApplyFont(xlSheet);
@@ -231,6 +234,9 @@ namespace ExcelPlus
                     XL.IXLRange xlRange = xlSheet.Range(range.Min.Row, range.Min.Column, range.Max.Row, range.Max.Column);
                     range.ApplyGraphics(xlRange);
                     range.ApplyFont(xlRange);
+
+                    if (range.ColumnWidth > 0) xlSheet.Columns(range.Min.Column, range.Max.Column).Width = range.ColumnWidth;
+                    if (range.RowHeight > 0) xlSheet.Rows(range.Min.Row, range.Max.Row).Height = range.RowHeight;
                 }
 
                 List<ExCell> cells = sheet.ActiveCells;
@@ -238,7 +244,21 @@ namespace ExcelPlus
                 foreach (ExCell cell in cells)
                 {
                     XL.IXLCell xlCell = xlSheet.Cell(cell.Row, cell.Column);
-                    if (double.TryParse(cell.Value, out double num)) xlCell.Value = num; else xlCell.Value = cell.Value;
+                    if (double.TryParse(cell.Value, out double num))
+                    {
+                        xlCell.Value = num;
+                    }
+                    else
+                    {
+                        if (cell.IsFormula)
+                        {
+                            xlCell.FormulaA1 = cell.Value;
+                        }
+                        else
+                        {
+                            xlCell.Value = cell.Value;
+                        }
+                    }
 
                     cell.ApplyGraphics(xlCell);
                     cell.ApplyFont(xlCell);
@@ -246,6 +266,16 @@ namespace ExcelPlus
                     if (cell.Width > 0) xlCell.WorksheetColumn().Width = cell.Width;
                     if (cell.Height > 0) xlCell.WorksheetRow().Height = cell.Height;
                 }
+
+                foreach (ExRange range in sheet.Ranges)
+                {
+                    if (range.IsMerged)
+                    {
+                        XL.IXLRange xlRange = xlSheet.Range(range.Min.Row, range.Min.Column, range.Max.Row, range.Max.Column);
+                        xlRange.Merge(true);
+                    }
+                }
+
             }
         }
 
@@ -257,7 +287,7 @@ namespace ExcelPlus
             {
                 sheets.Add(new ExWorksheet(sheet));
             }
-            this.name = this.ComObj.Properties.Title;
+
             this.Sheets = sheets;
         }
 

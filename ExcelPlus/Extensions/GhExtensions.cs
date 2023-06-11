@@ -75,6 +75,7 @@ namespace ExcelPlus
 
         public static bool TryGetRange(this IGH_Goo input, out ExRange range)
         {
+            range = new ExRange();
 
             if (input == null)
             {
@@ -102,6 +103,14 @@ namespace ExcelPlus
             else if (input.CastTo<ExCell>(out ExCell cell))
             {
                 range = new ExRange(cell);
+                return true;
+            }
+            else if (input.CastTo<string>(out string address))
+            {
+                if (!address.Contains(":")) return true;
+                string[] addresses = address.Split(':');
+                if (addresses.Count() < 2) return true;
+                range = new ExRange(new ExCell(addresses[0]), new ExCell(addresses[1]));
                 return true;
             }
             else

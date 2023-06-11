@@ -19,6 +19,7 @@ namespace ExcelPlus
         protected bool isRowAbsolute = false;
         protected string value = string.Empty;
         protected string format = "None";
+        protected ContentTypes contentType = ContentTypes.Value;
 
         protected double width = -1;
         protected double height = -1;
@@ -39,6 +40,9 @@ namespace ExcelPlus
         {
             this.column = cell.Address.ColumnNumber;
             this.row = cell.Address.RowNumber;
+            this.isColumnAbsolute = cell.Address.FixedColumn;
+            this.isRowAbsolute = cell.Address.FixedRow;
+
             switch (cell.Value.Type)
             {
                 case XL.XLDataType.Text:
@@ -54,6 +58,10 @@ namespace ExcelPlus
                     this.value = Convert.ToString(cell.Value.GetDateTime());
                     break;
             }
+
+            this.Graphic = new ExGraphic(cell.Style);
+            this.Font = new ExFont(cell.Style);
+
             this.height = cell.WorksheetRow().Height;
             this.width = cell.WorksheetColumn().Width;
         }
@@ -74,6 +82,8 @@ namespace ExcelPlus
 
             this.width = cell.width;
             this.height = cell.height;
+
+            this.contentType = cell.contentType;
         }
 
         public ExCell(string address)
@@ -98,6 +108,17 @@ namespace ExcelPlus
         #endregion
 
         #region properties
+
+        public virtual bool IsFormula
+        {
+            get 
+            { 
+                if (this.value == string.Empty) return false;
+                if (this.value == "") return false;
+                if (this.value[0] == '=') return true;
+                return false;
+            }
+        }
 
         public virtual string Value
         {
@@ -176,7 +197,12 @@ namespace ExcelPlus
 
         public void ClearFormatting()
         {
+
+            this.width = -1;
+            this.height = -1;
+
             this.Graphic = new ExGraphic();
+            this.Font = new ExFont();
         }
 
         #endregion
@@ -239,6 +265,7 @@ namespace ExcelPlus
                     input.Style.Alignment.Horizontal = this.Font.Justification.ToExcelHAlign();
                     input.Style.Alignment.Vertical = this.Font.Justification.ToExcelVAlign();
                 }
+
                 input.Style.Font.SetBold(this.Font.IsBold);
                 input.Style.Font.SetItalic(this.Font.IsItalic);
                 if (this.Font.IsUnderlined)
