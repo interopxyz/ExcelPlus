@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{324C63DD-9885-47C2-8E57-67B92C5EE3E8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ExcelPlus</RootNamespace>
+    <AssemblyName>ExcelPlus</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.101.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>packages\ClosedXML.0.101.0\lib\netstandard2.0\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.16.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>packages\DocumentFormat.OpenXml.2.16.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="Eto, Version=2.5.0.0, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>packages\RhinoCommon.6.18.19266.14201\lib\net45\Eto.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="GH_IO, Version=6.18.19266.14200, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
+      <HintPath>packages\Grasshopper.6.18.19266.14201\lib\net45\GH_IO.dll</HintPath>
+    </Reference>
+    <Reference Include="Grasshopper, Version=6.18.19266.14200, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
+      <HintPath>packages\Grasshopper.6.18.19266.14201\lib\net45\Grasshopper.dll</HintPath>
+    </Reference>
+    <Reference Include="Irony, Version=1.0.11.0, Culture=neutral, PublicKeyToken=ca48ace7223ead47, processorArchitecture=MSIL">
+      <HintPath>packages\Irony.NetCore.1.0.11\lib\net461\Irony.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Rhino.UI, Version=6.18.19266.14200, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>packages\RhinoCommon.6.18.19266.14201\lib\net45\Rhino.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="RhinoCommon, Version=6.18.19266.14200, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>packages\RhinoCommon.6.18.19266.14201\lib\net45\RhinoCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.Fonts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
+      <HintPath>packages\SixLabors.Fonts.1.0.0-beta19\lib\netstandard2.0\SixLabors.Fonts.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.Packaging.6.0.0\lib\net461\System.IO.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.UnmanagedMemoryStream, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.UnmanagedMemoryStream.4.3.0\lib\net46\System.IO.UnmanagedMemoryStream.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="XLParser, Version=1.5.2.0, Culture=neutral, PublicKeyToken=63397e1e46bb91b4, processorArchitecture=MSIL">
+      <HintPath>packages\XLParser.1.5.2\lib\net461\XLParser.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\ExBorder.cs" />
+    <Compile Include="Classes\ExCell.cs" />
+    <Compile Include="Classes\ExEnums.cs" />
+    <Compile Include="Classes\ExFont.cs" />
+    <Compile Include="Classes\ExGraphic.cs" />
+    <Compile Include="Classes\ExRange.cs" />
+    <Compile Include="Classes\ExWorkbook.cs" />
+    <Compile Include="Classes\ExWorksheet.cs" />
+    <Compile Include="Components\Cell\GH_XL_Cel_Address.cs" />
+    <Compile Include="Components\Cell\GH_XL_Cel_Cells.cs" />
+    <Compile Include="Components\Cell\GH_XL_Cel_Location.cs" />
+    <Compile Include="Components\Cell\GH_XL_Cel_Construct.cs" />
+    <Compile Include="Components\Cell\GH_XL_Cel__Base.cs" />
+    <Compile Include="Components\Format\GH_XL_Frm_Clear.cs" />
+    <Compile Include="Components\Format\GH_XL_Frm_Size.cs" />
+    <Compile Include="Components\Format\GH_XL_Frm__Base.cs" />
+    <Compile Include="Components\Format\GH_XL_Gph_Border.cs" />
+    <Compile Include="Components\Format\GH_XL_Gph_Fill.cs" />
+    <Compile Include="Components\Format\GH_XL_Gph_Font.cs" />
+    <Compile Include="Components\Format\GH_XL_Gph__Base.cs" />
+    <Compile Include="Components\Range\GH_XL_Rng_Deconstruct.cs" />
+    <Compile Include="Components\Range\GH_XL_Rng_Construct.cs" />
+    <Compile Include="Components\Range\GH_XL_Rng_Extents.cs" />
+    <Compile Include="Components\Range\GH_XL_Rng_Merge.cs" />
+    <Compile Include="Components\Range\GH_XL_Rng_Populate.cs" />
+    <Compile Include="Components\Range\GH_XL_Rng_Explode.cs" />
+    <Compile Include="Components\Range\GH_XL_Rng_SubRanges.cs" />
+    <Compile Include="Components\Range\GH_XL_Rng__Base.cs" />
+    <Compile Include="Components\Range\RH_XL_Wbk_AddRange.cs" />
+    <Compile Include="Components\Workbook\GH_XL_Wbk_Deconstruct.cs" />
+    <Compile Include="Components\Workbook\GH_XL_Wbk_Open.cs" />
+    <Compile Include="Components\Workbook\GH_XL_Wbk_Properties.cs" />
+    <Compile Include="Components\Workbook\GH_XL_Wbk_Read.cs.cs" />
+    <Compile Include="Components\Workbook\GH_XL_Wbk_Save.cs" />
+    <Compile Include="Components\Workbook\GH_XL_Wbk_Write.cs" />
+    <Compile Include="Components\Workbook\GH_XL_Wbk__Base.cs" />
+    <Compile Include="Components\Workbook\GH_XL_Wbk_Construct.cs" />
+    <Compile Include="Components\Worksheet\GH_XL_Wks_Construct.cs" />
+    <Compile Include="Components\Worksheet\GH_XL_Wks_Deconstruct.cs" />
+    <Compile Include="Components\Worksheet\GH_XL_Wks_Properties.cs" />
+    <Compile Include="Components\Worksheet\GH_XL_Wks__Base.cs" />
+    <Compile Include="ExcelPlusInfo.cs" />
+    <Compile Include="Extensions\GhExtensions.cs" />
+    <Compile Include="Extensions\XlExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\Constants.cs" />
+    <Compile Include="Utilities\Helper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Cel-Location.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ExcelPlus-Tab-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ExcelPlus-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wbk-Open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wbk-Read.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wbk-Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wbk-Wrt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Cel-Address.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Cel-Value2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Cel-GetCells2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-GetCells.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Grp-Font.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Grp-Fill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-Compile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-Populate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-Merge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Grp-Size.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Cel-Clear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-Extents.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-Explode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Grp-BorderVertial.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Grp-BorderHorizontal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wks-Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wbk-Edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wbk-Deconstruct.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wbk-Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wks-Edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wks-Deconstruct.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Cel-Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-Deconstruct.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-By.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
+Erase "$(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <FallbackCulture>en-US</FallbackCulture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartProgram>C:\Program Files\Rhino 7\System\Rhino.exe</StartProgram>
+    <StartArguments>
+    </StartArguments>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+  <Import Project="packages\RhinoCommon.6.18.19266.14201\build\net45\RhinoCommon.targets" Condition="Exists('packages\RhinoCommon.6.18.19266.14201\build\net45\RhinoCommon.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\RhinoCommon.6.18.19266.14201\build\net45\RhinoCommon.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\RhinoCommon.6.18.19266.14201\build\net45\RhinoCommon.targets'))" />
+    <Error Condition="!Exists('packages\Grasshopper.6.18.19266.14201\build\net45\Grasshopper.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Grasshopper.6.18.19266.14201\build\net45\Grasshopper.targets'))" />
+  </Target>
+  <Import Project="packages\Grasshopper.6.18.19266.14201\build\net45\Grasshopper.targets" Condition="Exists('packages\Grasshopper.6.18.19266.14201\build\net45\Grasshopper.targets')" />
+</Project>
