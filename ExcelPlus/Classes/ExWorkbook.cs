@@ -247,6 +247,7 @@ namespace ExcelPlus
                     if (double.TryParse(cell.Value, out double num))
                     {
                         xlCell.Value = num;
+                            if(cell.HasFormat)xlCell.Style.NumberFormat.Format = cell.Format;
                     }
                     else
                     {
