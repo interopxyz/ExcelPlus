@@ -34,7 +34,7 @@ namespace ExcelPlus
     public enum ShapeSymbol { Plus, Minus, Multiply, Divide, Equal, NotEqual, LeftBracket, RightBracket, DoubleBracket, LeftBrace, RightBrace, DoubleBrace };
     public enum ShapeGeometry { Rectangle, Parallelogram, Trapezoid, Diamond, RoundedRectangle, Octagon, IsoscelesTriangle, RightTriangle, Oval, Hexagon, Cross, RegularPentagon, Pentagon, Donut, BlockArc, NonIsoscelesTrapezoid, Decagon, Heptagon, Dodecagon, Round1Rectangle, Round2SameRectangle, SnipRoundRectangle, Snip1Rectangle, Snip2SameRectangle, Round2DiagRectangle, Snip2DiagRectangle };
     public enum ShapeFigure { Can, Cube, Bevel, FoldedCorner, SmileyFace, NoSymbol, Heart, LightningBolt, Sun, Moon, Arc, Plaque, Cloud, Gear6, Gear9, Funnel, Chevron, Explosion1, Balloon, Explosion2, Wave, DoubleWave, DiagonalStripe, Pie, Frame, HalfFrame, Tear, Chord, Corner, PieWedge };
-    public enum Extensions { xlsx, xls };
+    public enum Extensions { xlsx, xlsm };
 
     public enum DataType { String,Integer,Number,Date};
 }

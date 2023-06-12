@@ -59,8 +59,9 @@ namespace ExcelPlus.Components
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            ExCell cell = new ExCell();
-            DA.GetData<ExCell>(0, ref cell);
+            IGH_Goo gooC = null;
+            DA.GetData(0, ref gooC);
+            gooC.TryGetCell(out ExCell cell);
 
             IGH_Goo gooL = null;
             if (DA.GetData(1, ref gooL)) if (gooL.TryGetCell(out ExCell location)) cell.Address = location.Address;

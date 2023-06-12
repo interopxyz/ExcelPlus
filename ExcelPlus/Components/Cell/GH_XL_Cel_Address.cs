@@ -1,4 +1,5 @@
 ﻿using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
@@ -52,8 +53,9 @@ namespace ExcelPlus.Components.Cell
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            ExCell cell = new ExCell();
-            DA.GetData<ExCell>(0, ref cell);
+            IGH_Goo gooC = null;
+            DA.GetData(0, ref gooC);
+            gooC.TryGetCell(out ExCell cell);
 
             string address = string.Empty;
             if (DA.GetData(1, ref address)) cell.Address = address;
