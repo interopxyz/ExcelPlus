@@ -17,8 +17,8 @@ namespace ExcelPlus
 
             if (input == null)
             {
-                cell = new ExCell();
-                return false;
+                cell = new ExCell("A1");
+                return true;
             }
 
             if (input.CastTo<ExCell>(out ExCell cl))

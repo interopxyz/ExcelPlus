@@ -91,6 +91,7 @@ namespace ExcelPlus.Components
                 }
 
                 string name = Constants.UniqueName;
+                if (workbook.Name != string.Empty) name = workbook.Name;
                 DA.GetData(2, ref name);
 
                 int ext = 0;

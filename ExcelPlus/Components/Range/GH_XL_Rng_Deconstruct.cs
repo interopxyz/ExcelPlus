@@ -45,6 +45,7 @@ namespace ExcelPlus.Components.Range
         {
             base.RegisterOutputParams(pManager);
             pManager.AddGenericParameter(Constants.Cell.Name, Constants.Cell.NickName, Constants.Cell.Outputs, GH_ParamAccess.list);
+            pManager.AddTextParameter("Address", "A", "The Range address", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -73,6 +74,8 @@ namespace ExcelPlus.Components.Range
             {
                 DA.SetDataList(1, range.Cells(flip));
             }
+
+            DA.SetData(2, range.Address);
         }
 
         /// <summary>
