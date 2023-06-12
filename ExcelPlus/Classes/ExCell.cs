@@ -132,6 +132,17 @@ namespace ExcelPlus
             set { this.format = value; }
         }
 
+        public virtual bool HasFormat
+        {
+            get 
+            { 
+                if (this.format=="None") return false;
+                if (this.format == "") return false;
+                if (this.format == String.Empty) return false;
+                return true;
+            }
+        }
+
         public virtual double Width
         {
             get { return width; }
