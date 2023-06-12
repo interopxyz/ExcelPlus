@@ -113,6 +113,16 @@ namespace ExcelPlus.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap XL_Cel_Construct {
+            get {
+                object obj = ResourceManager.GetObject("XL_Cel_Construct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap XL_Cel_GetCells2 {
             get {
                 object obj = ResourceManager.GetObject("XL_Cel_GetCells2", resourceCulture);
