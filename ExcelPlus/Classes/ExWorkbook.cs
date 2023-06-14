@@ -180,15 +180,24 @@ namespace ExcelPlus
             string name = Path.GetFileNameWithoutExtension(filename);
             string filepath = folder + "/" + name + "." + extension.ToString();
 
-            this.ComObj = new XL.XLWorkbook(filepath);
+            XL.LoadOptions options = new XL.LoadOptions();
+            options.RecalculateAllFormulas = true;
+            FileStream fileStream = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            this.ComObj = new XL.XLWorkbook(fileStream);
+            fileStream.Dispose();
+
             this.ParseWorkbook();
             this.name = name;
         }
 
         public void Open(string filepath)
         {
-            this.ComObj = new XL.XLWorkbook(filepath);
-            
+            XL.LoadOptions options = new XL.LoadOptions();
+            options.RecalculateAllFormulas = true;
+            FileStream fileStream = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            this.ComObj = new XL.XLWorkbook(fileStream);
+            fileStream.Dispose();
+
             this.ParseWorkbook();
             this.name = Path.GetFileNameWithoutExtension(filepath);
         }
@@ -234,6 +243,7 @@ namespace ExcelPlus
                     XL.IXLRange xlRange = xlSheet.Range(range.Min.Row, range.Min.Column, range.Max.Row, range.Max.Column);
                     range.ApplyGraphics(xlRange);
                     range.ApplyFont(xlRange);
+                    range.ApplyFormatting(xlRange);
 
                     if (range.ColumnWidth > 0) xlSheet.Columns(range.Min.Column, range.Max.Column).Width = range.ColumnWidth;
                     if (range.RowHeight > 0) xlSheet.Rows(range.Min.Row, range.Max.Row).Height = range.RowHeight;
@@ -270,6 +280,7 @@ namespace ExcelPlus
 
                 foreach (ExRange range in sheet.Ranges)
                 {
+
                     if (range.IsMerged)
                     {
                         XL.IXLRange xlRange = xlSheet.Range(range.Min.Row, range.Min.Column, range.Max.Row, range.Max.Column);

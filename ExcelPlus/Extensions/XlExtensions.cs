@@ -14,7 +14,7 @@ namespace ExcelPlus
     {
         public static XL.XLColor ToExcel(this Sd.Color input)
         {
-            return XL.XLColor.FromColor(input);
+            return XL.XLColor.FromArgb(input.A,input.R,input.G,input.B);
         }
         public static Sd.Color ToColor(this XL.XLColor input)
         {

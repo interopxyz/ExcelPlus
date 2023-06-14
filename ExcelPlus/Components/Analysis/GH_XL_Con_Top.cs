@@ -4,17 +4,19 @@ using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelPlus.Components.Cell
+using Sd = System.Drawing;
+
+namespace ExcelPlus.Components.Analysis
 {
-    public class GH_XL_Cel_Cells : GH_XL_Con__Base
+    public class GH_XL_Con_Top : GH_XL_Con__Base
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Cel_Cells class.
+        /// Initializes a new instance of the GH_XL_Con_Top class.
         /// </summary>
-        public GH_XL_Cel_Cells()
-          : base("Generate Cells", "Cells",
-              "Generates a list of Cells from a minimum Cell and maximum Cell",
-              Constants.ShortName, Constants.SubCell)
+        public GH_XL_Con_Top()
+          : base("Conditional Top", "Con Top",
+              "Applies top percent based conditional formatting to a range",
+              Constants.ShortName, Constants.SubAnalysis)
         {
         }
 
@@ -23,7 +25,7 @@ namespace ExcelPlus.Components.Cell
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.tertiary; }
+            get { return GH_Exposure.primary; }
         }
 
         /// <summary>
@@ -31,12 +33,13 @@ namespace ExcelPlus.Components.Cell
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Minimum Cell", "<", Constants.Cell.Input, GH_ParamAccess.item);
-            pManager[0].Optional = true;
-            pManager.AddGenericParameter("Maximum Cell", ">", Constants.Cell.Input, GH_ParamAccess.item);
+            base.RegisterInputParams(pManager);
+            pManager.AddIntegerParameter("Total", "T", "The total number of values to highlight", GH_ParamAccess.item, 10);
             pManager[1].Optional = true;
-            pManager.AddBooleanParameter("By Column", "C", "If true, Cells are listed by Column. If false, by Row", GH_ParamAccess.item, true);
+            pManager.AddColourParameter("Cell Color", "C", "The cell highlight color", GH_ParamAccess.item, Sd.Color.LightGray);
             pManager[2].Optional = true;
+            pManager.AddBooleanParameter("Flip", "F", "If true, the bottom percent will be highlighted", GH_ParamAccess.item, false);
+            pManager[3].Optional = true;
         }
 
         /// <summary>
@@ -44,7 +47,7 @@ namespace ExcelPlus.Components.Cell
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Cell.Name, "C", Constants.Cell.Outputs, GH_ParamAccess.list);
+            base.RegisterOutputParams(pManager);
         }
 
         /// <summary>
@@ -53,20 +56,22 @@ namespace ExcelPlus.Components.Cell
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            IGH_Goo gooA = null;
-            DA.GetData(0, ref gooA);
-            gooA.TryGetCell(out ExCell cellA);
+            IGH_Goo gooR = null;
+            DA.GetData(0, ref gooR);
+            gooR.TryGetRange(out ExRange range);
 
-            IGH_Goo gooB = null;
-            DA.GetData(1, ref gooB);
-            gooB.TryGetCell(out ExCell cellB);
+            int value = 0;
+            DA.GetData(1, ref value);
 
-            ExRange range = new ExRange(new List<ExCell> { cellA, cellB });
+            Sd.Color color1 = Constants.StartColor;
+            DA.GetData(2, ref color1);
 
             bool flip = false;
-            DA.GetData(2, ref flip);
+            DA.GetData(3, ref flip);
 
-            DA.SetDataList(0, range.Cells(flip));
+            range.AddConditions(ExCondition.CreateTopCountCondition(value, flip, color1));
+
+            DA.SetData(0, range);
         }
 
         /// <summary>
@@ -78,7 +83,7 @@ namespace ExcelPlus.Components.Cell
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Cel_GetCells2;
+                return Properties.Resources.XL_Con_Count;
             }
         }
 
@@ -87,7 +92,7 @@ namespace ExcelPlus.Components.Cell
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("50fbdf6c-ca47-41eb-a577-a4de236d9c58"); }
+            get { return new Guid("9dc0b177-0feb-4f72-937e-205e5085dfc4"); }
         }
     }
 }
