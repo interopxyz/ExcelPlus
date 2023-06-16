@@ -4,19 +4,20 @@ using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+
+using Sd = System.Drawing;
 
 namespace ExcelPlus.Components
 {
-    public class GH_XL_Frm_Clear : GH_XL_Frm__Base
+    public class GH_XL_Con_Value : GH_XL_Con__Base
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Frm_Clear class.
+        /// Initializes a new instance of the GH_XL_Con_Value class.
         /// </summary>
-        public GH_XL_Frm_Clear()
-          : base("Clear", "Clear",
-              "Clear the content or formatting for a Cell or all Cells in a Range or Worksheet",
-              Constants.ShortName, Constants.SubFormat)
+        public GH_XL_Con_Value()
+          : base("Conditional Value", "Con Value",
+              "Applies value based conditional formatting to a range",
+              Constants.ShortName, Constants.SubAnalysis)
         {
         }
 
@@ -25,7 +26,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.primary; }
+            get { return GH_Exposure.secondary; }
         }
 
         /// <summary>
@@ -34,12 +35,17 @@ namespace ExcelPlus.Components
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager.AddBooleanParameter("Clear Values", "V", "Clear all values", GH_ParamAccess.item, false);
-            pManager[1].Optional = true;
-            pManager.AddBooleanParameter("Clear Formatting", "F", "Clear all graphic formatting", GH_ParamAccess.item, false);
+            pManager.AddNumberParameter("Value", "V", "The value to check against", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Type", "T", "The condition type", GH_ParamAccess.item, 0);
             pManager[2].Optional = true;
-            pManager.AddBooleanParameter("Clear Conditions", "C", "Clear all conditional formatting", GH_ParamAccess.item, false);
+            pManager.AddColourParameter("Cell Color", "C", "The cell highlight color", GH_ParamAccess.item, Constants.StartColor);
             pManager[3].Optional = true;
+
+            Param_Integer paramA = (Param_Integer)pManager[2];
+            foreach (ValueCondition value in Enum.GetValues(typeof(ValueCondition)))
+            {
+                paramA.AddNamedValue(value.ToString(), (int)value);
+            }
         }
 
         /// <summary>
@@ -59,44 +65,30 @@ namespace ExcelPlus.Components
             IGH_Goo goo = null;
             if (!DA.GetData(0, ref goo)) return;
 
-            bool clearValue = false;
-            DA.GetData(1, ref clearValue);
+            double value = 0.5;
+            DA.GetData(1, ref value);
 
-            bool clearFormat = false;
-            DA.GetData(2, ref clearFormat);
+            int type = 0;
+            DA.GetData(2, ref type);
 
-            if (goo.CastTo<ExCell>(out ExCell cell))
-            {
-                cell = new ExCell(cell);
-                if (clearValue) cell.ClearValue();
-                if (clearFormat) cell.ClearFormatting();
+            Sd.Color color1 = Constants.StartColor;
+            DA.GetData(3, ref color1);
 
-                DA.SetData(0, cell);
-            }
-            else if (goo.CastTo<ExRange>(out ExRange range))
+            ExCondition condition = ExCondition.CreateValueCondition(value, (ValueCondition)type, color1);
+
+            if (goo.CastTo<ExRange>(out ExRange range))
             {
                 range = new ExRange(range);
-                if (clearValue) range.ClearValues();
-                if (clearFormat) range.ClearFormatting();
-
+                range.AddConditions(condition);
                 DA.SetData(0, range);
             }
             else if (goo.CastTo<ExWorksheet>(out ExWorksheet sheet))
             {
                 sheet = new ExWorksheet(sheet);
-                if (clearValue) sheet.ClearValues();
-                if (clearFormat) sheet.ClearFormatting();
-
+                sheet.AddConditions(condition);
                 DA.SetData(0, sheet);
             }
-            else if (goo.CastTo<ExWorkbook>(out ExWorkbook book))
-            {
-                book = new ExWorkbook(book);
-                if (clearValue) book.ClearValues();
-                if (clearFormat) book.ClearFormatting();
 
-                DA.SetData(0, book);
-            }
         }
 
         /// <summary>
@@ -108,7 +100,7 @@ namespace ExcelPlus.Components
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Cel_Clear;
+                return Properties.Resources.XL_Con_Value;
             }
         }
 
@@ -117,7 +109,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("41370c2c-ebab-413e-bb81-dc3f14a033a9"); }
+            get { return new Guid("be981ea3-33b4-4b78-8815-c2202c223f4f"); }
         }
     }
 }

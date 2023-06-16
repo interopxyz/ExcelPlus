@@ -4,17 +4,19 @@ using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelPlus.Components
+using Sd = System.Drawing;
+
+namespace ExcelPlus.Components.Analysis
 {
-    public class GH_XL_Wks_Construct : GH_XL_Wks__Base
+    public class GH_XL_Con_Unique : GH_XL_Con__Base
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Wks_Construct class.
+        /// Initializes a new instance of the GH_XL_Con_Unique class.
         /// </summary>
-        public GH_XL_Wks_Construct()
-          : base("Construct Worksheet", "Worksheet",
-              "Construct a Worksheet",
-              Constants.ShortName, Constants.SubWorkSheets)
+        public GH_XL_Con_Unique()
+          : base("Conditional Unique", "Con Unique",
+              "Applies unique value conditional formatting to a range",
+              Constants.ShortName, Constants.SubAnalysis)
         {
         }
 
@@ -23,7 +25,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.primary; }
+            get { return GH_Exposure.secondary; }
         }
 
         /// <summary>
@@ -32,9 +34,10 @@ namespace ExcelPlus.Components
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager[0].Optional = true;
-            pManager.AddGenericParameter(Constants.Range.Name, Constants.Range.NickName, Constants.Range.Input, GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Flip", "F", "If true, non unique values will be highlighted", GH_ParamAccess.item, false);
             pManager[1].Optional = true;
+            pManager.AddColourParameter("Cell Color", "C", "The cell highlight color", GH_ParamAccess.item, Constants.StartColor);
+            pManager[2].Optional = true;
         }
 
         /// <summary>
@@ -51,15 +54,30 @@ namespace ExcelPlus.Components
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            IGH_Goo gooS = null;
-            DA.GetData(0, ref gooS);
-            if (!gooS.TryGetWorksheet(out ExWorksheet worksheet)) return;
+            IGH_Goo goo = null;
+            if (!DA.GetData(0, ref goo)) return;
 
-            List<IGH_Goo> goor = new List<IGH_Goo>();
-            DA.GetDataList(1, goor);
-            if (goor.TryCompileWorksheet(out ExWorksheet sheet)) worksheet.Ranges.AddRange(sheet.GetRanges());
+            bool flip = false;
+            DA.GetData(1, ref flip);
 
-            DA.SetData(0, worksheet);
+            Sd.Color color1 = Constants.StartColor;
+            DA.GetData(2, ref color1);
+
+            ExCondition condition = ExCondition.CreateUniqueCondition(flip, color1);
+
+            if (goo.CastTo<ExRange>(out ExRange range))
+            {
+                range = new ExRange(range);
+                range.AddConditions(condition);
+                DA.SetData(0, range);
+            }
+            else if (goo.CastTo<ExWorksheet>(out ExWorksheet sheet))
+            {
+                sheet = new ExWorksheet(sheet);
+                sheet.AddConditions(condition);
+                DA.SetData(0, sheet);
+            }
+
         }
 
         /// <summary>
@@ -71,7 +89,7 @@ namespace ExcelPlus.Components
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Wks_Add;
+                return Properties.Resources.XL_Con_Unique;
             }
         }
 
@@ -80,7 +98,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("3b9ad57b-7f0f-43b1-b729-6345c7a2f723"); }
+            get { return new Guid("7c546c23-fe54-471e-89ab-0fadab8d5879"); }
         }
     }
 }

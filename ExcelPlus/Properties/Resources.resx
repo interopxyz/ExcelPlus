@@ -145,6 +145,39 @@
   <data name="XL_Cel_Value2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\XL-Cel-Value2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="XL_Con_Bars" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Con-Bars.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Con_Between" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Con-Between.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Con_Blank" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Con-Blank.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Con_Count" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Con-Count.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Con_Percent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Con-Percent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Con_Scale" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Con-Scale.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Con_SparkBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Con-SparkBar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Con_SparkLine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Con-SparkLine.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Con_Text" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Con-Text.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Con_Unique" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Con-Unique.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="XL_Con_Value" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Con-Value.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="XL_Grp_BorderHorizontal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\XL-Grp-BorderHorizontal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

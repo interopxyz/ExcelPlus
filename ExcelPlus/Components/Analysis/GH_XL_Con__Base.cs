@@ -5,19 +5,19 @@ using System.Collections.Generic;
 
 namespace ExcelPlus.Components
 {
-    public abstract class GH_XL_Wks__Base : GH_Component
+    public abstract class GH_XL_Con__Base : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Wks__Base class.
+        /// Initializes a new instance of the GH_XL_Con__Base class.
         /// </summary>
-        public GH_XL_Wks__Base()
-          : base("GH_XL_Wks__Base", "Nickname",
+        public GH_XL_Con__Base()
+          : base("GH_XL_Con__Base", "Nickname",
               "Description",
               "Category", "Subcategory")
         {
         }
 
-        public GH_XL_Wks__Base(string Name, string NickName, string Description, string Category, string Subcategory) : base(Name, NickName, Description, Category, Subcategory)
+        public GH_XL_Con__Base(string Name, string NickName, string Description, string Category, string Subcategory) : base(Name, NickName, Description, Category, Subcategory)
         {
         }
 
@@ -26,7 +26,7 @@ namespace ExcelPlus.Components
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Worksheet.Name, Constants.Worksheet.NickName, Constants.Worksheet.Input, GH_ParamAccess.item);
+            pManager.AddGenericParameter("Object", "Obj", "A Range, Worksheet, or Workbook Object", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace ExcelPlus.Components
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Worksheet.Name, Constants.Worksheet.NickName, Constants.Worksheet.Output, GH_ParamAccess.item);
+            pManager.AddGenericParameter("Object", "Obj", "A Cell, Range, Worksheet, or Workbook Object", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("25bdb751-b9f7-40df-8158-dbc071dde8d2"); }
+            get { return new Guid("daf7808d-0023-470c-ac3b-27c7d9b7c5a2"); }
         }
     }
 }

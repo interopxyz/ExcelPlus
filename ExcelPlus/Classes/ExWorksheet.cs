@@ -26,6 +26,8 @@ namespace ExcelPlus
         public ExGraphic Graphic = new ExGraphic();
         public ExFont Font = new ExFont();
 
+        protected List<ExSpark> sparkLines = new List<ExSpark>();
+
         #endregion
 
         #region constructors
@@ -84,11 +86,36 @@ namespace ExcelPlus
 
             this.Graphic = new ExGraphic(worksheet.Graphic);
             this.Font = new ExFont(worksheet.Font);
+
+            this.baseRange.Conditions = worksheet.baseRange.Conditions;
+            this.sparkLines = worksheet.SparkLines;
         }
 
         #endregion
 
         #region properties
+
+        public List<ExSpark> SparkLines
+        {
+            get
+            {
+                List<ExSpark> output = new List<ExSpark>();
+                foreach (ExSpark spark in sparkLines)
+                {
+                    output.Add(new ExSpark(spark));
+                }
+                return output;
+            }
+            set
+            {
+                List<ExSpark> output = new List<ExSpark>();
+                foreach (ExSpark spark in value)
+                {
+                    output.Add(new ExSpark(spark));
+                }
+                sparkLines = output;
+            }
+        }
 
         public virtual string Name
         {
@@ -128,9 +155,45 @@ namespace ExcelPlus
             set { this.baseRange.RowHeight = value; }
         }
 
+        public virtual List<ExCondition> Conditions
+        {
+            get { return this.baseRange.Conditions; }
+            set { this.baseRange.Conditions = value; }
+        }
+
         #endregion
 
         #region methods
+
+        public void AddSparkLines(ExSpark sparkLine)
+        {
+            this.sparkLines.Add(new ExSpark(sparkLine));
+        }
+
+        public void AddSparkLines(List<ExSpark> sparkLines)
+        {
+            foreach (ExSpark sparkLine in sparkLines) this.sparkLines.Add(new ExSpark(sparkLine));
+        }
+
+        public void ClearSparklines()
+        {
+            this.sparkLines = new List<ExSpark>();
+        }
+
+        public void AddConditions(ExCondition condition)
+        {
+            this.baseRange.AddConditions(condition);
+        }
+
+        public void AddConditions(List<ExCondition> conditions)
+        {
+            this.baseRange.AddConditions(conditions);
+        }
+
+        public void ClearConditions()
+        {
+            this.baseRange.ClearConditions();
+        }
 
         public void ClearValues()
         {
@@ -181,74 +244,26 @@ namespace ExcelPlus
 
         #region application
 
-        public void ApplyGraphics(XL.IXLWorksheet input)
+        public void ApplyFormatting(XL.IXLWorksheet input)
         {
-            if (this.Graphic.Active)
+            this.Graphic.Apply(input.Style);
+            this.Font.Apply(input.Style);
+
+            int c = this.baseRange.Conditions.Count;
+            for (int i = 0; i < c; i++)
             {
-                if (this.Graphic.HasFillColor) input.Style.Fill.SetBackgroundColor(this.Graphic.FillColor.ToExcel());
+                this.baseRange.Conditions[c - 1 - i].ApplyCondition(input.AddConditionalFormat());
+            }
 
-                if (this.Graphic.BorderBottom.Active)
-                {
-                    input.Style.Border.SetBottomBorder(this.Graphic.BorderBottom.LineType.ToExcel());
-                    input.Style.Border.SetBottomBorderColor(this.Graphic.BorderBottom.Color.ToExcel());
-                }
-
-                if (this.Graphic.BorderTop.Active)
-                {
-                    input.Style.Border.SetTopBorder(this.Graphic.BorderTop.LineType.ToExcel());
-                    input.Style.Border.SetTopBorderColor(this.Graphic.BorderTop.Color.ToExcel());
-                }
-
-                if (this.Graphic.BorderLeft.Active)
-                {
-                    input.Style.Border.SetLeftBorder(this.Graphic.BorderLeft.LineType.ToExcel());
-                    input.Style.Border.SetLeftBorderColor(this.Graphic.BorderLeft.Color.ToExcel());
-                }
-
-                if (this.Graphic.BorderRight.Active)
-                {
-                    input.Style.Border.SetRightBorder(this.Graphic.BorderRight.LineType.ToExcel());
-                    input.Style.Border.SetRightBorderColor(this.Graphic.BorderRight.Color.ToExcel());
-                }
-
-                if (this.Graphic.BorderInside.Active)
-                {
-                    input.Style.Border.SetInsideBorder(this.Graphic.BorderInside.LineType.ToExcel());
-                    input.Style.Border.SetInsideBorderColor(this.Graphic.BorderInside.Color.ToExcel());
-                }
-
-                if (this.Graphic.BorderOutside.Active)
-                {
-                    input.Style.Border.SetOutsideBorder(this.Graphic.BorderOutside.LineType.ToExcel());
-                    input.Style.Border.SetOutsideBorderColor(this.Graphic.BorderOutside.Color.ToExcel());
-                }
+            foreach(ExSpark spark in this.sparkLines)
+            {
+                XL.IXLSparklineGroup xlSpark = input.SparklineGroups.Add(spark.Location.Address, spark.Range.Address);
+                xlSpark.Style.SeriesColor = spark.Color.ToExcel();
+                xlSpark.SetLineWeight(spark.Weight);
+                if(spark.IsColumn)xlSpark.Type = XL.XLSparklineType.Column;
             }
         }
 
-        public void ApplyFont(XL.IXLWorksheet input)
-        {
-            if (this.Font.Active)
-            {
-                if (this.Font.HasColor) input.Style.Font.SetFontColor(this.Font.Color.ToExcel());
-                if (this.Font.HasFamily) input.Style.Font.SetFontName(this.Font.Family);
-                if (this.Font.HasSize) input.Style.Font.SetFontSize(this.Font.Size);
-                if (this.Font.HasJustification)
-                {
-                    input.Style.Alignment.Horizontal = this.Font.Justification.ToExcelHAlign();
-                    input.Style.Alignment.Vertical = this.Font.Justification.ToExcelVAlign();
-                }
-                input.Style.Font.SetBold(this.Font.IsBold);
-                input.Style.Font.SetItalic(this.Font.IsItalic);
-                if (this.Font.IsUnderlined)
-                {
-                    input.Style.Font.SetUnderline(XL.XLFontUnderlineValues.Single);
-                }
-                else
-                {
-                    input.Style.Font.SetUnderline(XL.XLFontUnderlineValues.None);
-                }
-            }
-        }
 
         #endregion
 

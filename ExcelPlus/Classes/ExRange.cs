@@ -15,7 +15,7 @@ namespace ExcelPlus
 
         public XL.IXLRange ComObj = null;
 
-        protected Dictionary<string,ExCell> cells = new Dictionary<string, ExCell>();
+        protected Dictionary<string, ExCell> cells = new Dictionary<string, ExCell>();
         protected ExCell min = new ExCell();
         protected ExCell max = new ExCell();
 
@@ -26,6 +26,8 @@ namespace ExcelPlus
         protected double rowHeight = -1;
 
         protected bool merge = false;
+
+        protected List<ExCondition> conditions = new List<ExCondition>();
 
         #endregion
 
@@ -39,7 +41,7 @@ namespace ExcelPlus
         public ExRange(List<XL.IXLCell> cells)
         {
             List<ExCell> newCells = new List<ExCell>();
-            foreach(XL.IXLCell cell in cells)
+            foreach (XL.IXLCell cell in cells)
             {
                 newCells.Add(new ExCell(cell));
             }
@@ -55,6 +57,8 @@ namespace ExcelPlus
             this.Graphic = new ExGraphic(range.Graphic);
             this.Font = new ExFont(range.Font);
             this.merge = range.merge;
+
+            this.conditions = range.Conditions;
 
             this.columnWidth = range.columnWidth;
             this.rowHeight = range.rowHeight;
@@ -82,16 +86,16 @@ namespace ExcelPlus
 
             if (byColumn)
             {
-            for (int i = 0; i < x; i++)
-            {
-                int y = data[i].Count;
-                for (int j = 0; j < y; j++)
+                for (int i = 0; i < x; i++)
                 {
-                    ExCell cell = new ExCell(source.Column + i, source.Row + j);
-                    cell.Value = data[i][j].Value;
-                    cells.Add(cell);
+                    int y = data[i].Count;
+                    for (int j = 0; j < y; j++)
+                    {
+                        ExCell cell = new ExCell(source.Column + i, source.Row + j);
+                        cell.Value = data[i][j].Value;
+                        cells.Add(cell);
+                    }
                 }
-            }
             }
             else
             {
@@ -120,12 +124,12 @@ namespace ExcelPlus
 
         public virtual List<ExCell> Cells(bool flip = false)
         {
-                List<ExCell> output = new List<ExCell>();
-            if(flip)
+            List<ExCell> output = new List<ExCell>();
+            if (flip)
             {
-                for (int i = this.min.Column; i < this.max.Column+1; i++)
+                for (int i = this.min.Column; i < this.max.Column + 1; i++)
                 {
-                    for (int j = this.min.Row; j < this.max.Row+1; j++)
+                    for (int j = this.min.Row; j < this.max.Row + 1; j++)
                     {
                         ExCell cell = new ExCell(i, j);
                         if (cells.ContainsKey(cell.Address)) cell = new ExCell(cells[cell.Address]);
@@ -135,9 +139,9 @@ namespace ExcelPlus
             }
             else
             {
-                for (int j = this.min.Row; j < this.max.Row+1; j++)
+                for (int j = this.min.Row; j < this.max.Row + 1; j++)
                 {
-                    for (int i = this.min.Column; i < this.max.Column+1; i++)
+                    for (int i = this.min.Column; i < this.max.Column + 1; i++)
                     {
                         ExCell cell = new ExCell(i, j);
                         if (cells.ContainsKey(cell.Address)) cell = new ExCell(cells[cell.Address]);
@@ -146,7 +150,7 @@ namespace ExcelPlus
                 }
             }
 
-                return output; 
+            return output;
         }
 
         public virtual ExCell Min
@@ -197,9 +201,47 @@ namespace ExcelPlus
             set { this.merge = value; }
         }
 
+        public virtual List<ExCondition> Conditions
+        {
+            get
+            {
+                List<ExCondition> output = new List<ExCondition>();
+                foreach (ExCondition condition in conditions)
+                {
+                    output.Add(new ExCondition(condition));
+                }
+                return output;
+            }
+            set
+            {
+                List<ExCondition> output = new List<ExCondition>();
+                foreach (ExCondition condition in value)
+                {
+                    output.Add(new ExCondition(condition));
+                }
+                conditions = output;
+            }
+        }
+
+
         #endregion
 
         #region methods
+
+        public void AddConditions(ExCondition condition)
+        {
+            this.conditions.Add(new ExCondition(condition));
+        }
+
+        public void AddConditions(List<ExCondition> conditions)
+        {
+            foreach(ExCondition condition in conditions) this.conditions.Add(new ExCondition(condition));
+        }
+
+        public void ClearConditions()
+        {
+            this.conditions = new List<ExCondition>();
+        }
 
         public void ClearValues()
         {
@@ -375,75 +417,19 @@ namespace ExcelPlus
 
         #region application
 
-        public void ApplyGraphics(XL.IXLRange input)
+        public void ApplyFormatting(XL.IXLRange input)
         {
-            if (this.Graphic.Active)
+            this.Font.Apply(input.Style);
+            this.Graphic.Apply(input.Style);
+
+            int c = conditions.Count;
+            for (int i = 0; i < c; i++)
             {
-                if (this.Graphic.HasFillColor) input.Style.Fill.SetBackgroundColor(this.Graphic.FillColor.ToExcel());
-
-                if (this.Graphic.BorderBottom.Active)
-                {
-                    input.Style.Border.SetBottomBorder(this.Graphic.BorderBottom.LineType.ToExcel());
-                    input.Style.Border.SetBottomBorderColor(this.Graphic.BorderBottom.Color.ToExcel());
-                }
-
-                if (this.Graphic.BorderTop.Active)
-                {
-                    input.Style.Border.SetTopBorder(this.Graphic.BorderTop.LineType.ToExcel());
-                    input.Style.Border.SetTopBorderColor(this.Graphic.BorderTop.Color.ToExcel());
-                }
-
-                if (this.Graphic.BorderLeft.Active)
-                {
-                    input.Style.Border.SetLeftBorder(this.Graphic.BorderLeft.LineType.ToExcel());
-                    input.Style.Border.SetLeftBorderColor(this.Graphic.BorderLeft.Color.ToExcel());
-                }
-
-                if (this.Graphic.BorderRight.Active)
-                {
-                    input.Style.Border.SetRightBorder(this.Graphic.BorderRight.LineType.ToExcel());
-                    input.Style.Border.SetRightBorderColor(this.Graphic.BorderRight.Color.ToExcel());
-                }
-
-                if (this.Graphic.BorderInside.Active)
-                {
-                    input.Style.Border.SetInsideBorder(this.Graphic.BorderInside.LineType.ToExcel());
-                    input.Style.Border.SetInsideBorderColor(this.Graphic.BorderInside.Color.ToExcel());
-                }
-
-                if (this.Graphic.BorderOutside.Active)
-                {
-                    input.Style.Border.SetOutsideBorder(this.Graphic.BorderOutside.LineType.ToExcel());
-                    input.Style.Border.SetOutsideBorderColor(this.Graphic.BorderOutside.Color.ToExcel());
-                }
-
+                conditions[c - 1 - i].ApplyCondition(input.AddConditionalFormat());
             }
+
         }
 
-        public void ApplyFont(XL.IXLRange input)
-        {
-            if (this.Font.Active)
-            {
-                if (this.Font.HasColor) input.Style.Font.SetFontColor(this.Font.Color.ToExcel());
-                if (this.Font.HasFamily) input.Style.Font.SetFontName(this.Font.Family);
-                if (this.Font.HasSize) input.Style.Font.SetFontSize(this.Font.Size);
-                if (this.Font.HasJustification)
-                {
-                    input.Style.Alignment.Horizontal = this.Font.Justification.ToExcelHAlign();
-                    input.Style.Alignment.Vertical = this.Font.Justification.ToExcelVAlign();
-                }
-                input.Style.Font.SetBold(this.Font.IsBold);
-                input.Style.Font.SetItalic(this.Font.IsItalic);
-                if (this.Font.IsUnderlined)
-                {
-                    input.Style.Font.SetUnderline(XL.XLFontUnderlineValues.Single);
-                }
-                else
-                {
-                    input.Style.Font.SetUnderline(XL.XLFontUnderlineValues.None);
-                }
-            }
-        }
 
         #endregion
 

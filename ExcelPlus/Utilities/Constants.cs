@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Sd = System.Drawing;
+
 namespace ExcelPlus
 {
     public class Constants
@@ -160,6 +162,24 @@ namespace ExcelPlus
 
         #endregion
 
+        #region color
+
+        public static Sd.Color StartColor
+        {
+            get { return Sd.Color.FromArgb(99, 190, 123); }
+        }
+
+        public static Sd.Color MidColor
+        {
+            get { return Sd.Color.FromArgb(255, 235, 132); }
+        }
+
+        public static Sd.Color EndColor
+        {
+            get { return Sd.Color.FromArgb(248, 105, 107); }
+        }
+
+        #endregion
     }
 
     public class Descriptor

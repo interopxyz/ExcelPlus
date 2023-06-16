@@ -180,15 +180,24 @@ namespace ExcelPlus
             string name = Path.GetFileNameWithoutExtension(filename);
             string filepath = folder + "/" + name + "." + extension.ToString();
 
-            this.ComObj = new XL.XLWorkbook(filepath);
+            XL.LoadOptions options = new XL.LoadOptions();
+            options.RecalculateAllFormulas = true;
+            FileStream fileStream = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            this.ComObj = new XL.XLWorkbook(fileStream);
+            fileStream.Dispose();
+
             this.ParseWorkbook();
             this.name = name;
         }
 
         public void Open(string filepath)
         {
-            this.ComObj = new XL.XLWorkbook(filepath);
-            
+            XL.LoadOptions options = new XL.LoadOptions();
+            options.RecalculateAllFormulas = true;
+            FileStream fileStream = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            this.ComObj = new XL.XLWorkbook(fileStream);
+            fileStream.Dispose();
+
             this.ParseWorkbook();
             this.name = Path.GetFileNameWithoutExtension(filepath);
         }
@@ -224,16 +233,15 @@ namespace ExcelPlus
                 if (sheet.Name != string.Empty) xlSheet.Name = sheet.Name;
                 if (sheet.Active) xlSheet.SetTabActive();
 
-                sheet.ApplyGraphics(xlSheet);
-                sheet.ApplyFont(xlSheet);
+                sheet.ApplyFormatting(xlSheet);
+
                 if (sheet.ColumnWidth > 0) xlSheet.ColumnWidth = sheet.ColumnWidth;
                 if (sheet.RowHeight > 0) xlSheet.RowHeight= sheet.RowHeight;
 
                 foreach (ExRange range in sheet.Ranges)
                 {
                     XL.IXLRange xlRange = xlSheet.Range(range.Min.Row, range.Min.Column, range.Max.Row, range.Max.Column);
-                    range.ApplyGraphics(xlRange);
-                    range.ApplyFont(xlRange);
+                    range.ApplyFormatting(xlRange);
 
                     if (range.ColumnWidth > 0) xlSheet.Columns(range.Min.Column, range.Max.Column).Width = range.ColumnWidth;
                     if (range.RowHeight > 0) xlSheet.Rows(range.Min.Row, range.Max.Row).Height = range.RowHeight;
@@ -244,32 +252,14 @@ namespace ExcelPlus
                 foreach (ExCell cell in cells)
                 {
                     XL.IXLCell xlCell = xlSheet.Cell(cell.Row, cell.Column);
-                    if (double.TryParse(cell.Value, out double num))
-                    {
-                        xlCell.Value = num;
-                            if(cell.HasFormat)xlCell.Style.NumberFormat.Format = cell.Format;
-                    }
-                    else
-                    {
-                        if (cell.IsFormula)
-                        {
-                            xlCell.FormulaA1 = cell.Value;
-                        }
-                        else
-                        {
-                            xlCell.Value = cell.Value;
-                        }
-                    }
 
-                    cell.ApplyGraphics(xlCell);
-                    cell.ApplyFont(xlCell);
-
-                    if (cell.Width > 0) xlCell.WorksheetColumn().Width = cell.Width;
-                    if (cell.Height > 0) xlCell.WorksheetRow().Height = cell.Height;
+                    cell.SetValue(xlCell);
+                    cell.ApplyFormatting(xlCell);
                 }
 
                 foreach (ExRange range in sheet.Ranges)
                 {
+
                     if (range.IsMerged)
                     {
                         XL.IXLRange xlRange = xlSheet.Range(range.Min.Row, range.Min.Column, range.Max.Row, range.Max.Column);

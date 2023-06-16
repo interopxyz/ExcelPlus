@@ -133,7 +133,30 @@ namespace ExcelPlus
 
         #region methods
 
-
+        public void Apply(XL.IXLStyle input)
+        {
+            if (this.Active)
+            {
+                if (this.HasColor) input.Font.SetFontColor(this.Color.ToExcel());
+                if (this.HasFamily) input.Font.SetFontName(this.Family);
+                if (this.HasSize) input.Font.SetFontSize(this.Size);
+                if (this.HasJustification)
+                {
+                    input.Alignment.Horizontal = this.Justification.ToExcelHAlign();
+                    input.Alignment.Vertical = this.Justification.ToExcelVAlign();
+                }
+                input.Font.SetBold(this.IsBold);
+                input.Font.SetItalic(this.IsItalic);
+                if (this.IsUnderlined)
+                {
+                    input.Font.SetUnderline(XL.XLFontUnderlineValues.Single);
+                }
+                else
+                {
+                    input.Font.SetUnderline(XL.XLFontUnderlineValues.None);
+                }
+            }
+        }
 
         #endregion
 

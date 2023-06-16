@@ -14,7 +14,9 @@ namespace ExcelPlus
     public enum LineTypes { None, Hair, Thin, Medium, Thick, Double, SlantDashDot, DashDot, DashDotDot, Dashed, Dotted, MediumDashDot, MediumDashDotDot, MediumDashed};
     public enum BorderWeights { Hairline, Thin, Medium, Thick, None };
     public enum Justifications { None, BottomLeft, BottomMiddle, BottomRight, CenterLeft, CenterMiddle, CenterRight, TopLeft, TopMiddle, TopRight };
+    public enum ConditionalTypes { None, Average, Bars, Between, Blanks, Scale, Count, Percent, Text, Unique, Value };
     public enum ValueCondition { Greater, GreaterEqual, Less, LessEqual, Equal, NotEqual };
+    public enum TextCondition { Begins, Contains, Ends, Equal, NotContains, NotEqual };
     public enum AverageCondition { AboveAverage, AboveEqualAverage, AboveDeviation, BelowAverage, BelowEqualAverage, BelowDeviation };
     public enum VbModuleType { ClassModule, Document, MSForm, StdModule, ActiveX };
     public enum ChartFill { Cluster, Stack, Fill };

@@ -4,17 +4,19 @@ using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelPlus.Components
+using Sd = System.Drawing;
+
+namespace ExcelPlus.Components.Analysis
 {
-    public class GH_XL_Wks_Construct : GH_XL_Wks__Base
+    public class GH_XL_Con_Bar : GH_XL_Con__Base
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Wks_Construct class.
+        /// Initializes a new instance of the GH_XL_Con_Bar class.
         /// </summary>
-        public GH_XL_Wks_Construct()
-          : base("Construct Worksheet", "Worksheet",
-              "Construct a Worksheet",
-              Constants.ShortName, Constants.SubWorkSheets)
+        public GH_XL_Con_Bar()
+          : base("Conditional Scale", "Con Scale",
+              "Applies value scale conditional formatting to a range",
+              Constants.ShortName, Constants.SubAnalysis)
         {
         }
 
@@ -23,7 +25,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.primary; }
+            get { return GH_Exposure.secondary; }
         }
 
         /// <summary>
@@ -32,8 +34,7 @@ namespace ExcelPlus.Components
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager[0].Optional = true;
-            pManager.AddGenericParameter(Constants.Range.Name, Constants.Range.NickName, Constants.Range.Input, GH_ParamAccess.list);
+            pManager.AddColourParameter("Color", "C", "The bar color", GH_ParamAccess.item, Constants.StartColor);
             pManager[1].Optional = true;
         }
 
@@ -51,15 +52,39 @@ namespace ExcelPlus.Components
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            IGH_Goo gooS = null;
-            DA.GetData(0, ref gooS);
-            if (!gooS.TryGetWorksheet(out ExWorksheet worksheet)) return;
+            IGH_Goo goo = null;
+            if (!DA.GetData(0, ref goo)) return;
 
-            List<IGH_Goo> goor = new List<IGH_Goo>();
-            DA.GetDataList(1, goor);
-            if (goor.TryCompileWorksheet(out ExWorksheet sheet)) worksheet.Ranges.AddRange(sheet.GetRanges());
+            Sd.Color color1 = Constants.StartColor;
+            DA.GetData(1, ref color1);
 
-            DA.SetData(0, worksheet);
+            //Sd.Color color2 = Constants.MidColor;
+            //bool toggle = DA.GetData(2, ref color2);
+
+            ExCondition condition = ExCondition.CreateBarCondition(color1);
+
+            //if (toggle)
+            //{
+            //    condition = ExCondition.CreateBarCondition(color1, color2);
+            //}
+            //else
+            //{
+            //    condition = ExCondition.CreateBarCondition(color1);
+            //}
+
+            if (goo.CastTo<ExRange>(out ExRange range))
+            {
+                range = new ExRange(range);
+                range.AddConditions(condition);
+                DA.SetData(0, range);
+            }
+            else if (goo.CastTo<ExWorksheet>(out ExWorksheet sheet))
+            {
+                sheet = new ExWorksheet(sheet);
+                sheet.AddConditions(condition);
+                DA.SetData(0, sheet);
+            }
+
         }
 
         /// <summary>
@@ -71,7 +96,7 @@ namespace ExcelPlus.Components
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Wks_Add;
+                return Properties.Resources.XL_Con_Bars;
             }
         }
 
@@ -80,7 +105,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("3b9ad57b-7f0f-43b1-b729-6345c7a2f723"); }
+            get { return new Guid("4c9af0af-af94-43f6-a932-84b8853d3745"); }
         }
     }
 }

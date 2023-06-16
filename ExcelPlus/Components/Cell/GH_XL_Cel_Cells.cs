@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ExcelPlus.Components.Cell
 {
-    public class GH_XL_Cel_Cells : GH_Component
+    public class GH_XL_Cel_Cells : GH_XL_Con__Base
     {
         /// <summary>
         /// Initializes a new instance of the GH_XL_Cel_Cells class.

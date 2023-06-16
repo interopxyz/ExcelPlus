@@ -4,17 +4,18 @@ using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelPlus.Components
+using Sd = System.Drawing;
+namespace ExcelPlus.Components.Analysis
 {
-    public class GH_XL_Wks_Construct : GH_XL_Wks__Base
+    public class GH_XL_Con_SparkBar : GH_XL_Wks__Base
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Wks_Construct class.
+        /// Initializes a new instance of the GH_XL_Con_SparkBar class.
         /// </summary>
-        public GH_XL_Wks_Construct()
-          : base("Construct Worksheet", "Worksheet",
-              "Construct a Worksheet",
-              Constants.ShortName, Constants.SubWorkSheets)
+        public GH_XL_Con_SparkBar()
+          : base("Add SparkBar", "SparkBar",
+              "Adds a SparkBar to a Range",
+              Constants.ShortName, Constants.SubAnalysis)
         {
         }
 
@@ -32,9 +33,12 @@ namespace ExcelPlus.Components
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager[0].Optional = true;
-            pManager.AddGenericParameter(Constants.Range.Name, Constants.Range.NickName, Constants.Range.Input, GH_ParamAccess.list);
-            pManager[1].Optional = true;
+            pManager.AddGenericParameter("Source Range", "Rng", Constants.Range.Input, GH_ParamAccess.item);
+            pManager.AddGenericParameter("Location Range", "L", Constants.Range.Input, GH_ParamAccess.item);
+            pManager.AddColourParameter("Color", "C", "The SparkLine color", GH_ParamAccess.item, Constants.StartColor);
+            pManager[3].Optional = true;
+            pManager.AddNumberParameter("Weight", "W", "The SparkLine weight", GH_ParamAccess.item, 1.0);
+            pManager[4].Optional = true;
         }
 
         /// <summary>
@@ -55,9 +59,21 @@ namespace ExcelPlus.Components
             DA.GetData(0, ref gooS);
             if (!gooS.TryGetWorksheet(out ExWorksheet worksheet)) return;
 
-            List<IGH_Goo> goor = new List<IGH_Goo>();
-            DA.GetDataList(1, goor);
-            if (goor.TryCompileWorksheet(out ExWorksheet sheet)) worksheet.Ranges.AddRange(sheet.GetRanges());
+            IGH_Goo gooR = null;
+            DA.GetData(1, ref gooR);
+            if (!gooR.TryGetRange(out ExRange range)) return;
+
+            IGH_Goo gooL = null;
+            DA.GetData(2, ref gooL);
+            if (!gooL.TryGetRange(out ExRange location)) return;
+
+            Sd.Color color = Constants.StartColor;
+            DA.GetData(3, ref color);
+
+            double weight = 1.0;
+            DA.GetData(4, ref weight);
+
+            worksheet.AddSparkLines(ExSpark.ConstructBar(location, range, color, weight));
 
             DA.SetData(0, worksheet);
         }
@@ -71,7 +87,7 @@ namespace ExcelPlus.Components
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Wks_Add;
+                return Properties.Resources.XL_Con_SparkBar;
             }
         }
 
@@ -80,7 +96,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("3b9ad57b-7f0f-43b1-b729-6345c7a2f723"); }
+            get { return new Guid("3a8eb5e0-4c99-4080-b1db-5434a670f0bb"); }
         }
     }
 }

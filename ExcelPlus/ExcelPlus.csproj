@@ -120,12 +120,26 @@
   <ItemGroup>
     <Compile Include="Classes\ExBorder.cs" />
     <Compile Include="Classes\ExCell.cs" />
+    <Compile Include="Classes\ExConditions.cs" />
     <Compile Include="Classes\ExEnums.cs" />
     <Compile Include="Classes\ExFont.cs" />
     <Compile Include="Classes\ExGraphic.cs" />
     <Compile Include="Classes\ExRange.cs" />
+    <Compile Include="Classes\ExSpark.cs" />
     <Compile Include="Classes\ExWorkbook.cs" />
     <Compile Include="Classes\ExWorksheet.cs" />
+    <Compile Include="Components\Analysis\GH_XL_Con_Bar.cs" />
+    <Compile Include="Components\Analysis\GH_XL_Con_Blank.cs" />
+    <Compile Include="Components\Analysis\GH_XL_Con_SparkBar.cs" />
+    <Compile Include="Components\Analysis\GH_XL_Con_SparkLine.cs" />
+    <Compile Include="Components\Analysis\GH_XL_Con_Text.cs" />
+    <Compile Include="Components\Analysis\GH_XL_Con_Between.cs" />
+    <Compile Include="Components\Analysis\GH_XL_Con_Percent.cs" />
+    <Compile Include="Components\Analysis\GH_XL_Con_Scale.cs" />
+    <Compile Include="Components\Analysis\GH_XL_Con_Top.cs" />
+    <Compile Include="Components\Analysis\GH_XL_Con_Unique.cs" />
+    <Compile Include="Components\Analysis\GH_XL_Con_Value.cs" />
+    <Compile Include="Components\Analysis\GH_XL_Con__Base.cs" />
     <Compile Include="Components\Cell\GH_XL_Cel_Address.cs" />
     <Compile Include="Components\Cell\GH_XL_Cel_Cells.cs" />
     <Compile Include="Components\Cell\GH_XL_Cel_Location.cs" />
@@ -279,6 +293,39 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\XL-Cel-Construct.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Con-Bars.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Con-Percent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Con-Count.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Con-Value.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Con-Unique.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Con-Text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Con-Scale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Con-Blank.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Con-Between.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Con-SparkBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Con-SparkLine.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
