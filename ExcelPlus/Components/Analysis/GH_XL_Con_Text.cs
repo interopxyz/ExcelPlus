@@ -1,4 +1,5 @@
 ﻿using Grasshopper.Kernel;
+using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 using System;
@@ -14,8 +15,8 @@ namespace ExcelPlus.Components.Analysis
         /// Initializes a new instance of the GH_XL_Con_Average class.
         /// </summary>
         public GH_XL_Con_Text()
-          : base("Conditional Average", "Con Average",
-              "Applies average conditional formatting to a range",
+          : base("Conditional Test", "Con Text",
+              "Applies text (string) based conditional formatting to a range",
               Constants.ShortName, Constants.SubAnalysis)
         {
         }
@@ -37,8 +38,14 @@ namespace ExcelPlus.Components.Analysis
             pManager.AddTextParameter("Value", "V", "The text to check against", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Type", "T", "The condition type", GH_ParamAccess.item, 0);
             pManager[2].Optional = true;
-            pManager.AddColourParameter("Cell Color", "C", "The cell highlight color", GH_ParamAccess.item, Sd.Color.LightGray);
+            pManager.AddColourParameter("Cell Color", "C", "The cell highlight color", GH_ParamAccess.item, Constants.StartColor);
             pManager[3].Optional = true;
+
+            Param_Integer paramA = (Param_Integer)pManager[2];
+            foreach (TextCondition value in Enum.GetValues(typeof(TextCondition)))
+            {
+                paramA.AddNamedValue(value.ToString(), (int)value);
+            }
         }
 
         /// <summary>
@@ -55,9 +62,8 @@ namespace ExcelPlus.Components.Analysis
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            IGH_Goo gooR = null;
-            DA.GetData(0, ref gooR);
-            gooR.TryGetRange(out ExRange range);
+            IGH_Goo goo = null;
+            if (!DA.GetData(0, ref goo)) return;
 
             string value = "A";
             DA.GetData(1, ref value);
@@ -68,9 +74,21 @@ namespace ExcelPlus.Components.Analysis
             Sd.Color color1 = Constants.StartColor;
             DA.GetData(3, ref color1);
 
-            range.AddConditions(ExCondition.CreateTextCondition(value, (TextCondition)type, color1));
+            ExCondition condition = ExCondition.CreateTextCondition(value, (TextCondition)type, color1);
 
-            DA.SetData(0, range);
+            if (goo.CastTo<ExRange>(out ExRange range))
+            {
+                range = new ExRange(range);
+                range.AddConditions(condition);
+                DA.SetData(0, range);
+            }
+            else if (goo.CastTo<ExWorksheet>(out ExWorksheet sheet))
+            {
+                sheet = new ExWorksheet(sheet);
+                sheet.AddConditions(condition);
+                DA.SetData(0, sheet);
+            }
+
         }
 
         /// <summary>

@@ -34,10 +34,12 @@ namespace ExcelPlus.Components
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager.AddBooleanParameter("Clear Values", "V", "Clear the values", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("Clear Values", "V", "Clear all values", GH_ParamAccess.item, false);
             pManager[1].Optional = true;
-            pManager.AddBooleanParameter("Clear Formatting", "F", "Clear the formatting", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("Clear Formatting", "F", "Clear all graphic formatting", GH_ParamAccess.item, false);
             pManager[2].Optional = true;
+            pManager.AddBooleanParameter("Clear Conditions", "C", "Clear all conditional formatting", GH_ParamAccess.item, false);
+            pManager[3].Optional = true;
         }
 
         /// <summary>

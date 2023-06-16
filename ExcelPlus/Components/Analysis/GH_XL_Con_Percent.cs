@@ -36,7 +36,7 @@ namespace ExcelPlus.Components
             base.RegisterInputParams(pManager);
             pManager.AddNumberParameter("Percentage", "P", "The unitized percentage of the values to highlight (0-1)", GH_ParamAccess.item, 0.5);
             pManager[1].Optional = true;
-            pManager.AddColourParameter("Cell Color", "C", "The cell highlight color", GH_ParamAccess.item, Sd.Color.LightGray);
+            pManager.AddColourParameter("Cell Color", "C", "The cell highlight color", GH_ParamAccess.item, Constants.StartColor);
             pManager[2].Optional = true;
             pManager.AddBooleanParameter("Flip", "F", "If true, the bottom percent will be highlighted", GH_ParamAccess.item, false);
             pManager[3].Optional = true;
@@ -56,9 +56,8 @@ namespace ExcelPlus.Components
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            IGH_Goo gooR = null;
-            DA.GetData(0, ref gooR);
-            gooR.TryGetRange(out ExRange range);
+            IGH_Goo goo = null;
+            if (!DA.GetData(0, ref goo)) return;
 
             double value = 0.5;
             DA.GetData(1, ref value);
@@ -69,9 +68,21 @@ namespace ExcelPlus.Components
             bool flip = false;
             DA.GetData(3, ref flip);
 
-            range.AddConditions(ExCondition.CreateTopPercentCondition(value,flip, color1));
+            ExCondition condition = ExCondition.CreateTopPercentCondition(value,flip, color1);
 
-            DA.SetData(0, range);
+            if (goo.CastTo<ExRange>(out ExRange range))
+            {
+                range = new ExRange(range);
+                range.AddConditions(condition);
+                DA.SetData(0, range);
+            }
+            else if (goo.CastTo<ExWorksheet>(out ExWorksheet sheet))
+            {
+                sheet = new ExWorksheet(sheet);
+                sheet.AddConditions(condition);
+                DA.SetData(0, sheet);
+            }
+
         }
 
         /// <summary>

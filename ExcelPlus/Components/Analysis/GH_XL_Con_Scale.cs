@@ -36,9 +36,9 @@ namespace ExcelPlus.Components.Analysis
             base.RegisterInputParams(pManager);
             pManager.AddNumberParameter("Parameter", "P", "The parameter of the midpoint of a 3 color gradient", GH_ParamAccess.item, 0.5);
             pManager[1].Optional = true;
-            pManager.AddColourParameter("Gradient Color 1", "C0", "The first color of the gradient", GH_ParamAccess.item, Sd.Color.LightGray);
+            pManager.AddColourParameter("Gradient Color 1", "C0", "The first color of the gradient", GH_ParamAccess.item, Constants.StartColor);
             pManager[2].Optional = true;
-            pManager.AddColourParameter("Gradient Color 2", "C1", "The second color of the gradient", GH_ParamAccess.item, Sd.Color.Gray);
+            pManager.AddColourParameter("Gradient Color 2", "C1", "The second color of the gradient", GH_ParamAccess.item, Constants.MidColor);
             pManager[3].Optional = true;
             pManager.AddColourParameter("Gradient Color 3", "C2", "The third color of the gradient", GH_ParamAccess.item);
             pManager[4].Optional = true;
@@ -58,9 +58,8 @@ namespace ExcelPlus.Components.Analysis
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            IGH_Goo gooR = null;
-            DA.GetData(0, ref gooR);
-            gooR.TryGetRange(out ExRange range);
+            IGH_Goo goo = null;
+            if (!DA.GetData(0, ref goo)) return;
 
             double param = 0.5;
             DA.GetData(1, ref param);
@@ -74,16 +73,30 @@ namespace ExcelPlus.Components.Analysis
             Sd.Color color3 = Constants.EndColor;
             bool hasMid = DA.GetData(4, ref color3);
 
+            ExCondition condition = new ExCondition();
+
             if (hasMid)
             {
-                range.AddConditions(ExCondition.CreateScalarCondition(color1,color2,param,color3));
+                condition = ExCondition.CreateScalarCondition(color1,color2,param,color3);
             }
             else
             {
-                range.AddConditions(ExCondition.CreateScalarCondition(color1,color2));
+                condition = ExCondition.CreateScalarCondition(color1,color2);
             }
 
-            DA.SetData(0, range);
+            if (goo.CastTo<ExRange>(out ExRange range))
+            {
+                range = new ExRange(range);
+                range.AddConditions(condition);
+                DA.SetData(0, range);
+            }
+            else if (goo.CastTo<ExWorksheet>(out ExWorksheet sheet))
+            {
+                sheet = new ExWorksheet(sheet);
+                sheet.AddConditions(condition);
+                DA.SetData(0, sheet);
+            }
+
         }
 
         /// <summary>

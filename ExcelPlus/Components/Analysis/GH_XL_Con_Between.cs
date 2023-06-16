@@ -35,7 +35,7 @@ namespace ExcelPlus.Components.Analysis
         {
             base.RegisterInputParams(pManager);
             pManager.AddIntervalParameter("Domain", "D", "The domain to evaluate", GH_ParamAccess.item);
-            pManager.AddColourParameter("Cell Color", "C", "The cell highlight color", GH_ParamAccess.item, Sd.Color.LightGray);
+            pManager.AddColourParameter("Cell Color", "C", "The cell highlight color", GH_ParamAccess.item, Constants.StartColor);
             pManager[2].Optional = true;
             pManager.AddBooleanParameter("Flip", "F", "If true, non unique values will be highlighted", GH_ParamAccess.item, false);
             pManager[3].Optional = true;
@@ -55,9 +55,8 @@ namespace ExcelPlus.Components.Analysis
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            IGH_Goo gooR = null;
-            DA.GetData(0, ref gooR);
-            gooR.TryGetRange(out ExRange range);
+            IGH_Goo goo = null;
+            if (!DA.GetData(0, ref goo)) return;
 
             Interval domain = new Interval(0,1);
             DA.GetData(1, ref domain);
@@ -68,9 +67,21 @@ namespace ExcelPlus.Components.Analysis
             bool flip = false;
             DA.GetData(3, ref flip);
 
-            range.AddConditions(ExCondition.CreateBetweenCondition(domain.Min,domain.Max,flip,color1));
-            
-            DA.SetData(0, range);
+            ExCondition condition =ExCondition.CreateBetweenCondition(domain.Min,domain.Max,flip,color1);
+
+            if (goo.CastTo<ExRange>(out ExRange range))
+            {
+                range = new ExRange(range);
+                range.AddConditions(condition);
+                DA.SetData(0, range);
+            }
+            else if (goo.CastTo<ExWorksheet>(out ExWorksheet sheet))
+            {
+                sheet = new ExWorksheet(sheet);
+                sheet.AddConditions(condition);
+                DA.SetData(0, sheet);
+            }
+
         }
 
         /// <summary>

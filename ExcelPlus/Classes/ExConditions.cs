@@ -14,11 +14,8 @@ namespace ExcelPlus
         #region members
 
         protected ConditionalTypes type = ConditionalTypes.None;
-
         protected ValueCondition valueType = ValueCondition.Equal;
-
         protected AverageCondition averageType = AverageCondition.AboveAverage;
-
         protected TextCondition textType = TextCondition.Contains;
 
         protected Sd.Color color1 = Constants.StartColor;
@@ -43,8 +40,10 @@ namespace ExcelPlus
         public ExCondition(ExCondition condition)
         {
             this.type = condition.type;
+
             this.valueType = condition.valueType;
             this.averageType = condition.averageType;
+            this.textType = condition.textType;
 
             this.color1 = condition.color1;
             this.color2 = condition.color2;
@@ -64,7 +63,7 @@ namespace ExcelPlus
             condition.toggle = flip;
             condition.color1 = color1;
 
-            return new ExCondition();
+            return condition;
         }
 
         public static ExCondition CreateTopCountCondition(int count, bool flip, Sd.Color color1)
@@ -75,29 +74,29 @@ namespace ExcelPlus
             condition.toggle = flip;
             condition.color1 = color1;
 
-            return new ExCondition();
+            return condition;
         }
 
         public static ExCondition CreateTextCondition(string text, TextCondition type, Sd.Color color1)
         {
             ExCondition condition = new ExCondition();
-            condition.type = ConditionalTypes.Percent;
+            condition.type = ConditionalTypes.Text;
             condition.text = text;
             condition.textType = type;
             condition.color1 = color1;
 
-            return new ExCondition();
+            return condition;
         }
 
         public static ExCondition CreateValueCondition(double value, ValueCondition type, Sd.Color color1)
         {
             ExCondition condition = new ExCondition();
-            condition.type = ConditionalTypes.Percent;
+            condition.type = ConditionalTypes.Value;
             condition.value1 = value;
             condition.valueType = type;
             condition.color1 = color1;
 
-            return new ExCondition();
+            return condition;
         }
 
         public static ExCondition CreateTopPercentCondition(double value, bool flip, Sd.Color color1)
@@ -108,7 +107,7 @@ namespace ExcelPlus
             condition.toggle = flip;
             condition.color1 = color1;
 
-            return new ExCondition();
+            return condition;
         }
 
         public static ExCondition CreateBetweenCondition(double value1,double value2, bool flip, Sd.Color color1)
@@ -120,7 +119,7 @@ namespace ExcelPlus
             condition.toggle = flip;
             condition.color1 = color1;
 
-            return new ExCondition();
+            return condition;
         }
 
         public static ExCondition CreateScalarCondition(Sd.Color color1, Sd.Color color2)
@@ -130,7 +129,7 @@ namespace ExcelPlus
             condition.color1 = color1;
             condition.color2 = color2;
 
-            return new ExCondition();
+            return condition;
         }
 
         public static ExCondition CreateScalarCondition(Sd.Color color1, Sd.Color color2, double param, Sd.Color color3)
@@ -142,7 +141,7 @@ namespace ExcelPlus
             condition.color2 = color2;
             condition.color3 = color3;
 
-            return new ExCondition();
+            return condition;
         }
 
         #endregion
@@ -154,18 +153,15 @@ namespace ExcelPlus
 
         #region methods
 
-        public void ApplyCondition(XL.IXLRange xlRange)
+        public void ApplyCondition(XL.IXLConditionalFormat input)
         {
-            XL.IXLConditionalFormat format = xlRange.AddConditionalFormat();
-
             switch(type)
             {
                 default:
-
+                    input.WhenNotError();
                     break;
                 case ConditionalTypes.Scale:
-                    xlRange
-                        .AddConditionalFormat()
+                    input
                         .ColorScale()
                         .Minimum(XL.XLCFContentType.Percentile, 0, this.color1.ToExcel())
                         .Midpoint(XL.XLCFContentType.Percentile, 50, this.color2.ToExcel())
@@ -174,49 +170,41 @@ namespace ExcelPlus
                 case ConditionalTypes.Blanks:
                     if (this.toggle)
                     {
-                        xlRange
-                        .AddConditionalFormat()
-                        .WhenNotBlank().Fill.BackgroundColor = color1.ToExcel();
+                        input
+                            .WhenNotBlank().Fill.BackgroundColor = color1.ToExcel();
                     }
                     else
                     {
-                        xlRange
-                        .AddConditionalFormat()
-                        .WhenIsBlank().Fill.BackgroundColor = color1.ToExcel();
+                        input
+                            .WhenIsBlank().Fill.BackgroundColor = color1.ToExcel();
                     }
                     break;
                 case ConditionalTypes.Value:
                     switch (this.valueType)
                     {
                         case ValueCondition.Equal:
-                            xlRange
-                            .AddConditionalFormat()
-                            .WhenEquals(value1).Fill.BackgroundColor = this.color1.ToExcel();
+                            input
+                                    .WhenEquals(value1).Fill.BackgroundColor = this.color1.ToExcel();
                             break;
                         case ValueCondition.NotEqual:
-                            xlRange
-                            .AddConditionalFormat()
-                            .WhenNotEquals(value1).Fill.BackgroundColor = this.color1.ToExcel();
+                            input
+                                    .WhenNotEquals(value1).Fill.BackgroundColor = this.color1.ToExcel();
                             break;
                         case ValueCondition.Greater:
-                            xlRange
-                            .AddConditionalFormat()
-                            .WhenGreaterThan(value1).Fill.BackgroundColor = this.color1.ToExcel();
+                            input
+                                    .WhenGreaterThan(value1).Fill.BackgroundColor = this.color1.ToExcel();
                             break;
                         case ValueCondition.GreaterEqual:
-                            xlRange
-                            .AddConditionalFormat()
-                            .WhenEqualOrGreaterThan(value1).Fill.BackgroundColor = this.color1.ToExcel();
+                            input
+                                    .WhenEqualOrGreaterThan(value1).Fill.BackgroundColor = this.color1.ToExcel();
                             break;
                         case ValueCondition.Less:
-                            xlRange
-                            .AddConditionalFormat()
-                            .WhenLessThan(value1).Fill.BackgroundColor = this.color1.ToExcel();
+                            input
+                                    .WhenLessThan(value1).Fill.BackgroundColor = this.color1.ToExcel();
                             break;
                         case ValueCondition.LessEqual:
-                            xlRange
-                            .AddConditionalFormat()
-                            .WhenEqualOrLessThan(value1).Fill.BackgroundColor = this.color1.ToExcel();
+                            input
+                                    .WhenEqualOrLessThan(value1).Fill.BackgroundColor = this.color1.ToExcel();
                             break;
                     }
                     break;
@@ -224,105 +212,89 @@ namespace ExcelPlus
                     switch (this.textType)
                     {
                         case TextCondition.Begins:
-                            xlRange
-                            .AddConditionalFormat()
-                            .WhenEqualOrLessThan(value1).Fill.BackgroundColor = this.color1.ToExcel();
+                            input
+                                    .WhenStartsWith(text).Fill.BackgroundColor = this.color1.ToExcel();
                             break;
                         case TextCondition.Contains:
-                            xlRange
-                            .AddConditionalFormat()
-                            .WhenContains(text).Fill.BackgroundColor = this.color1.ToExcel();
+                            input
+                                    .WhenContains(text).Fill.BackgroundColor = this.color1.ToExcel();
                             break;
                         case TextCondition.NotContains:
-                            xlRange
-                            .AddConditionalFormat()
-                            .WhenNotContains(text).Fill.BackgroundColor = this.color1.ToExcel();
+                            input
+                                    .WhenNotContains(text).Fill.BackgroundColor = this.color1.ToExcel();
                             break;
                         case TextCondition.Ends:
-                            xlRange
-                            .AddConditionalFormat()
-                            .WhenEndsWith(text).Fill.BackgroundColor = this.color1.ToExcel();
+                            input
+                                    .WhenEndsWith(text).Fill.BackgroundColor = this.color1.ToExcel();
                             break;
                         case TextCondition.Equal:
-                            xlRange
-                            .AddConditionalFormat()
-                            .WhenEquals(text).Fill.BackgroundColor = this.color1.ToExcel();
+                            input
+                                    .WhenEquals(text).Fill.BackgroundColor = this.color1.ToExcel();
                             break;
                         case TextCondition.NotEqual:
-                            xlRange
-                            .AddConditionalFormat()
-                            .WhenNotEquals(text).Fill.BackgroundColor = this.color1.ToExcel();
+                            input
+                                    .WhenNotEquals(text).Fill.BackgroundColor = this.color1.ToExcel();
                             break;
                     }
                     break;
                 case ConditionalTypes.Between:
                     if (toggle)
                     {
-                        xlRange
-                        .AddConditionalFormat()
-                        .WhenNotBetween(Math.Min(this.value1,this.value2),Math.Max(this.value1,this.value2)).Fill.BackgroundColor = this.color1.ToExcel();
+                        input
+                            .WhenNotBetween(Math.Min(this.value1,this.value2),Math.Max(this.value1,this.value2)).Fill.BackgroundColor = this.color1.ToExcel();
                     }
                     else
                     {
-                        xlRange
-                        .AddConditionalFormat()
-                        .WhenBetween(Math.Min(this.value1, this.value2), Math.Max(this.value1, this.value2)).Fill.BackgroundColor = this.color1.ToExcel();
+                        input
+                            .WhenBetween(Math.Min(this.value1, this.value2), Math.Max(this.value1, this.value2)).Fill.BackgroundColor = this.color1.ToExcel();
                     }
                     break;
                 case ConditionalTypes.Unique:
                     if (toggle)
                     {
-                        xlRange
-                        .AddConditionalFormat()
-                        .WhenIsUnique().Fill.BackgroundColor = this.color1.ToExcel();
+                        input
+                            .WhenIsUnique().Fill.BackgroundColor = this.color1.ToExcel();
                     }
                     else
                     {
-                        xlRange
-                        .AddConditionalFormat()
-                        .WhenIsDuplicate().Fill.BackgroundColor = this.color1.ToExcel();
+                        input
+                            .WhenIsDuplicate().Fill.BackgroundColor = this.color1.ToExcel();
                     }
                     break;
                 case ConditionalTypes.Count:
                     if (toggle)
                     {
-                        xlRange
-                        .AddConditionalFormat()
-                        .WhenIsBottom(this.count, XL.XLTopBottomType.Items).Fill.BackgroundColor = this.color1.ToExcel();
+                        input
+                            .WhenIsBottom(this.count, XL.XLTopBottomType.Items).Fill.BackgroundColor = this.color1.ToExcel();
                     }
                     else
                     {
-                        xlRange
-                        .AddConditionalFormat()
-                        .WhenIsTop(this.count, XL.XLTopBottomType.Items).Fill.BackgroundColor = this.color1.ToExcel();
+                        input
+                            .WhenIsTop(this.count, XL.XLTopBottomType.Items).Fill.BackgroundColor = this.color1.ToExcel();
                     }
                     break;
                 case ConditionalTypes.Percent:
                     if (toggle)
                     {
-                        xlRange
-                        .AddConditionalFormat()
-                        .WhenIsBottom((int)(this.value1*100.0), XL.XLTopBottomType.Percent).Fill.BackgroundColor = this.color1.ToExcel();
+                        input
+                            .WhenIsBottom((int)(this.value1*100.0), XL.XLTopBottomType.Percent).Fill.BackgroundColor = this.color1.ToExcel();
                     }
                     else
                     {
-                        xlRange
-                        .AddConditionalFormat()
-                        .WhenIsTop((int)(this.value1 * 100.0), XL.XLTopBottomType.Percent).Fill.BackgroundColor = this.color1.ToExcel();
+                        input
+                            .WhenIsTop((int)(this.value1 * 100.0), XL.XLTopBottomType.Percent).Fill.BackgroundColor = this.color1.ToExcel();
                     }
                     break;
                 case ConditionalTypes.Bars:
                     if (toggle)
                     {
-                        xlRange
-                        .AddConditionalFormat()
-                        .DataBar(this.color1.ToExcel(),this.color2.ToExcel());
+                        input
+                            .DataBar(this.color1.ToExcel(),this.color2.ToExcel());
                     }
                     else
                     {
-                        xlRange
-                        .AddConditionalFormat()
-                        .DataBar(this.color1.ToExcel());
+                        input
+                            .DataBar(this.color1.ToExcel());
                     }
                     break;
             }
