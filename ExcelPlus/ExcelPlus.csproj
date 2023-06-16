@@ -125,8 +125,13 @@
     <Compile Include="Classes\ExFont.cs" />
     <Compile Include="Classes\ExGraphic.cs" />
     <Compile Include="Classes\ExRange.cs" />
+    <Compile Include="Classes\ExSpark.cs" />
     <Compile Include="Classes\ExWorkbook.cs" />
     <Compile Include="Classes\ExWorksheet.cs" />
+    <Compile Include="Components\Analysis\GH_XL_Con_Bar.cs" />
+    <Compile Include="Components\Analysis\GH_XL_Con_Blank.cs" />
+    <Compile Include="Components\Analysis\GH_XL_Con_SparkBar.cs" />
+    <Compile Include="Components\Analysis\GH_XL_Con_SparkLine.cs" />
     <Compile Include="Components\Analysis\GH_XL_Con_Text.cs" />
     <Compile Include="Components\Analysis\GH_XL_Con_Between.cs" />
     <Compile Include="Components\Analysis\GH_XL_Con_Percent.cs" />
@@ -315,6 +320,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\XL-Con-Between.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Con-SparkBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Con-SparkLine.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

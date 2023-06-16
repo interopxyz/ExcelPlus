@@ -25,7 +25,7 @@ namespace ExcelPlus.Components.Analysis
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.primary; }
+            get { return GH_Exposure.secondary; }
         }
 
         /// <summary>
@@ -36,9 +36,9 @@ namespace ExcelPlus.Components.Analysis
             base.RegisterInputParams(pManager);
             pManager.AddIntegerParameter("Total", "T", "The total number of values to highlight", GH_ParamAccess.item, 10);
             pManager[1].Optional = true;
-            pManager.AddColourParameter("Cell Color", "C", "The cell highlight color", GH_ParamAccess.item, Constants.StartColor);
-            pManager[2].Optional = true;
             pManager.AddBooleanParameter("Flip", "F", "If true, the bottom percent will be highlighted", GH_ParamAccess.item, false);
+            pManager[2].Optional = true;
+            pManager.AddColourParameter("Cell Color", "C", "The cell highlight color", GH_ParamAccess.item, Constants.StartColor);
             pManager[3].Optional = true;
         }
 
@@ -62,11 +62,11 @@ namespace ExcelPlus.Components.Analysis
             int value = 0;
             DA.GetData(1, ref value);
 
-            Sd.Color color1 = Constants.StartColor;
-            DA.GetData(2, ref color1);
-
             bool flip = false;
-            DA.GetData(3, ref flip);
+            DA.GetData(2, ref flip);
+
+            Sd.Color color1 = Constants.StartColor;
+            DA.GetData(3, ref color1);
 
             ExCondition condition = ExCondition.CreateTopCountCondition(value, flip, color1);
 

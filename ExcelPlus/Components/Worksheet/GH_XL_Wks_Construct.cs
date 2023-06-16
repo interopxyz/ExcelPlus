@@ -4,7 +4,7 @@ using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelPlus.Components.Worksheet
+namespace ExcelPlus.Components
 {
     public class GH_XL_Wks_Construct : GH_XL_Wks__Base
     {

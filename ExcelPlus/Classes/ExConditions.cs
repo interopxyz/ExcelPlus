@@ -110,6 +110,16 @@ namespace ExcelPlus
             return condition;
         }
 
+        public static ExCondition CreateEmptyCondition(bool flip, Sd.Color color1)
+        {
+            ExCondition condition = new ExCondition();
+            condition.type = ConditionalTypes.Blanks;
+            condition.toggle = flip;
+            condition.color1 = color1;
+
+            return condition;
+        }
+
         public static ExCondition CreateBetweenCondition(double value1,double value2, bool flip, Sd.Color color1)
         {
             ExCondition condition = new ExCondition();
@@ -126,6 +136,7 @@ namespace ExcelPlus
         {
             ExCondition condition = new ExCondition();
             condition.type = ConditionalTypes.Scale;
+            condition.toggle = false;
             condition.color1 = color1;
             condition.color2 = color2;
 
@@ -136,10 +147,32 @@ namespace ExcelPlus
         {
             ExCondition condition = new ExCondition();
             condition.type = ConditionalTypes.Scale;
+            condition.toggle = true;
             condition.value1 = param;
             condition.color1 = color1;
             condition.color2 = color2;
             condition.color3 = color3;
+
+            return condition;
+        }
+
+        public static ExCondition CreateBarCondition(Sd.Color color1, Sd.Color color2)
+        {
+            ExCondition condition = new ExCondition();
+            condition.type = ConditionalTypes.Bars;
+            condition.toggle = true;
+            condition.color1 = color1;
+            condition.color2 = color2;
+
+            return condition;
+        }
+
+        public static ExCondition CreateBarCondition(Sd.Color color1)
+        {
+            ExCondition condition = new ExCondition();
+            condition.type = ConditionalTypes.Bars;
+            condition.toggle = false;
+            condition.color1 = color1;
 
             return condition;
         }
@@ -161,11 +194,21 @@ namespace ExcelPlus
                     input.WhenNotError();
                     break;
                 case ConditionalTypes.Scale:
-                    input
-                        .ColorScale()
+                    if (toggle)
+                    {
+                        input
+                            .ColorScale()
                         .Minimum(XL.XLCFContentType.Percentile, 0, this.color1.ToExcel())
                         .Midpoint(XL.XLCFContentType.Percentile, 50, this.color2.ToExcel())
                         .Maximum(XL.XLCFContentType.Percentile, 100, this.color3.ToExcel());
+                    }
+                    else
+                    {
+                        input
+                            .ColorScale()
+                        .Minimum(XL.XLCFContentType.Percentile, 0, this.color1.ToExcel())
+                        .Maximum(XL.XLCFContentType.Percentile, 100, this.color2.ToExcel());
+                    }
                     break;
                 case ConditionalTypes.Blanks:
                     if (this.toggle)

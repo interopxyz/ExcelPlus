@@ -8,14 +8,14 @@ using Sd = System.Drawing;
 
 namespace ExcelPlus.Components
 {
-    public class GH_XL_Con_Percent : GH_XL_Con__Base
+    public class GH_XL_Con_SparkLine : GH_XL_Wks__Base
     {
         /// <summary>
-        /// Initializes a new instance of the GH_XL_Con_Percent class.
+        /// Initializes a new instance of the GH_XL_Con_SparkLine class.
         /// </summary>
-        public GH_XL_Con_Percent()
-          : base("Conditional Percent", "Con Percent",
-              "Applies top percent based conditional formatting to a range",
+        public GH_XL_Con_SparkLine()
+          : base("Add Sparkline", "Sparkline",
+              "Adds a Sparkline to a Range",
               Constants.ShortName, Constants.SubAnalysis)
         {
         }
@@ -25,7 +25,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.secondary; }
+            get { return GH_Exposure.primary; }
         }
 
         /// <summary>
@@ -34,12 +34,12 @@ namespace ExcelPlus.Components
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager.AddNumberParameter("Percentage", "P", "The unitized percentage of the values to highlight (0-1)", GH_ParamAccess.item, 0.5);
-            pManager[1].Optional = true;
-            pManager.AddBooleanParameter("Flip", "F", "If true, the bottom percent will be highlighted", GH_ParamAccess.item, false);
-            pManager[2].Optional = true;
-            pManager.AddColourParameter("Cell Color", "C", "The cell highlight color", GH_ParamAccess.item, Constants.StartColor);
+            pManager.AddGenericParameter("Source Range", "Rng", Constants.Range.Input, GH_ParamAccess.item);
+            pManager.AddGenericParameter("Location Range", "L", Constants.Range.Input, GH_ParamAccess.item);
+            pManager.AddColourParameter("Color", "C", "The SparkLine color", GH_ParamAccess.item, Constants.StartColor);
             pManager[3].Optional = true;
+            pManager.AddNumberParameter("Weight", "W", "The SparkLine weight", GH_ParamAccess.item, 1.0);
+            pManager[4].Optional = true;
         }
 
         /// <summary>
@@ -56,32 +56,27 @@ namespace ExcelPlus.Components
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            IGH_Goo goo = null;
-            if (!DA.GetData(0, ref goo)) return;
+            IGH_Goo gooS = null;
+            DA.GetData(0, ref gooS);
+            if (!gooS.TryGetWorksheet(out ExWorksheet worksheet)) return;
 
-            double value = 0.5;
-            DA.GetData(1, ref value);
+            IGH_Goo gooR = null;
+            DA.GetData(1, ref gooR);
+            if (!gooR.TryGetRange(out ExRange range)) return;
 
-            bool flip = false;
-            DA.GetData(2, ref flip);
+            IGH_Goo gooL = null;
+            DA.GetData(2, ref gooL);
+            if (!gooL.TryGetRange(out ExRange location)) return;
 
-            Sd.Color color1 = Constants.StartColor;
-            DA.GetData(3, ref color1);
+            Sd.Color color = Constants.StartColor;
+            DA.GetData(3, ref color);
 
-            ExCondition condition = ExCondition.CreateTopPercentCondition(value,flip, color1);
+            double weight = 1.0;
+            DA.GetData(4, ref weight);
 
-            if (goo.CastTo<ExRange>(out ExRange range))
-            {
-                range = new ExRange(range);
-                range.AddConditions(condition);
-                DA.SetData(0, range);
-            }
-            else if (goo.CastTo<ExWorksheet>(out ExWorksheet sheet))
-            {
-                sheet = new ExWorksheet(sheet);
-                sheet.AddConditions(condition);
-                DA.SetData(0, sheet);
-            }
+            worksheet.AddSparkLines(ExSpark.ConstructLine(location, range, color, weight));
+
+            DA.SetData(0, worksheet);
         }
 
         /// <summary>
@@ -93,7 +88,7 @@ namespace ExcelPlus.Components
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Con_Percent;
+                return Properties.Resources.XL_Con_SparkLine;
             }
         }
 
@@ -102,7 +97,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("3938d528-227d-48d4-991e-86e36941f58e"); }
+            get { return new Guid("27ff89a9-af7b-4b94-80b9-efbbda0244b8"); }
         }
     }
 }

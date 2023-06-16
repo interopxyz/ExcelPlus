@@ -3,7 +3,7 @@ using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelPlus.Components.Worksheet
+namespace ExcelPlus.Components
 {
     public abstract class GH_XL_Wks__Base : GH_Component
     {

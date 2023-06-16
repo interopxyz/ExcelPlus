@@ -26,6 +26,8 @@ namespace ExcelPlus
         public ExGraphic Graphic = new ExGraphic();
         public ExFont Font = new ExFont();
 
+        protected List<ExSpark> sparkLines = new List<ExSpark>();
+
         #endregion
 
         #region constructors
@@ -85,12 +87,35 @@ namespace ExcelPlus
             this.Graphic = new ExGraphic(worksheet.Graphic);
             this.Font = new ExFont(worksheet.Font);
 
-            this.baseRange.Conditions = this.baseRange.Conditions;
+            this.baseRange.Conditions = worksheet.baseRange.Conditions;
+            this.sparkLines = worksheet.SparkLines;
         }
 
         #endregion
 
         #region properties
+
+        public List<ExSpark> SparkLines
+        {
+            get
+            {
+                List<ExSpark> output = new List<ExSpark>();
+                foreach (ExSpark spark in sparkLines)
+                {
+                    output.Add(new ExSpark(spark));
+                }
+                return output;
+            }
+            set
+            {
+                List<ExSpark> output = new List<ExSpark>();
+                foreach (ExSpark spark in value)
+                {
+                    output.Add(new ExSpark(spark));
+                }
+                sparkLines = output;
+            }
+        }
 
         public virtual string Name
         {
@@ -139,6 +164,21 @@ namespace ExcelPlus
         #endregion
 
         #region methods
+
+        public void AddSparkLines(ExSpark sparkLine)
+        {
+            this.sparkLines.Add(new ExSpark(sparkLine));
+        }
+
+        public void AddSparkLines(List<ExSpark> sparkLines)
+        {
+            foreach (ExSpark sparkLine in sparkLines) this.sparkLines.Add(new ExSpark(sparkLine));
+        }
+
+        public void ClearSparklines()
+        {
+            this.sparkLines = new List<ExSpark>();
+        }
 
         public void AddConditions(ExCondition condition)
         {
@@ -214,7 +254,16 @@ namespace ExcelPlus
             {
                 this.baseRange.Conditions[c - 1 - i].ApplyCondition(input.AddConditionalFormat());
             }
+
+            foreach(ExSpark spark in this.sparkLines)
+            {
+                XL.IXLSparklineGroup xlSpark = input.SparklineGroups.Add(spark.Location.Address, spark.Range.Address);
+                xlSpark.Style.SeriesColor = spark.Color.ToExcel();
+                xlSpark.SetLineWeight(spark.Weight);
+                if(spark.IsColumn)xlSpark.Type = XL.XLSparklineType.Column;
+            }
         }
+
 
         #endregion
 

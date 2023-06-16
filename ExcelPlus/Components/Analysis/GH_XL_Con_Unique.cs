@@ -25,7 +25,7 @@ namespace ExcelPlus.Components.Analysis
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.primary; }
+            get { return GH_Exposure.secondary; }
         }
 
         /// <summary>
@@ -34,9 +34,9 @@ namespace ExcelPlus.Components.Analysis
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager.AddColourParameter("Cell Color", "C", "The cell highlight color", GH_ParamAccess.item, Constants.StartColor);
-            pManager[1].Optional = true;
             pManager.AddBooleanParameter("Flip", "F", "If true, non unique values will be highlighted", GH_ParamAccess.item, false);
+            pManager[1].Optional = true;
+            pManager.AddColourParameter("Cell Color", "C", "The cell highlight color", GH_ParamAccess.item, Constants.StartColor);
             pManager[2].Optional = true;
         }
 
@@ -57,11 +57,11 @@ namespace ExcelPlus.Components.Analysis
             IGH_Goo goo = null;
             if (!DA.GetData(0, ref goo)) return;
 
-            Sd.Color color1 = Constants.StartColor;
-            DA.GetData(1, ref color1);
-
             bool flip = false;
-            DA.GetData(2, ref flip);
+            DA.GetData(1, ref flip);
+
+            Sd.Color color1 = Constants.StartColor;
+            DA.GetData(2, ref color1);
 
             ExCondition condition = ExCondition.CreateUniqueCondition(flip, color1);
 

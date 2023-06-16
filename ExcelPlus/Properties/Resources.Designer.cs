@@ -213,6 +213,26 @@ namespace ExcelPlus.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap XL_Con_SparkBar {
+            get {
+                object obj = ResourceManager.GetObject("XL_Con_SparkBar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XL_Con_SparkLine {
+            get {
+                object obj = ResourceManager.GetObject("XL_Con_SparkLine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap XL_Con_Text {
             get {
                 object obj = ResourceManager.GetObject("XL_Con_Text", resourceCulture);
