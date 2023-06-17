@@ -27,6 +27,7 @@ namespace ExcelPlus
         public ExFont Font = new ExFont();
 
         protected List<ExSpark> sparkLines = new List<ExSpark>();
+        protected List<ExShape> shapes = new List<ExShape>();
 
         #endregion
 

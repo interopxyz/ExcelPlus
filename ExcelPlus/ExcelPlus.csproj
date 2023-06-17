@@ -125,6 +125,7 @@
     <Compile Include="Classes\ExFont.cs" />
     <Compile Include="Classes\ExGraphic.cs" />
     <Compile Include="Classes\ExRange.cs" />
+    <Compile Include="Classes\ExShape.cs" />
     <Compile Include="Classes\ExSpark.cs" />
     <Compile Include="Classes\ExWorkbook.cs" />
     <Compile Include="Classes\ExWorksheet.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Components\Workbook\GH_XL_Wbk_Construct.cs" />
     <Compile Include="Components\Worksheet\GH_XL_Wks_Construct.cs" />
     <Compile Include="Components\Worksheet\GH_XL_Wks_Deconstruct.cs" />
+    <Compile Include="Components\Worksheet\GH_XL_Wks_PlaceImage.cs" />
     <Compile Include="Components\Worksheet\GH_XL_Wks_Properties.cs" />
     <Compile Include="Components\Worksheet\GH_XL_Wks__Base.cs" />
     <Compile Include="ExcelPlusInfo.cs" />
