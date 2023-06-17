@@ -176,14 +176,7 @@ namespace ExcelPlus
         }
 
         public static bool TryGetWorksheet(this IGH_Goo input, out ExWorksheet worksheet)
-        {
-
-            if (input == null)
-            {
-                worksheet = new ExWorksheet();
-                return true;
-            }
-            else if (input.CastTo<ExWorkbook>(out ExWorkbook book))
+        {if (input.CastTo<ExWorkbook>(out ExWorkbook book))
             {
                 book.TryGetSheet(0, out ExWorksheet result);
                 worksheet = new ExWorksheet(result);

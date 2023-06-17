@@ -403,6 +403,16 @@ namespace ExcelPlus.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap XL_Shp_Image {
+            get {
+                object obj = ResourceManager.GetObject("XL_Shp_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap XL_Wbk_Add {
             get {
                 object obj = ResourceManager.GetObject("XL_Wbk_Add", resourceCulture);

@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-using Sd = System.Drawing;
-
-using Rg = Rhino.Geometry;
-
-using XL = ClosedXML.Excel;
+using System.IO;
 
 using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
-using System.IO;
+
+using Sd = System.Drawing;
+using Rg = Rhino.Geometry;
+using XL = ClosedXML.Excel;
 
 namespace ExcelPlus
 {
@@ -77,6 +75,8 @@ namespace ExcelPlus
             this.boundary = shape.Boundary;
 
             this.scale = shape.Scale;
+
+            this.bitmap = shape.Bitmap;
 
             this.startArrow = shape.startArrow;
             this.endArrow = shape.endArrow;
@@ -268,6 +268,10 @@ namespace ExcelPlus
                     MemoryStream bmpStream = new MemoryStream();
                     this.bitmap.Save(bmpStream, Sd.Imaging.ImageFormat.Png);
                     XL.Drawings.IXLPicture picture = xlSheet.AddPicture(bmpStream);
+                    picture.Placement = XL.Drawings.XLPicturePlacement.FreeFloating;
+                    picture.Scale(this.scale);
+                    picture.Left = (int)location.X;
+                    picture.Top = (int)location.Y;
                     bmpStream.Dispose();
                     break;
             }

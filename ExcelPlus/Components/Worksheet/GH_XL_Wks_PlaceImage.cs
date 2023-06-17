@@ -34,8 +34,10 @@ namespace ExcelPlus.Components.Worksheet
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
+            pManager[0].Optional = true;
             pManager.AddGenericParameter("Image", "I", "The System.Drawing.Bitmap or Image Filepath to display", GH_ParamAccess.item);
             pManager.AddPointParameter("Location", "L", "The location of the Shape", GH_ParamAccess.item);
+            pManager[2].Optional = true;
             pManager.AddNumberParameter("Scale", "S", "A unitized scale factor (0-1) for the image", GH_ParamAccess.item, 1.0);
             pManager[3].Optional = true;
         }
@@ -62,13 +64,13 @@ namespace ExcelPlus.Components.Worksheet
             DA.GetData(1, ref gooB);
             if (!gooB.TryGetBitmap(out Sd.Bitmap bitmap, out string path)) return;
 
-            Point3d p = new Point3d();
-            if (!DA.GetData(2, ref p)) return;
+            Point3d location = new Point3d(0,0,0);
+            DA.GetData(2, ref location);
 
             double scale = 1.0;
             DA.GetData(3, ref scale);
 
-
+            worksheet.AddShapes(ExShape.ConstructImage(bitmap, location, scale));
 
             DA.SetData(0, worksheet);
         }
@@ -82,7 +84,7 @@ namespace ExcelPlus.Components.Worksheet
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.XL_Wks_Deconstruct;
+                return Properties.Resources.XL_Shp_Image;
             }
         }
 

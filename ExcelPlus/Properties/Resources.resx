@@ -220,6 +220,9 @@
   <data name="XL_Rng_Populate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\XL-Rng-Populate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="XL_Shp_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XL-Shp-Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="XL_Wbk_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\XL-Wbk-Add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
