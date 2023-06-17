@@ -27,6 +27,7 @@ namespace ExcelPlus
         public ExFont Font = new ExFont();
 
         protected List<ExSpark> sparkLines = new List<ExSpark>();
+        protected List<ExShape> shapes = new List<ExShape>();
 
         #endregion
 
@@ -89,11 +90,34 @@ namespace ExcelPlus
 
             this.baseRange.Conditions = worksheet.baseRange.Conditions;
             this.sparkLines = worksheet.SparkLines;
+            this.shapes = worksheet.Shapes;
         }
 
         #endregion
 
         #region properties
+
+        public List<ExShape> Shapes
+        {
+            get
+            {
+                List<ExShape> output = new List<ExShape>();
+                foreach (ExShape shape in shapes)
+                {
+                    output.Add(new ExShape(shape));
+                }
+                return output;
+            }
+            set
+            {
+                List<ExShape> output = new List<ExShape>();
+                foreach (ExShape shape in value)
+                {
+                    output.Add(new ExShape(shape));
+                }
+                shapes = output;
+            }
+        }
 
         public List<ExSpark> SparkLines
         {
@@ -164,6 +188,21 @@ namespace ExcelPlus
         #endregion
 
         #region methods
+
+        public void AddShapes(ExShape shape)
+        {
+            this.shapes.Add(new ExShape(shape));
+        }
+
+        public void AddShapes(List<ExShape> shapes)
+        {
+            foreach (ExShape shape in shapes) this.shapes.Add(new ExShape(shape));
+        }
+
+        public void ClearShapes()
+        {
+            this.shapes = new List<ExShape>();
+        }
 
         public void AddSparkLines(ExSpark sparkLine)
         {
@@ -261,6 +300,11 @@ namespace ExcelPlus
                 xlSpark.Style.SeriesColor = spark.Color.ToExcel();
                 xlSpark.SetLineWeight(spark.Weight);
                 if(spark.IsColumn)xlSpark.Type = XL.XLSparklineType.Column;
+            }
+
+            foreach(ExShape shape in this.shapes)
+            {
+                shape.Apply(input);
             }
         }
 

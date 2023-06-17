@@ -30,6 +30,7 @@ namespace ExcelPlus
     public enum GridType { None, Primary, All };
     public enum ShapeList { AlternatingFlow, AlternatingHexagons, BasicBlockList, CircleAccentTimeline, ConvergingArrows, DivergingArrows, Grouped, HorizontalBullet, LinearVenn, Lined, MultidirectionalCycle, NondirectionalCycle, Process, SquareAccent, Stacked, Trapezoid, VerticalAccent, VerticalArrow, VerticalBlock, VerticalBox, VerticalBullet, VerticalCircle };
     public enum ArrowStyle { None, Open, Oval, Diamond, Stealth, Triangle };
+    public enum ShapeTypes { Image, Control, Figure, Line, SmartArt };
     public enum ShapeArrow { Right, Left, Up, Down, LeftRight, UpDown, Quad, LeftRightUp, Bent, UTurn, LeftUp, BentUp, CurvedRight, CurvedLeft, CurvedUp, CurvedDown, StripedRight, NotchedRight, Circular, Swoosh, LeftCircular, LeftRightCircular };
     public enum ShapeStar { Pt4, Pt5, Pt6, Pt7, Pt8, Pt10, Pt12, Pt16, Pt24, Pt32 };
     public enum ShapeFlowChart { Process, AlternateProcess, Decision, Data, PredefinedProcess, InternalStorage, Document, Multidocument, Terminator, Preparation, ManualInput, ManualOperation, Connector, OfflineStorage, OffpageConnector, Card, PunchedTape, SummingJunction, Or, Collate, Sort, Extract, Merge, StoredData, Delay, SequentialAccessStorage, MagneticDisk, DirectAccessStorage, Display };

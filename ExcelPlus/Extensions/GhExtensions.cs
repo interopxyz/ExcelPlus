@@ -4,13 +4,68 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
+using Sd = System.Drawing;
 using Rg = Rhino.Geometry;
 
 namespace ExcelPlus
 {
     public static class GhExtensions
     {
+        public static bool TryGetBitmap(this IGH_Goo goo, out Sd.Bitmap bitmap, out string path)
+        {
+
+            string filePath = string.Empty;
+            goo.CastTo<string>(out filePath);
+            Sd.Bitmap bmp = null;
+
+            path = filePath;
+            bitmap = bmp;
+
+            if (goo.CastTo<Sd.Bitmap>(out bmp))
+            {
+                bitmap = new Sd.Bitmap(bmp);
+                return true;
+            }
+            else if (File.Exists(filePath))
+            {
+                if (filePath.GetBitmapFromFile(out bmp))
+                {
+                    path = filePath;
+                    bitmap = bmp;
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+        public static bool GetBitmapFromFile(this string FilePath, out Sd.Bitmap bitmap)
+        {
+            bitmap = null;
+            if (Path.HasExtension(FilePath))
+            {
+                string extension = Path.GetExtension(FilePath);
+                switch (extension)
+                {
+                    default:
+                        return (false);
+                    case ".bmp":
+                    case ".png":
+                    case ".jpg":
+                    case ".jpeg":
+                    case ".jfif":
+                    case ".gif":
+                    case ".tif":
+                    case ".tiff":
+                        bitmap = (Sd.Bitmap)Sd.Bitmap.FromFile(FilePath);
+                        return (bitmap != null);
+                }
+
+            }
+
+            return (false);
+        }
 
         public static bool TryGetCell(this IGH_Goo input, out ExCell cell)
         {
@@ -121,14 +176,7 @@ namespace ExcelPlus
         }
 
         public static bool TryGetWorksheet(this IGH_Goo input, out ExWorksheet worksheet)
-        {
-
-            if (input == null)
-            {
-                worksheet = new ExWorksheet();
-                return true;
-            }
-            else if (input.CastTo<ExWorkbook>(out ExWorkbook book))
+        {if (input.CastTo<ExWorkbook>(out ExWorkbook book))
             {
                 book.TryGetSheet(0, out ExWorksheet result);
                 worksheet = new ExWorksheet(result);
