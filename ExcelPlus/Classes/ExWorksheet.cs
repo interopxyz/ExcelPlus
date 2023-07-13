@@ -46,8 +46,8 @@ namespace ExcelPlus
             this.baseRange.ColumnWidth = sheet.ColumnWidth;
             this.baseRange.RowHeight = sheet.RowHeight;
 
-            this.Graphic = new ExGraphic(sheet.Style);
-            this.Font = new ExFont(sheet.Style);
+            this.Graphic = new ExGraphic(sheet.Style, sheet.Workbook);
+            this.Font = new ExFont(sheet.Style, sheet.Workbook);
 
             this.active = sheet.TabActive;
         }

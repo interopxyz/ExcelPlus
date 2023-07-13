@@ -45,9 +45,9 @@ namespace ExcelPlus
             this.active = font.active;
         }
 
-        public ExFont(XL.IXLStyle style)
+        public ExFont(XL.IXLStyle style, XL.IXLWorkbook workbook)
         {
-            this.color = style.Font.FontColor.ToColor();
+            this.color = style.Font.FontColor.ToColor(workbook);
             this.family = style.Font.FontName;
             this.size = style.Font.FontSize;
             this.isBold = style.Font.Bold;

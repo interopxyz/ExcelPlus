@@ -16,8 +16,51 @@ namespace ExcelPlus
         {
             return XL.XLColor.FromArgb(input.A,input.R,input.G,input.B);
         }
-        public static Sd.Color ToColor(this XL.XLColor input)
+
+        private static Sd.Color ConvertColor(this XL.XLColor input)
         {
+            return Sd.Color.FromArgb(input.Color.A, input.Color.R, input.Color.G, input.Color.B);
+        }
+
+        public static Sd.Color ToColor(this XL.XLColor input, XL.IXLWorkbook workbook)
+        {
+            switch(input.ColorType)
+            {
+                case XL.XLColorType.Color:
+                    return input.ConvertColor();
+                case XL.XLColorType.Theme:
+                    switch (input.ThemeColor)
+                    {
+                        case XL.XLThemeColor.Accent1:
+                            return workbook.Theme.Accent1.ConvertColor();
+                        case XL.XLThemeColor.Accent2:
+                            return workbook.Theme.Accent2.ConvertColor();
+                        case XL.XLThemeColor.Accent3:
+                            return workbook.Theme.Accent3.ConvertColor();
+                        case XL.XLThemeColor.Accent4:
+                            return workbook.Theme.Accent4.ConvertColor();
+                        case XL.XLThemeColor.Accent5:
+                            return workbook.Theme.Accent5.ConvertColor();
+                        case XL.XLThemeColor.Accent6:
+                            return workbook.Theme.Accent6.ConvertColor();
+                        case XL.XLThemeColor.Background1:
+                            return workbook.Theme.Background1.ConvertColor();
+                        case XL.XLThemeColor.Background2:
+                            return workbook.Theme.Background2.ConvertColor();
+                        case XL.XLThemeColor.FollowedHyperlink:
+                            return workbook.Theme.FollowedHyperlink.ConvertColor();
+                        case XL.XLThemeColor.Hyperlink:
+                            return workbook.Theme.Hyperlink.ConvertColor();
+                        case XL.XLThemeColor.Text1:
+                            return workbook.Theme.Text1.ConvertColor();
+                        case XL.XLThemeColor.Text2:
+                            return workbook.Theme.Text2.ConvertColor();
+                    }
+                    break;
+                case XL.XLColorType.Indexed:
+                    return input.ConvertColor();
+            }
+
             return Sd.Color.FromArgb(input.Color.A,input.Color.R,input.Color.G,input.Color.B);
         }
 

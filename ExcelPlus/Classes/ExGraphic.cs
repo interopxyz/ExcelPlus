@@ -49,14 +49,14 @@ namespace ExcelPlus
             this.active = graphic.active;
         }
 
-        public ExGraphic(XL.IXLStyle style)
+        public ExGraphic(XL.IXLStyle style, XL.IXLWorkbook workbook)
         {
-            this.borderTop = new ExBorder(style.Border.BottomBorder, style.Border.BottomBorderColor);
-            this.borderBottom = new ExBorder(style.Border.TopBorder, style.Border.BottomBorderColor);
-            this.borderRight = new ExBorder(style.Border.RightBorder, style.Border.BottomBorderColor);
-            this.borderLeft = new ExBorder(style.Border.LeftBorder, style.Border.BottomBorderColor);
+            this.borderTop = new ExBorder(style.Border.TopBorder, style.Border.TopBorderColor, workbook);
+            this.borderBottom = new ExBorder(style.Border.BottomBorder, style.Border.BottomBorderColor, workbook);
+            this.borderRight = new ExBorder(style.Border.RightBorder, style.Border.RightBorderColor, workbook);
+            this.borderLeft = new ExBorder(style.Border.LeftBorder, style.Border.LeftBorderColor, workbook);
 
-            this.fillColor = style.Fill.BackgroundColor.ToColor();
+            this.fillColor = style.Fill.BackgroundColor.ToColor(workbook);
             this.active = true;
         }
 
