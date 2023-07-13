@@ -59,7 +59,7 @@ namespace ExcelPlus
         {
             get
             {
-                return "1.0.3.0";
+                return "1.0.5.0";
             }
         }
     }

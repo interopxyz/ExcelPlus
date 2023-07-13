@@ -32,10 +32,10 @@ namespace ExcelPlus
             this.active = border.active;
         }
 
-        public ExBorder(XL.XLBorderStyleValues lineType, XL.XLColor color)
+        public ExBorder(XL.XLBorderStyleValues lineType, XL.XLColor color, XL.IXLWorkbook workbook)
         {
             this.lineType = lineType.ToPlus();
-            this.color = color.ToColor();
+            this.color = color.ToColor(workbook);
             this.active = !(this.lineType == LineTypes.None);
         }
 

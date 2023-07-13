@@ -59,8 +59,8 @@ namespace ExcelPlus
                     break;
             }
 
-            this.Graphic = new ExGraphic(cell.Style);
-            this.Font = new ExFont(cell.Style);
+            this.Graphic = new ExGraphic(cell.Style, cell.Worksheet.Workbook);
+            this.Font = new ExFont(cell.Style, cell.Worksheet.Workbook);
 
             this.height = cell.WorksheetRow().Height;
             this.width = cell.WorksheetColumn().Width;
