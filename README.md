@@ -12,7 +12,7 @@ This plugin for Grasshopper 3d makes it simple to construct and deconstruction E
 
 ## Learn More
 
-[Plugin Documentation](https://interopxyz.gitbook.io/graphic-plus/)
+[Plugin Documentation](https://interopxyz.gitbook.io/excel-plus/)
 
 ### Dependencies
  - [ClosedXML](https://github.com/ClosedXML/ClosedXML)
