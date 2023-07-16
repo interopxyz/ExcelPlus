@@ -44,7 +44,7 @@ namespace ExcelPlus
 
         public static string SubObject
         {
-            get { return "Shapes"; }
+            get { return "Shape"; }
         }
 
         public static string SubCell
@@ -69,7 +69,7 @@ namespace ExcelPlus
 
         public static string SubChart
         {
-            get { return "Charting"; }
+            get { return "Chart"; }
         }
 
         public static string SubAnalysis
@@ -79,13 +79,14 @@ namespace ExcelPlus
 
         public static string SubWorkBooks
         {
-            get { return "Workbooks"; }
+            get { return "Workbook"; }
         }
 
         public static string SubWorkSheets
         {
-            get { return "Sheets"; }
+            get { return "Worksheet"; }
         }
+
         public static Descriptor Location
         {
             get { return new Descriptor("Cell Location", "L", "Location of the cell as:" 
@@ -98,7 +99,7 @@ namespace ExcelPlus
         public static Descriptor Format
         {
             get {
-                return new Descriptor("Format", "F", "A MS Office Number Format"
+                return new Descriptor("Format", "F", "MS Office Number Format"
               + Environment.NewLine + "Examples (\"General\", \"hh: mm:ss\", \"$#,##0.0\" )"
               + Environment.NewLine + "https://support.microsoft.com/en-us/office/number-format-codes-5026bbd6-04bc-48cd-bf33-80f18b4eae68?ui=en-us&rs=en-us&ad=us"
                  ,"Cell format string", "Cell format string");

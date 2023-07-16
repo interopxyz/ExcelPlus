@@ -32,7 +32,7 @@ namespace ExcelPlus.Components.Range
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager.AddBooleanParameter("Merge", "M", "If true, the cells in the range will be merged and only the first cells value and formatting will be applied.", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Merge", "M", "If true, the Cells in the Range will be merged and only the first Cell's value and formatting will be applied.", GH_ParamAccess.item);
             pManager[1].Optional = true;
         }
 

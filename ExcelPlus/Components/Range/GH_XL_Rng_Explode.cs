@@ -32,7 +32,7 @@ namespace ExcelPlus.Components.Range
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter(Constants.Range.Name, Constants.Range.NickName, Constants.Range.Input, GH_ParamAccess.item);
-            pManager.AddBooleanParameter("Active", "A", "If true, only the active cells in the range will be returned", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("Active", "A", "If true, only the active Cells in the Range will be returned", GH_ParamAccess.item, false);
             pManager[1].Optional = true;
         }
 

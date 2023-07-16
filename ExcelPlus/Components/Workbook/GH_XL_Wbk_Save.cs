@@ -34,7 +34,7 @@ namespace ExcelPlus.Components
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager.AddTextParameter("Folder Path", "F", "The path to the workbook", GH_ParamAccess.item);
+            pManager.AddTextParameter("Folder Path", "F", "The path to the Workbook", GH_ParamAccess.item);
             pManager[1].Optional = true;
             pManager.AddTextParameter("File Name", "N", "The Workbook name", GH_ParamAccess.item);
             pManager[2].Optional = true;

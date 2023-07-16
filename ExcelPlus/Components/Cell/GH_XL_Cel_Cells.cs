@@ -35,7 +35,7 @@ namespace ExcelPlus.Components.Cell
             pManager[0].Optional = true;
             pManager.AddGenericParameter("Maximum Cell", ">", Constants.Cell.Input, GH_ParamAccess.item);
             pManager[1].Optional = true;
-            pManager.AddBooleanParameter("By Column", "C", "If true, Cells are listed by Column. If false, by Row", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("By Column", "C", "If true, Cells are listed by column. If false, by row", GH_ParamAccess.item, true);
             pManager[2].Optional = true;
         }
 
@@ -44,7 +44,7 @@ namespace ExcelPlus.Components.Cell
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter(Constants.Cell.Name, "C", Constants.Cell.Outputs, GH_ParamAccess.list);
+            pManager.AddGenericParameter(Constants.Cell.Name, Constants.Cell.NickName, Constants.Cell.Outputs, GH_ParamAccess.list);
         }
 
         /// <summary>

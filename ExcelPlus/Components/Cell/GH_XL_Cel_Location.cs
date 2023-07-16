@@ -33,13 +33,13 @@ namespace ExcelPlus.Components.Cell
         {
             base.RegisterInputParams(pManager);
             pManager[0].Optional = true;
-            pManager.AddIntegerParameter("Column", "C", "The Cell Column index", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Column", "C", "The Cell column index", GH_ParamAccess.item);
             pManager[1].Optional = true;
-            pManager.AddIntegerParameter("Row", "R", "The Cell Row index", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Row", "R", "The Cell row index", GH_ParamAccess.item);
             pManager[2].Optional = true;
-            pManager.AddBooleanParameter("Absolute Column", "AC", "Is the Cell Column absolute", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Absolute Column", "AC", "Is the Cell column absolute", GH_ParamAccess.item);
             pManager[3].Optional = true;
-            pManager.AddBooleanParameter("Absolute Row", "AR", "Is the Cell Row absolute", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Absolute Row", "AR", "Is the Cell row absolute", GH_ParamAccess.item);
             pManager[4].Optional = true;
         }
 

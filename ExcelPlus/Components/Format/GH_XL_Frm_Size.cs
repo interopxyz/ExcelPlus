@@ -34,9 +34,9 @@ namespace ExcelPlus.Components
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager.AddNumberParameter("Width", "W", "The Cell's Column width", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Width", "W", "The Cell column width", GH_ParamAccess.item);
             pManager[1].Optional = true;
-            pManager.AddNumberParameter("Height", "H", "The Cell's Row height", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Height", "H", "The Cell row height", GH_ParamAccess.item);
             pManager[2].Optional = true;
         }
 
@@ -46,8 +46,8 @@ namespace ExcelPlus.Components
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             base.RegisterOutputParams(pManager);
-            pManager.AddNumberParameter("Width", "W", "The Cell's Column width", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Height", "H", "The Cell's Row height", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Width", "W", "The Cell's column width", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Height", "H", "The Cell's row height", GH_ParamAccess.item);
         }
 
         /// <summary>

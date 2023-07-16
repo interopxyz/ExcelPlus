@@ -33,7 +33,7 @@ namespace ExcelPlus.Components.Cell
         {
             base.RegisterInputParams(pManager);
             pManager[0].Optional = true;
-            pManager.AddTextParameter("Address", "A", "The Cell Address", GH_ParamAccess.item);
+            pManager.AddTextParameter("Address", "A", "The Cell address", GH_ParamAccess.item);
             pManager[1].Optional = true;
 
         }
@@ -44,7 +44,7 @@ namespace ExcelPlus.Components.Cell
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             base.RegisterOutputParams(pManager);
-            pManager.AddTextParameter("Address", "A", "The Cell Address", GH_ParamAccess.item);
+            pManager.AddTextParameter("Address", "A", "The Cell address", GH_ParamAccess.item);
         }
 
         /// <summary>
