@@ -15,7 +15,7 @@ namespace ExcelPlus.Components.Analysis
         /// Initializes a new instance of the GH_XL_Con_Average class.
         /// </summary>
         public GH_XL_Con_Text()
-          : base("Conditional Test", "Con Text",
+          : base("Conditional Text", "Con Text",
               "Applies text (string) based conditional formatting to a range",
               Constants.ShortName, Constants.SubAnalysis)
         {

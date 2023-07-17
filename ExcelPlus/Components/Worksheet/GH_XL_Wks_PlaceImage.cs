@@ -14,8 +14,8 @@ namespace ExcelPlus.Components.Worksheet
         /// Initializes a new instance of the GH_XL_Wks_PlaceImage class.
         /// </summary>
         public GH_XL_Wks_PlaceImage()
-          : base("Deconstruct Worksheet", "De Wks",
-              "Deconstruct a Worksheet into it's Ranges and Active Cells",
+          : base("Place Image", "Sht Img",
+              "Places a bitmap image in a worksheet",
               Constants.ShortName, Constants.SubWorkSheets)
         {
         }
