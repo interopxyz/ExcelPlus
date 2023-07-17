@@ -13,7 +13,7 @@ namespace ExcelPlus.Components.Range
         /// </summary>
         public GH_XL_Rng_Merge()
           : base("Merge Range", "Merge Rng",
-              "Merge or Unmerge a Range"+Environment.NewLine+"(note: Ranges will be merged sequentially. If multiple ranges overlap, the latter range merge will be ignored.)",
+              "Merge or unmerge a Range"+Environment.NewLine+ "(note: Ranges will be merged sequentially. If multiple Ranges overlap, the latter Range merge will be ignored.)",
               Constants.ShortName, Constants.SubRange)
         {
         }

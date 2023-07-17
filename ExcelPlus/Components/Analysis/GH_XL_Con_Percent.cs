@@ -14,7 +14,7 @@ namespace ExcelPlus.Components
         /// Initializes a new instance of the GH_XL_Con_Percent class.
         /// </summary>
         public GH_XL_Con_Percent()
-          : base("Conditional Percent", "Con Percent",
+          : base("Conditional Percent", "Con Pert",
               "Applies top percent based conditional formatting to a range",
               Constants.ShortName, Constants.SubAnalysis)
         {

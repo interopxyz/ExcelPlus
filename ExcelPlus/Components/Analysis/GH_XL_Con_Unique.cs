@@ -14,7 +14,7 @@ namespace ExcelPlus.Components.Analysis
         /// Initializes a new instance of the GH_XL_Con_Unique class.
         /// </summary>
         public GH_XL_Con_Unique()
-          : base("Conditional Unique", "Con Unique",
+          : base("Conditional Unique", "Con Uni",
               "Applies unique value conditional formatting to a range",
               Constants.ShortName, Constants.SubAnalysis)
         {

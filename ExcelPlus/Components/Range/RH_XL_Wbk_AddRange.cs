@@ -12,7 +12,7 @@ namespace ExcelPlus.Components.Range
         /// Initializes a new instance of the RH_XL_Wbk_SetRange class.
         /// </summary>
         public RH_XL_Wbk_AddRange()
-          : base("New Range", "New Range",
+          : base("New Range", "Rng New",
               "Creates a new Range from a minimum and maximum Cell",
               Constants.ShortName, Constants.SubRange)
         {

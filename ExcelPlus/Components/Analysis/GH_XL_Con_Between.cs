@@ -14,7 +14,7 @@ namespace ExcelPlus.Components.Analysis
         /// Initializes a new instance of the GH_XL_Con_Between class.
         /// </summary>
         public GH_XL_Con_Between()
-          : base("Conditional Between", "Con Between",
+          : base("Conditional Between", "Con Btw",
               "Applies conditional formatting for values inside a bounds to a range",
               Constants.ShortName, Constants.SubAnalysis)
         {
@@ -35,7 +35,7 @@ namespace ExcelPlus.Components.Analysis
         {
             base.RegisterInputParams(pManager);
             pManager.AddIntervalParameter("Domain", "D", "The domain to evaluate", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("Flip", "F", "If true, non unique values will be highlighted", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("Flip", "F", "If true, non-unique values will be highlighted", GH_ParamAccess.item, false);
             pManager[2].Optional = true;
             pManager.AddColourParameter("Cell Color", "C", "The cell highlight color", GH_ParamAccess.item, Constants.StartColor);
             pManager[3].Optional = true;

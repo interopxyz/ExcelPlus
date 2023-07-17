@@ -14,7 +14,7 @@ namespace ExcelPlus.Components.Analysis
         /// Initializes a new instance of the GH_XL_Con_Scale class.
         /// </summary>
         public GH_XL_Con_Scale()
-          : base("Conditional Scale", "Con Scale",
+          : base("Conditional Scale", "Con Scl",
               "Applies value scale conditional formatting to a range",
               Constants.ShortName, Constants.SubAnalysis)
         {
