@@ -15,7 +15,7 @@ namespace ExcelPlus.Components.Analysis
         /// </summary>
         public GH_XL_Con_Top()
           : base("Conditional Top", "Con Top",
-              "Applies top percent based conditional formatting to a range",
+              "Applies top percent based conditional formatting to a Range",
               Constants.ShortName, Constants.SubAnalysis)
         {
         }

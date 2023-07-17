@@ -15,7 +15,7 @@ namespace ExcelPlus.Components.Analysis
         /// </summary>
         public GH_XL_Con_Blank()
           : base("Conditional Blank", "Con Blank",
-              "Applies conditional formatting to blank cells inside a range",
+              "Applies conditional formatting to blank cells inside a Range",
               Constants.ShortName, Constants.SubAnalysis)
         {
         }

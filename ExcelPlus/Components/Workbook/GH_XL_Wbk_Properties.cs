@@ -13,7 +13,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public GH_XL_Wbk_Properties()
           : base("Workbook Properties", "Wbk Prop",
-              "Get or Set Workbook Properties",
+              "Get or set Workbook properties",
               Constants.ShortName, Constants.SubWorkBooks)
         {
         }

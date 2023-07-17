@@ -14,7 +14,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public GH_XL_Rng_Populate()
           : base("Populate Range", "Pop Rng",
-              "Creates a Range from a starting Cell and DataTree of Values",
+              "Creates a Range from a starting Cell and data tree of values",
               Constants.ShortName, Constants.SubRange)
         {
         }

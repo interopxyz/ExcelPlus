@@ -13,7 +13,7 @@ namespace ExcelPlus.Components
         /// </summary>
         public GH_XL_Wks_Deconstruct()
           : base("Deconstruct Worksheet", "De Wks",
-              "Deconstruct a Worksheet into it's Ranges and Active Cells",
+              "Deconstruct a Worksheet into it's Ranges and active Cells",
               Constants.ShortName, Constants.SubWorkSheets)
         {
         }
