@@ -12,7 +12,7 @@ namespace ExcelPlus.Components.Cell
         /// Initializes a new instance of the GH_XL_Cel_Location class.
         /// </summary>
         public GH_XL_Cel_Location()
-          : base("Cell Location", "Cell Location",
+          : base("Cell Location", "Cell Loc",
               "Gets or Sets a Cell's Location",
               Constants.ShortName, Constants.SubCell)
         {

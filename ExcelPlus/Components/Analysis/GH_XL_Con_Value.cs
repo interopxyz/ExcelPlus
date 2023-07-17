@@ -15,7 +15,7 @@ namespace ExcelPlus.Components
         /// Initializes a new instance of the GH_XL_Con_Value class.
         /// </summary>
         public GH_XL_Con_Value()
-          : base("Conditional Value", "Con Value",
+          : base("Conditional Value", "Con Val",
               "Applies value based conditional formatting to a range",
               Constants.ShortName, Constants.SubAnalysis)
         {

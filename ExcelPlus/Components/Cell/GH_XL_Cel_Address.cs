@@ -12,7 +12,7 @@ namespace ExcelPlus.Components.Cell
         /// Initializes a new instance of the GH_XL_Cel_Address class.
         /// </summary>
         public GH_XL_Cel_Address()
-          : base("Cell Address", "Cell Address",
+          : base("Cell Address", "Cell Addr",
               "Gets or Sets a Cell's Address",
               Constants.ShortName, Constants.SubCell)
         {

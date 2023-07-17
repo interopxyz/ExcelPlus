@@ -13,7 +13,7 @@ namespace ExcelPlus.Components.Analysis
         /// Initializes a new instance of the GH_XL_Con_SparkBar class.
         /// </summary>
         public GH_XL_Con_SparkBar()
-          : base("Add SparkBar", "SparkBar",
+          : base("Add Spark Bar", "SparkBar",
               "Adds a SparkBar to a Range",
               Constants.ShortName, Constants.SubAnalysis)
         {
@@ -35,9 +35,9 @@ namespace ExcelPlus.Components.Analysis
             base.RegisterInputParams(pManager);
             pManager.AddGenericParameter("Source Range", "Rng", Constants.Range.Input, GH_ParamAccess.item);
             pManager.AddGenericParameter("Location Range", "L", Constants.Range.Input, GH_ParamAccess.item);
-            pManager.AddColourParameter("Color", "C", "The SparkLine color", GH_ParamAccess.item, Constants.StartColor);
+            pManager.AddColourParameter("Color", "C", "The Spark Bar color", GH_ParamAccess.item, Constants.StartColor);
             pManager[3].Optional = true;
-            pManager.AddNumberParameter("Weight", "W", "The SparkLine weight", GH_ParamAccess.item, 1.0);
+            pManager.AddNumberParameter("Weight", "W", "The Spark Bar weight", GH_ParamAccess.item, 1.0);
             pManager[4].Optional = true;
         }
 

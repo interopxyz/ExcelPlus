@@ -14,7 +14,7 @@ namespace ExcelPlus.Components
         /// Initializes a new instance of the GH_XL_Con_SparkLine class.
         /// </summary>
         public GH_XL_Con_SparkLine()
-          : base("Add Sparkline", "Sparkline",
+          : base("Add Spark Line", "SparkLine",
               "Adds a Sparkline to a Range",
               Constants.ShortName, Constants.SubAnalysis)
         {
