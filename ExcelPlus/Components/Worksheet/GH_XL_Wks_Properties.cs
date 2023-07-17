@@ -33,7 +33,7 @@ namespace ExcelPlus.Components
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager.AddTextParameter("Name", "N", "The Worksheet Name", GH_ParamAccess.item);
+            pManager.AddTextParameter("Name", "N", "The Worksheet name", GH_ParamAccess.item);
             pManager[1].Optional = true;
             pManager.AddBooleanParameter("Active", "A", "Flag the Worksheet as active" + Environment.NewLine + "(note: If this is true on multiple worksheets, only the last sheet in the sequence will be set to active.)", GH_ParamAccess.item);
             pManager[2].Optional = true;
@@ -45,7 +45,7 @@ namespace ExcelPlus.Components
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             base.RegisterOutputParams(pManager);
-            pManager.AddTextParameter("Name", "N", "The Worksheet Name", GH_ParamAccess.item);
+            pManager.AddTextParameter("Name", "N", "The Worksheet name", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Active", "A", "Gets the active status of a Worksheet", GH_ParamAccess.item);
         }
 

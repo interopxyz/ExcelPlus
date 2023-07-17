@@ -35,7 +35,7 @@ namespace ExcelPlus.Components.Worksheet
         {
             base.RegisterInputParams(pManager);
             pManager[0].Optional = true;
-            pManager.AddGenericParameter("Image", "I", "The System.Drawing.Bitmap or Image Filepath to display", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "The System.Drawing.Bitmap or image file path to display", GH_ParamAccess.item);
             pManager.AddPointParameter("Location", "L", "The location of the Shape", GH_ParamAccess.item);
             pManager[2].Optional = true;
             pManager.AddNumberParameter("Scale", "S", "A unitized scale factor (0-1) for the image", GH_ParamAccess.item, 1.0);

@@ -34,7 +34,7 @@ namespace ExcelPlus.Components
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager.AddTextParameter("Family Name", "F", "Font Family name", GH_ParamAccess.item);
+            pManager.AddTextParameter("Family Name", "F", "Font family name", GH_ParamAccess.item);
             pManager[1].Optional = true;
             pManager.AddColourParameter("Color", "C", "Font color", GH_ParamAccess.item);
             pManager[2].Optional = true;
@@ -42,9 +42,9 @@ namespace ExcelPlus.Components
             pManager[3].Optional = true;
             pManager.AddIntegerParameter("Justification", "J", "Text justifications", GH_ParamAccess.item);
             pManager[4].Optional = true;
-            pManager.AddBooleanParameter("Is Bold", "B", "Font Bold status", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Is Bold", "B", "Font bold status", GH_ParamAccess.item);
             pManager[5].Optional = true;
-            pManager.AddBooleanParameter("Is Italic", "I", "Font Italic status", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Is Italic", "I", "Font italic status", GH_ParamAccess.item);
             pManager[6].Optional = true;
 
             Param_Integer paramA = (Param_Integer)pManager[4];
@@ -60,12 +60,12 @@ namespace ExcelPlus.Components
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             base.RegisterOutputParams(pManager);
-            pManager.AddTextParameter("Family Name", "F", "Font Family name", GH_ParamAccess.item);
+            pManager.AddTextParameter("Family Name", "F", "Font family name", GH_ParamAccess.item);
             pManager.AddColourParameter("Color", "C", "Font color", GH_ParamAccess.item);
             pManager.AddNumberParameter("Size", "S", "Font size", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Justification", "J", "Text justifications", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("Is Bold", "B", "Font Bold status", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("Is Italic", "I", "Font Italic status", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Is Bold", "B", "Font bold status", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Is Italic", "I", "Font italic status", GH_ParamAccess.item);
         }
 
         /// <summary>

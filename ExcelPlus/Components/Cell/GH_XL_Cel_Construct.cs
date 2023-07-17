@@ -33,11 +33,11 @@ namespace ExcelPlus.Components
         {
             base.RegisterInputParams(pManager);
             pManager[0].Optional = true;
-            pManager.AddGenericParameter(Constants.Location.Name, Constants.Location.NickName, Constants.Location.Input, GH_ParamAccess.item);
+            pManager.AddGenericParameter(Constants.Location.Name, "Optional " + Constants.Location.NickName, Constants.Location.Input, GH_ParamAccess.item);
             pManager[1].Optional = true;
-            pManager.AddTextParameter("Value", "V", "Optional Cell Value", GH_ParamAccess.item);
+            pManager.AddTextParameter("Value", "V", "Optional Cell value", GH_ParamAccess.item);
             pManager[2].Optional = true;
-            pManager.AddTextParameter(Constants.Format.Name, Constants.Format.NickName, Constants.Format.Input, GH_ParamAccess.item);
+            pManager.AddTextParameter(Constants.Format.Name, "Optional "+Constants.Format.NickName, Constants.Format.Input, GH_ParamAccess.item);
             pManager[3].Optional = true;
         }
 
@@ -47,10 +47,10 @@ namespace ExcelPlus.Components
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             base.RegisterOutputParams(pManager);
-            pManager.AddPointParameter("Location", "L", "Cell Location", GH_ParamAccess.item);
+            pManager.AddPointParameter("Location", "L", "Cell location", GH_ParamAccess.item);
             ((IGH_PreviewObject)pManager[1]).Hidden = true;
-            pManager.AddTextParameter("Value", "V", "Cell Value", GH_ParamAccess.item);
-            pManager.AddTextParameter("Format", "F", "Cell Format", GH_ParamAccess.item);
+            pManager.AddTextParameter("Value", "V", "Cell value", GH_ParamAccess.item);
+            pManager.AddTextParameter("Format", "F", "Cell format", GH_ParamAccess.item);
         }
 
         /// <summary>

@@ -30,7 +30,7 @@ namespace ExcelPlus.Components.Workbook
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("Stream", "S", "A string version of an excel file memory stream", GH_ParamAccess.item);
+            pManager.AddTextParameter("Stream", "S", "A string version of an Excel file memory stream", GH_ParamAccess.item);
             pManager.AddBooleanParameter(Constants.Activate.Name, Constants.Activate.NickName, Constants.Activate.Input, GH_ParamAccess.item);
         }
 

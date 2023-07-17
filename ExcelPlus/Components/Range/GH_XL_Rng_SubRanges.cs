@@ -32,7 +32,7 @@ namespace ExcelPlus.Components.Range
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter(Constants.Range.Name, Constants.Range.NickName, Constants.Range.Input, GH_ParamAccess.item);
-            pManager.AddBooleanParameter("By Column", "C", "If true, Ranges will be returned by Column. If false, by Row", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("By Column", "C", "If true, Ranges will be returned by column. If false, by row", GH_ParamAccess.item, false);
             pManager[1].Optional = true;
         }
 
