@@ -156,6 +156,7 @@
     <Compile Include="Components\Range\GH_XL_Rng_Deconstruct.cs" />
     <Compile Include="Components\Range\GH_XL_Rng_Construct.cs" />
     <Compile Include="Components\Range\GH_XL_Rng_Extents.cs" />
+    <Compile Include="Components\Range\GH_XL_Rng_GetCell.cs" />
     <Compile Include="Components\Range\GH_XL_Rng_Merge.cs" />
     <Compile Include="Components\Range\GH_XL_Rng_Populate.cs" />
     <Compile Include="Components\Range\GH_XL_Rng_Explode.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="Components\Workbook\GH_XL_Wbk_Open.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk_Properties.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk_Read.cs.cs" />
+    <Compile Include="Components\Workbook\GH_XL_Wbk_Run.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk_Save.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk_Write.cs" />
     <Compile Include="Components\Workbook\GH_XL_Wbk__Base.cs" />
@@ -331,6 +333,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\XL-Shp-Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Wbk-Refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XL-Rng-GetCell.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

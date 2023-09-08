@@ -373,6 +373,16 @@ namespace ExcelPlus.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap XL_Rng_GetCell {
+            get {
+                object obj = ResourceManager.GetObject("XL_Rng_GetCell", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap XL_Rng_GetCells {
             get {
                 object obj = ResourceManager.GetObject("XL_Rng_GetCells", resourceCulture);
@@ -456,6 +466,16 @@ namespace ExcelPlus.Properties {
         internal static System.Drawing.Bitmap XL_Wbk_Read {
             get {
                 object obj = ResourceManager.GetObject("XL_Wbk_Read", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XL_Wbk_Refresh {
+            get {
+                object obj = ResourceManager.GetObject("XL_Wbk_Refresh", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

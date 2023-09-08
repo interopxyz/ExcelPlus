@@ -51,6 +51,7 @@ namespace ExcelPlus.Components
             ((IGH_PreviewObject)pManager[1]).Hidden = true;
             pManager.AddTextParameter("Value", "V", "Cell value", GH_ParamAccess.item);
             pManager.AddTextParameter("Format", "F", "Cell format", GH_ParamAccess.item);
+            pManager.AddTextParameter("Formula", "=", "A cell formula if applicable", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -76,6 +77,7 @@ namespace ExcelPlus.Components
             DA.SetData(1, new Point3d(cell.Column,cell.Row,0));
             DA.SetData(2, cell.Value);
             DA.SetData(3, cell.Format);
+            DA.SetData(4, cell.Formula);
         }
 
         /// <summary>
