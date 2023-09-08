@@ -18,6 +18,7 @@ namespace ExcelPlus
         protected bool isColumnAbsolute = false;
         protected bool isRowAbsolute = false;
         protected string value = string.Empty;
+        protected string formula = string.Empty;
         protected string format = "None";
         protected ContentTypes contentType = ContentTypes.Value;
 
@@ -58,7 +59,7 @@ namespace ExcelPlus
                     this.value = Convert.ToString(cell.Value.GetDateTime());
                     break;
             }
-
+            if (cell.HasFormula) this.formula = "="+cell.FormulaA1;
             this.Graphic = new ExGraphic(cell.Style, cell.Worksheet.Workbook);
             this.Font = new ExFont(cell.Style, cell.Worksheet.Workbook);
 
@@ -73,11 +74,11 @@ namespace ExcelPlus
 
             this.isColumnAbsolute = cell.isColumnAbsolute;
             this.isRowAbsolute = cell.isRowAbsolute;
-
+            this.formula = cell.formula;
             this.value = cell.value;
             this.format = cell.format;
 
-            this.Graphic = new ExGraphic( cell.Graphic);
+            this.Graphic = new ExGraphic(cell.Graphic);
             this.Font = new ExFont(cell.Font);
 
             this.width = cell.width;
@@ -109,6 +110,25 @@ namespace ExcelPlus
 
         #region properties
 
+        public virtual string Formula
+        {
+            get
+            {
+                return this.formula;
+            }
+        }
+
+        protected virtual bool isValueFormula
+        {
+            get
+            {
+                if (this.value == string.Empty) return false;
+                if (this.value == "") return false;
+                if (this.value[0] == '=') return true;
+                return false;
+            }
+        }
+
         public virtual bool IsFormula
         {
             get 
@@ -116,6 +136,7 @@ namespace ExcelPlus
                 if (this.value == string.Empty) return false;
                 if (this.value == "") return false;
                 if (this.value[0] == '=') return true;
+                if (this.formula != string.Empty) return true;
                 return false;
             }
         }
@@ -222,21 +243,26 @@ namespace ExcelPlus
 
         public void SetValue(XL.IXLCell input)
         {
-            if (double.TryParse(this.Value, out double num))
+                if (this.IsFormula)
+                {
+                    if (this.isValueFormula)
+                    {
+                        input.FormulaA1 = this.Value;
+                    }
+                    else
+                    {
+                        input.FormulaA1 = this.formula;
+                    }
+                   
+                }
+            else if (double.TryParse(this.Value, out double num))
             {
                 input.Value = num;
                 if (this.HasFormat) input.Style.NumberFormat.Format = this.Format;
             }
             else
             {
-                if (this.IsFormula)
-                {
-                    input.FormulaA1 = this.Value;
-                }
-                else
-                {
                     input.Value = this.Value;
-                }
             }
         }
 

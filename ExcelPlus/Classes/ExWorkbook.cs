@@ -174,6 +174,13 @@ namespace ExcelPlus
             return filepath;
         }
 
+        public void Refresh()
+        {
+            this.CompileWorkbook();
+
+            this.ParseWorkbook();
+        }
+
         public void Open(string directory, string filename, Extensions extension)
         {
             string folder = Path.GetDirectoryName(directory);
@@ -268,6 +275,8 @@ namespace ExcelPlus
                 }
 
             }
+
+            this.ComObj.RecalculateAllFormulas();
         }
 
         private void ParseWorkbook()
