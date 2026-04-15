@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -212,20 +213,16 @@ namespace ExcelPlus
         public string Write()
         {
             this.CompileWorkbook();
-            Stream stream = new MemoryStream();
+            MemoryStream stream = new MemoryStream();
             this.ComObj.SaveAs(stream,true);
-            stream.Position = 0;
-            var buffer = new byte[stream.Length];
-            stream.Read(buffer, 0, (int)stream.Length);
 
-            return System.Text.Encoding.Default.GetString(buffer);
+            return Convert.ToBase64String(stream.ToArray());
         }
 
         public void Read(string byteArrayString)
         {
-            byte[] buffer = Encoding.Default.GetBytes(byteArrayString);
-            Stream stream = new MemoryStream(buffer);
-            stream.Position = 0;
+            byte[] bytes = Convert.FromBase64String(byteArrayString);
+            MemoryStream stream = new MemoryStream(bytes);
             this.ComObj = new XL.XLWorkbook(stream, new XL.LoadOptions());
             this.ParseWorkbook();
         }
@@ -235,7 +232,6 @@ namespace ExcelPlus
             this.ComObj = new XL.XLWorkbook();
             foreach (ExWorksheet sheet in Sheets)
             {
-
                 XL.IXLWorksheet xlSheet = this.ComObj.AddWorksheet();
                 if (sheet.Name != string.Empty) xlSheet.Name = sheet.Name;
                 if (sheet.Active) xlSheet.SetTabActive();

@@ -19,7 +19,7 @@ namespace ExcelPlus.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -65,7 +65,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap ExcelPlus_24 {
             get {
-                object obj = ResourceManager.GetObject("ExcelPlus_24", resourceCulture);
+                object obj = ResourceManager.GetObject("ExcelPlus-24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -75,7 +75,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap ExcelPlus_Tab_16 {
             get {
-                object obj = ResourceManager.GetObject("ExcelPlus_Tab_16", resourceCulture);
+                object obj = ResourceManager.GetObject("ExcelPlus-Tab-16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -85,7 +85,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Cel_Add {
             get {
-                object obj = ResourceManager.GetObject("XL_Cel_Add", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Cel-Add", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -95,7 +95,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Cel_Address {
             get {
-                object obj = ResourceManager.GetObject("XL_Cel_Address", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Cel-Address", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -105,7 +105,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Cel_Clear {
             get {
-                object obj = ResourceManager.GetObject("XL_Cel_Clear", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Cel-Clear", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -115,7 +115,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Cel_Construct {
             get {
-                object obj = ResourceManager.GetObject("XL_Cel_Construct", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Cel-Construct", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -125,7 +125,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Cel_GetCells2 {
             get {
-                object obj = ResourceManager.GetObject("XL_Cel_GetCells2", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Cel-GetCells2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -135,7 +135,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Cel_Location {
             get {
-                object obj = ResourceManager.GetObject("XL_Cel_Location", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Cel-Location", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -145,7 +145,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Cel_Value2 {
             get {
-                object obj = ResourceManager.GetObject("XL_Cel_Value2", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Cel-Value2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -155,7 +155,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Con_Bars {
             get {
-                object obj = ResourceManager.GetObject("XL_Con_Bars", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Con-Bars", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -165,7 +165,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Con_Between {
             get {
-                object obj = ResourceManager.GetObject("XL_Con_Between", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Con-Between", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -175,7 +175,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Con_Blank {
             get {
-                object obj = ResourceManager.GetObject("XL_Con_Blank", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Con-Blank", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -185,7 +185,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Con_Count {
             get {
-                object obj = ResourceManager.GetObject("XL_Con_Count", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Con-Count", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -195,7 +195,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Con_Percent {
             get {
-                object obj = ResourceManager.GetObject("XL_Con_Percent", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Con-Percent", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -205,7 +205,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Con_Scale {
             get {
-                object obj = ResourceManager.GetObject("XL_Con_Scale", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Con-Scale", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -215,7 +215,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Con_SparkBar {
             get {
-                object obj = ResourceManager.GetObject("XL_Con_SparkBar", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Con-SparkBar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -225,7 +225,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Con_SparkLine {
             get {
-                object obj = ResourceManager.GetObject("XL_Con_SparkLine", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Con-SparkLine", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -235,7 +235,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Con_Text {
             get {
-                object obj = ResourceManager.GetObject("XL_Con_Text", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Con-Text", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -245,7 +245,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Con_Unique {
             get {
-                object obj = ResourceManager.GetObject("XL_Con_Unique", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Con-Unique", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -255,7 +255,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Con_Value {
             get {
-                object obj = ResourceManager.GetObject("XL_Con_Value", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Con-Value", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -265,7 +265,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Grp_BorderHorizontal {
             get {
-                object obj = ResourceManager.GetObject("XL_Grp_BorderHorizontal", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Grp-BorderHorizontal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -275,7 +275,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Grp_BorderVertial {
             get {
-                object obj = ResourceManager.GetObject("XL_Grp_BorderVertial", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Grp-BorderVertial", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -285,7 +285,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Grp_Fill {
             get {
-                object obj = ResourceManager.GetObject("XL_Grp_Fill", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Grp-Fill", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -295,7 +295,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Grp_Font {
             get {
-                object obj = ResourceManager.GetObject("XL_Grp_Font", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Grp-Font", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -305,7 +305,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Grp_Size {
             get {
-                object obj = ResourceManager.GetObject("XL_Grp_Size", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Grp-Size", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -315,7 +315,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Rng_Add {
             get {
-                object obj = ResourceManager.GetObject("XL_Rng_Add", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Rng-Add", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -325,7 +325,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Rng_By {
             get {
-                object obj = ResourceManager.GetObject("XL_Rng_By", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Rng-By", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -335,7 +335,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Rng_Compile {
             get {
-                object obj = ResourceManager.GetObject("XL_Rng_Compile", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Rng-Compile", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -345,7 +345,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Rng_Deconstruct {
             get {
-                object obj = ResourceManager.GetObject("XL_Rng_Deconstruct", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Rng-Deconstruct", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -355,7 +355,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Rng_Explode {
             get {
-                object obj = ResourceManager.GetObject("XL_Rng_Explode", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Rng-Explode", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -365,7 +365,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Rng_Extents {
             get {
-                object obj = ResourceManager.GetObject("XL_Rng_Extents", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Rng-Extents", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -375,7 +375,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Rng_GetCell {
             get {
-                object obj = ResourceManager.GetObject("XL_Rng_GetCell", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Rng-GetCell", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -385,7 +385,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Rng_GetCells {
             get {
-                object obj = ResourceManager.GetObject("XL_Rng_GetCells", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Rng-GetCells", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -395,7 +395,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Rng_Merge {
             get {
-                object obj = ResourceManager.GetObject("XL_Rng_Merge", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Rng-Merge", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -405,7 +405,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Rng_Populate {
             get {
-                object obj = ResourceManager.GetObject("XL_Rng_Populate", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Rng-Populate", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -415,7 +415,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Shp_Image {
             get {
-                object obj = ResourceManager.GetObject("XL_Shp_Image", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Shp-Image", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -425,7 +425,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Wbk_Add {
             get {
-                object obj = ResourceManager.GetObject("XL_Wbk_Add", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Wbk-Add", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -435,7 +435,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Wbk_Deconstruct {
             get {
-                object obj = ResourceManager.GetObject("XL_Wbk_Deconstruct", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Wbk-Deconstruct", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -445,7 +445,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Wbk_Edit {
             get {
-                object obj = ResourceManager.GetObject("XL_Wbk_Edit", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Wbk-Edit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -455,7 +455,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Wbk_Open {
             get {
-                object obj = ResourceManager.GetObject("XL_Wbk_Open", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Wbk-Open", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -465,7 +465,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Wbk_Read {
             get {
-                object obj = ResourceManager.GetObject("XL_Wbk_Read", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Wbk-Read", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -475,7 +475,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Wbk_Refresh {
             get {
-                object obj = ResourceManager.GetObject("XL_Wbk_Refresh", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Wbk-Refresh", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -485,7 +485,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Wbk_Save {
             get {
-                object obj = ResourceManager.GetObject("XL_Wbk_Save", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Wbk-Save", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -495,7 +495,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Wbk_Wrt {
             get {
-                object obj = ResourceManager.GetObject("XL_Wbk_Wrt", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Wbk-Wrt", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -505,7 +505,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Wks_Add {
             get {
-                object obj = ResourceManager.GetObject("XL_Wks_Add", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Wks-Add", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -515,7 +515,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Wks_Deconstruct {
             get {
-                object obj = ResourceManager.GetObject("XL_Wks_Deconstruct", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Wks-Deconstruct", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -525,7 +525,7 @@ namespace ExcelPlus.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap XL_Wks_Edit {
             get {
-                object obj = ResourceManager.GetObject("XL_Wks_Edit", resourceCulture);
+                object obj = ResourceManager.GetObject("XL-Wks-Edit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

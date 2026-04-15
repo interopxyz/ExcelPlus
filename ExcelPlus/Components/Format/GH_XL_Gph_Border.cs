@@ -85,7 +85,7 @@ namespace ExcelPlus.Components
             if (!DA.GetData(0, ref goo)) return;
 
             int borderType = 0;
-            if (DA.GetData(1, ref borderType));
+            DA.GetData(1, ref borderType);
             Borders type = (Borders)borderType;
 
             Color color = Color.Black;
